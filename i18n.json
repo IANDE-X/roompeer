@@ -1,0 +1,11 @@
+{
+  "locales": ["en", "hu"],
+  "defaultLocale": "en",
+  "pages": {
+    "*": ["common"],
+    "/": ["common"],
+    "/login": ["form"],
+    "/signup": ["form"],
+    "/account": ["form"]
+  }
+}
