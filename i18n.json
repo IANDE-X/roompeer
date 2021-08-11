@@ -3,7 +3,7 @@
   "defaultLocale": "en",
   "pages": {
     "*": ["common"],
-    "/": ["common"],
+    "/": ["common", "form"],
     "/login": ["form"],
     "/signup": ["form"],
     "/account": ["form"]
