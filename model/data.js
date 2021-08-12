@@ -277,3 +277,32 @@ export const genders = [
   "Transgender",
   "Pansexual",
 ];
+
+export const prices = [
+  { text: "50,000 HUF", value: 50000 },
+  { text: "60,000 HUF", value: 60000 },
+  { text: "70,000 HUF", value: 70000 },
+  { text: "80,000 HUF", value: 80000 },
+  { text: "90,000 HUF", value: 90000 },
+  { text: "100,000 HUF", value: 100000 },
+  { text: "110,000 HUF", value: 110000 },
+  { text: "120,000 HUF", value: 120000 },
+  { text: "130,000 HUF", value: 130000 },
+  { text: "140,000 HUF", value: 140000 },
+  { text: "150,000 HUF", value: 150000 },
+  { text: "160,000 HUF", value: 160000 },
+  { text: "170,000 HUF", value: 170000 },
+  { text: "180,000 HUF", value: 180000 },
+  { text: "190,000 HUF", value: 190000 },
+  { text: "200,000 HUF", value: 200000 },
+  { text: "210,000 HUF", value: 210000 },
+  { text: "220,000 HUF", value: 220000 },
+  { text: "230,000 HUF", value: 230000 },
+  { text: "240,000 HUF", value: 240000 },
+  { text: "250,000 HUF", value: 250000 },
+  { text: "260,000 HUF", value: 260000 },
+  { text: "270,000 HUF", value: 270000 },
+  { text: "280,000 HUF", value: 280000 },
+];
+
+export const homeTypes = ["Other", "Garage", "Residential Building"];

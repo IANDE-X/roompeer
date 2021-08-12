@@ -18,15 +18,15 @@ import {
 import { useSnackbar } from "notistack";
 
 export default function SingUpForm() {
-  const email = useInput("");
-  const password = useInput("");
-  const firstname = useInput("");
-  const lastname = useInput("");
-  const age = useInput("");
-  const gender = useInput("");
-  const occupation = useInput("");
-  const residence = useInput("");
-  const country = useInput("");
+  const email = useInput("", true);
+  const password = useInput("", true);
+  const firstname = useInput("", true);
+  const lastname = useInput("", true);
+  const age = useInput("", true);
+  const gender = useInput("", true);
+  const occupation = useInput("", true);
+  const residence = useInput("", true);
+  const country = useInput("", true);
   const [signingup, setSigningUp] = useState(false);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 

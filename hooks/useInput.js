@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useInput = (initialValue) => {
+const useInput = (initialValue, required = false) => {
   const [value, setValue] = useState(initialValue);
   const [error, setError] = useState(false);
 
@@ -10,12 +10,18 @@ const useInput = (initialValue) => {
     if (event.target.value === "") setError(true);
   };
 
-  return {
-    value,
-    onChange: handleChange,
-    error: error,
-    helperText: error ? "This field is required!" : "",
-  };
+  return required
+    ? {
+        value,
+        onChange: handleChange,
+        error: error,
+        helperText: error ? "This field is required!" : "",
+        required,
+      }
+    : {
+        value,
+        onChange: handleChange,
+      };
 };
 
 export default useInput;

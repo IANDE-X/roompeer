@@ -13,8 +13,8 @@ import { firebaseInstance } from "../../model/firebase-config";
 import { useSnackbar } from "notistack";
 
 export default function LoginForm() {
-  const email = useInput("");
-  const password = useInput("");
+  const email = useInput("", true);
+  const password = useInput("", true);
   let { t } = useTranslation();
   const router = useRouter();
   const [signingIn, setSigningIn] = useState(false);
