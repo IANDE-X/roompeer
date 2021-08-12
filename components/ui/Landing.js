@@ -13,7 +13,7 @@ export default function LandingPage() {
     <Wrapper>
       <ContentWrapper>
         <LocaleButton />
-        <Image src="/logo.jpg" width={200} height={200} />
+        <Image src="/logo.jpg" width={100} height={100} />
         <H1>{t("common:title")}</H1>
         <Typography variant="h6" component="h2" gutterBottom>
           {t("common:motto")}

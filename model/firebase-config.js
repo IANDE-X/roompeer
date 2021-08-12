@@ -10,7 +10,6 @@ var firebaseConfig = {
   measurementId: "G-N68JC8KG78",
 };
 
-// Initialize Firebase
 let instance;
 
 export default function getFirebase() {
@@ -23,10 +22,8 @@ export default function getFirebase() {
   return null;
 }
 
-// Get Firebase Instance
 export const firebaseInstance = getFirebase();
 
-// Update User Info with ID
 export const updateUserProfileInfo = async (id, new_data) => {
   try {
     const db = firebaseInstance.firestore();
@@ -40,19 +37,14 @@ export const updateUserProfileInfo = async (id, new_data) => {
   }
 };
 
-// Sign Out User
 export const signOut = async () => {
   try {
     if (firebaseInstance) {
       await firebaseInstance.auth().signOut();
-      cogoToast.success("Sucessfully Signed out!");
     }
-  } catch (error) {
-    cogoToast.error(error.message);
-  }
+  } catch (error) {}
 };
 
-//Add empty user Details on sign up
 export const addUserProfileInfo = async (user_id, user_info) => {
   if (!firebaseInstance) return;
   try {
@@ -81,12 +73,13 @@ export const addUserProfileInfo = async (user_id, user_info) => {
         hobbies: "",
         sexual_orientation: "",
         astrological_sign: "",
-        social: {
+        socials: {
           facebook: "",
           snapchat: "",
           instagram: "",
           tiktok: "",
           whatsapp: "",
+          twitter: "",
         },
       },
       { merge: true }

@@ -10,12 +10,12 @@ import {
   addUserProfileInfo,
 } from "../../model/firebase-config";
 import {
-  FormControl,
   Typography,
   Button,
   MenuItem,
   CircularProgress,
 } from "@material-ui/core";
+import { useSnackbar } from "notistack";
 
 export default function SingUpForm() {
   const email = useInput("");
@@ -28,6 +28,7 @@ export default function SingUpForm() {
   const residence = useInput("");
   const country = useInput("");
   const [signingup, setSigningUp] = useState(false);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const user_info = {
     email,
@@ -42,7 +43,18 @@ export default function SingUpForm() {
 
   const createAccount = async (event) => {
     event.preventDefault();
-    if (email.value == "" || password.value == "") {
+    if (
+      email.value == "" ||
+      password.value == "" ||
+      firstname.value == "" ||
+      lastname.value == "" ||
+      age.value == "" ||
+      country.value == "" ||
+      residence.value == "" ||
+      gender.value == "" ||
+      occupation.value == ""
+    ) {
+      enqueueSnackbar("All fields are required !", { variant: "error" });
     } else {
       setSigningUp(true);
       try {
@@ -52,9 +64,9 @@ export default function SingUpForm() {
             .createUserWithEmailAndPassword(email.value, password.value)
             .then((userCredentials) => {
               addUserProfileInfo(userCredentials.user.uid, user_info);
-              console.log("done");
+              setSigningUp(false);
               //   sendEmailVerification();
-              //   router.push("/account");
+              router.push("/");
             });
         }
       } catch (error) {
@@ -67,7 +79,7 @@ export default function SingUpForm() {
   let { t } = useTranslation();
   return (
     <Wrapper>
-      <FormControl>
+      <form>
         <FormWrapper>
           <Typography variant="h4" component="h2" gutterBottom color="primary">
             {t("form:createaccount")}
@@ -148,7 +160,6 @@ export default function SingUpForm() {
             type="email"
             {...email}
           />
-
           <TextField
             label={t("form:password")}
             variant="outlined"
@@ -156,19 +167,22 @@ export default function SingUpForm() {
             {...password}
           />
           <div>
-            <Link href="/">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={createAccount}
-              >
-                {t("form:signup")}
-              </Button>
-            </Link>
+            {signingup ? (
+              <CircularProgress color="primary" />
+            ) : (
+              <Link href="/">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={createAccount}
+                >
+                  {t("form:signup")}
+                </Button>
+              </Link>
+            )}
           </div>
-          {signingup ? <CircularProgress color="primary" /> : <></>}
         </FormWrapper>
-      </FormControl>
+      </form>
     </Wrapper>
   );
 }

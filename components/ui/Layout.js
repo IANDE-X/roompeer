@@ -47,9 +47,9 @@ export default function Layout({ children }) {
 
 const Wrapper = styled.div`
   background-color: #f0f0f0;
-  @media (prefers-color-scheme: dark) {
+  /* @media (prefers-color-scheme: dark) {
     background-color: #212121;
     color: white;
-  }
+  } */
 `;
 const ContentWrapper = styled.div``;

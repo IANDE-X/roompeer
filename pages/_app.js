@@ -7,6 +7,8 @@ import Layout from "../components/ui/Layout";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Theme from "../components/ui/Theme";
+import { SnackbarProvider } from "notistack";
+import Grow from "@material-ui/core/Grow";
 
 NProgress.configure({
   minimum: 0.9,
@@ -30,7 +32,16 @@ function MyApp({ Component, pageProps }) {
     <Layout>
       <ThemeProvider theme={Theme}>
         <CssBaseline />
-        <Component {...pageProps} />
+        <SnackbarProvider
+          maxSnack={3}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          TransitionComponent={Grow}
+        >
+          <Component {...pageProps} />
+        </SnackbarProvider>
       </ThemeProvider>
     </Layout>
   );

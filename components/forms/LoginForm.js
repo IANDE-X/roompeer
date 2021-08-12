@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import TextField from "@material-ui/core/TextField";
-import { FormControl, Typography, Button } from "@material-ui/core";
+import {
+  Typography,
+  Button,
+  CircularProgress,
+  TextField,
+} from "@material-ui/core";
 import useInput from "../../hooks/useInput";
-import Link from "next/dist/client/link";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
 import { firebaseInstance } from "../../model/firebase-config";
+import { useSnackbar } from "notistack";
 
 export default function LoginForm() {
   const email = useInput("");
@@ -14,22 +18,30 @@ export default function LoginForm() {
   let { t } = useTranslation();
   const router = useRouter();
   const [signingIn, setSigningIn] = useState(false);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const forgotPassword = () => {
-    firebaseInstance
-      .auth()
-      .sendPasswordResetEmail(email.value)
-      .then(() => {
-        // cogoToast.success(t("forms:passwordreset"));
-      })
-      .catch((error) => {
-        // cogoToast.error(error.message);
-      });
+    if (email.value === "") {
+      enqueueSnackbar("Please fill in email !", { variant: "error" });
+    } else {
+      firebaseInstance
+        .auth()
+        .sendPasswordResetEmail(email.value)
+        .then(() => {
+          enqueueSnackbar("Password Reset Email was sent", {
+            variant: "success",
+          });
+        })
+        .catch((error) => {
+          enqueueSnackbar(error.message, { variant: "error" });
+        });
+    }
   };
 
   const signIn = async (event) => {
     event.preventDefault();
     if (email.value === "" || password.value === "") {
+      enqueueSnackbar("All fields are required !", { variant: "error" });
     } else {
       setSigningIn(true);
       try {
@@ -39,13 +51,12 @@ export default function LoginForm() {
             .signInWithEmailAndPassword(email.value, password.value)
             .then((authUser) => {
               if (authUser) {
-                // cogoToast.success(t("forms:successlogin"));
-                // router.push("/account");
+                router.push("/");
               }
             });
         }
       } catch (error) {
-        // cogoToast.error(error.message);
+        enqueueSnackbar(error.message, { variant: "error" });
         setSigningIn(false);
       }
     }
@@ -53,39 +64,37 @@ export default function LoginForm() {
 
   return (
     <Wrapper>
-      <FormControl>
+      <form onSubmit={signIn}>
         <FormWrapper>
           <Typography variant="h4" component="h2" gutterBottom color="primary">
             {t("form:signin")}
           </Typography>
           <TextField
-            id="outlined-basic"
             label={t("form:email")}
-            variant="outlined"
             type="email"
+            variant="outlined"
             {...email}
           />
           <TextField
-            id="outlined-basic"
             label={t("form:password")}
             variant="outlined"
             type="password"
             {...password}
           />
           <div>
-            <Link href="/">
-              <Button color="primary" onClick={forgotPassword}>
-                {t("form:forgotpassword")}
-              </Button>
-            </Link>
-            <Link href="/">
-              <Button variant="contained" color="primary" onClick={signIn}>
+            <Button color="primary" onClick={forgotPassword}>
+              {t("form:forgotpassword")}
+            </Button>
+            {signingIn ? (
+              <CircularProgress color="primary" />
+            ) : (
+              <Button variant="contained" color="primary" type="submit">
                 {t("form:signin")}
               </Button>
-            </Link>
+            )}
           </div>
         </FormWrapper>
-      </FormControl>
+      </form>
     </Wrapper>
   );
 }
