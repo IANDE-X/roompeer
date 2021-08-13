@@ -50,7 +50,7 @@ const NavButton = styled.div`
   font-weight: bold;
   color: white;
   background-color: white;
-  transition: 0.1s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  transition: 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19);
   background-color: ${(props) =>
     props.active ? theme.light.primaryColor : theme.light.secondaryColor};
 `;

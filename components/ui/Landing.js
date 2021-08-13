@@ -2,9 +2,8 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
 import LoginForm from "../forms/LoginForm";
-import { Typography, Button } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import Link from "next/dist/client/link";
-import LocaleButton from "../buttons/LocaleButton";
 import Image from "next/image";
 
 export default function LandingPage() {
@@ -12,12 +11,9 @@ export default function LandingPage() {
   return (
     <Wrapper>
       <ContentWrapper>
-        <LocaleButton />
         <Image src="/logo.jpg" width={100} height={100} />
         <H1>{t("common:title")}</H1>
-        <Typography variant="h6" component="h2" gutterBottom>
-          {t("common:motto")}
-        </Typography>
+        <H3>{t("common:motto")}</H3>
         <div>
           <Link href="/signup">
             <Button variant="contained" color="default">
@@ -60,6 +56,9 @@ const ContentWrapper = styled.div`
     :nth-child(4) {
       animation: ${animation} 1s 0.4s forwards;
     }
+    :nth-child(5) {
+      animation: ${animation} 1s 0.5s forwards;
+    }
   }
   display: flex;
   flex-direction: column;
@@ -94,8 +93,15 @@ const H1 = styled.h1`
   color: white;
   text-shadow: 0px 20px 40px rgba(0, 0, 0, 0.3);
   font-size: 50px;
+
+  @media only screen and (max-width: 800px) {
+    font-size: 25px;
+  }
 `;
 
 const H3 = styled.h3`
   color: white;
+  @media only screen and (max-width: 800px) {
+    font-size: 15px;
+  }
 `;

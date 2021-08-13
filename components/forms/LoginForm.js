@@ -11,6 +11,7 @@ import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
 import { firebaseInstance } from "../../model/firebase-config";
 import { useSnackbar } from "notistack";
+import LocaleButton from "../buttons/LocaleButton";
 
 export default function LoginForm() {
   const email = useInput("", true);
@@ -65,10 +66,13 @@ export default function LoginForm() {
   return (
     <Wrapper>
       <form onSubmit={signIn}>
-        <FormWrapper>
+        <TextWrapper>
           <Typography variant="h4" component="h2" gutterBottom color="primary">
             {t("form:signin")}
           </Typography>
+          <LocaleButton />
+        </TextWrapper>
+        <FormWrapper>
           <TextField
             label={t("form:email")}
             type="email"
@@ -111,6 +115,11 @@ const FormWrapper = styled.div`
     display: flex;
     justify-content: space-around;
   }
+`;
+
+const TextWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 const H1 = styled.h1`

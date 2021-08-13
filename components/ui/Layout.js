@@ -1,12 +1,26 @@
 import styled from "styled-components";
 import Head from "next/dist/next-server/lib/head";
-// import Header from "./Header";
-// import Footer from "./Footer";
+import Header from "./Header";
+import Footer from "./Footer";
+import { useState, useEffect } from "react";
+import { firebaseInstance } from "../../model/firebase-config";
 
 export default function Layout({ children }) {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    if (firebaseInstance) {
+      firebaseInstance.auth().onAuthStateChanged((authUser) => {
+        if (authUser) {
+          setCurrentUser(authUser);
+        } else {
+          setCurrentUser(null);
+        }
+      });
+    }
+  }, []);
   return (
     <Wrapper>
-      {/* <Header /> */}
       <Head>
         <link
           rel="apple-touch-icon"
@@ -39,8 +53,9 @@ export default function Layout({ children }) {
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
         />
       </Head>
+      {currentUser ? <Header /> : <></>}
       <ContentWrapper>{children}</ContentWrapper>
-      {/* <Footer /> */}
+      {currentUser ? <Footer /> : <></>}
     </Wrapper>
   );
 }
