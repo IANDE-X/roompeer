@@ -3,7 +3,7 @@ import useTranslation from "next-translate/useTranslation";
 import styled from "styled-components";
 import React from "react";
 import HeroSection from "../sections/HeroSection";
-import FeaturedSection from "../sections/FeaturedSection";
+import PeersFeaturedSection from "../sections/PeersFeaturedSection";
 
 export default function Home() {
   let { t } = useTranslation();
@@ -16,14 +16,15 @@ export default function Home() {
       </Head>
       <SectionWrapper>
         <HeroSection />
-        <FeaturedSection />
+        <PeersFeaturedSection />
       </SectionWrapper>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  height: 100vh;
+  min-height: 100vh;
+  overflow-x: hidden;
 `;
 
 const SectionWrapper = styled.div``;
