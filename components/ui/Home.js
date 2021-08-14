@@ -3,7 +3,8 @@ import useTranslation from "next-translate/useTranslation";
 import styled from "styled-components";
 import React from "react";
 import HeroSection from "../sections/HeroSection";
-import PeersFeaturedSection from "../sections/PeersFeaturedSection";
+import PeersSection from "../sections/PeersSection";
+import FlatsSection from "../sections/FlatsSection";
 
 export default function Home() {
   let { t } = useTranslation();
@@ -16,7 +17,8 @@ export default function Home() {
       </Head>
       <SectionWrapper>
         <HeroSection />
-        <PeersFeaturedSection />
+        <FlatsSection />
+        <PeersSection />
       </SectionWrapper>
     </Wrapper>
   );

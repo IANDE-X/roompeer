@@ -1,4 +1,5 @@
 import firebase from "firebase";
+import { useSnackbar } from "notistack";
 
 var firebaseConfig = {
   apiKey: "AIzaSyBCetCyfSzNQc35S_XrZAVbniFaKMBp2Mw",
@@ -25,27 +26,32 @@ export default function getFirebase() {
 export const firebaseInstance = getFirebase();
 
 export const updateUserProfileInfo = async (id, new_data) => {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   try {
     const db = firebaseInstance.firestore();
     const userRef = db
       .collection("users")
       .doc(id)
       .set(new_data, { merge: true })
-      .then(cogoToast.success("Data Updated Succesfully"));
+      .then(enqueueSnackbar("Profile Updated!", { variant: "success" }));
   } catch (error) {
-    cogoToast.error(error.message);
+    enqueueSnackbar(error.message, { variant: "error" });
   }
 };
 
 export const signOut = async () => {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   try {
     if (firebaseInstance) {
       await firebaseInstance.auth().signOut();
     }
-  } catch (error) {}
+  } catch (error) {
+    enqueueSnackbar(error.message, { variant: "error" });
+  }
 };
 
 export const addUserProfileInfo = async (user_id, user_info) => {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   if (!firebaseInstance) return;
   try {
     const database = firebaseInstance.firestore();
@@ -77,7 +83,6 @@ export const addUserProfileInfo = async (user_id, user_info) => {
           facebook: "",
           snapchat: "",
           instagram: "",
-          tiktok: "",
           whatsapp: "",
           twitter: "",
         },
@@ -85,6 +90,6 @@ export const addUserProfileInfo = async (user_id, user_info) => {
       { merge: true }
     );
   } catch (error) {
-    console.log(error.message);
+    enqueueSnackbar(error.message, { variant: "error" });
   }
 };

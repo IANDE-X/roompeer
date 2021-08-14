@@ -1,32 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import { Avatar } from "@material-ui/core";
 import { theme } from "../../model/data";
+import Image from "next/image";
 
-export default function PeerCard(props) {
+export default function FlatCard(props) {
   return (
     <Wrapper>
       <ImageWrapper>
-        {props.avatar_url ? (
-          <Avatar
-            src={avatar_url}
-            alt="Profile Picture"
-            style={{ width: 150, height: 150 }}
-          />
-        ) : (
-          <Avatar alt="Profile Picture" style={{ width: 150, height: 150 }}>
-            {props.firstname[0]}
-            {props.lastname[0]}
-          </Avatar>
-        )}
+        <Image src="/flat.jpg" width={300} height={200} />
       </ImageWrapper>
-      <Title>
-        {props.firstname} {props.lastname}
-      </Title>
+      <Title>{props.title}</Title>
       <TextWrapper>
-        <SubTitle>{props.country}</SubTitle>
-        <Text>{props.occupation}</Text>
-        <Text>{props.residence}</Text>
+        <SubTitle>{props.price}</SubTitle>
+        <Text>{props.address}</Text>
+        <Text>{props.size}</Text>
       </TextWrapper>
     </Wrapper>
   );
@@ -34,8 +21,8 @@ export default function PeerCard(props) {
 
 const Wrapper = styled.div`
   padding: 20px;
-  min-width: 250px;
-  min-height: 320px;
+  min-width: 300px;
+  min-height: 350px;
   border-radius: 20px;
   background-color: white;
   border: thin solid ${theme.light.lightPurple};

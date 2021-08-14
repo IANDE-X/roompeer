@@ -2,23 +2,10 @@ import styled from "styled-components";
 import Head from "next/dist/next-server/lib/head";
 import Header from "./Header";
 import Footer from "./Footer";
-import { useState, useEffect } from "react";
-import { firebaseInstance } from "../../model/firebase-config";
+import { useAuth } from "../../context/Auth";
 
 export default function Layout({ children }) {
-  const [currentUser, setCurrentUser] = useState(null);
-
-  useEffect(() => {
-    if (firebaseInstance) {
-      firebaseInstance.auth().onAuthStateChanged((authUser) => {
-        if (authUser) {
-          setCurrentUser(authUser);
-        } else {
-          setCurrentUser(null);
-        }
-      });
-    }
-  }, []);
+  const { user } = useAuth();
   return (
     <Wrapper>
       <Head>
@@ -53,9 +40,9 @@ export default function Layout({ children }) {
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
         />
       </Head>
-      {currentUser ? <Header /> : <></>}
+      {user ? <Header /> : <></>}
       <ContentWrapper>{children}</ContentWrapper>
-      {currentUser ? <Footer /> : <></>}
+      {user ? <Footer /> : <></>}
     </Wrapper>
   );
 }

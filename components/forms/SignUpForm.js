@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import TextField from "@material-ui/core/TextField";
 import useInput from "../../hooks/useInput";
-import Link from "next/dist/client/link";
 import useTranslation from "next-translate/useTranslation";
 import { countries, genders } from "../../model/data";
 import {
@@ -15,7 +14,6 @@ import {
   MenuItem,
   CircularProgress,
 } from "@material-ui/core";
-import { useSnackbar } from "notistack";
 
 export default function SingUpForm() {
   const email = useInput("", true);
@@ -28,7 +26,6 @@ export default function SingUpForm() {
   const residence = useInput("", true);
   const country = useInput("", true);
   const [signingup, setSigningUp] = useState(false);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const user_info = {
     email,
@@ -43,43 +40,29 @@ export default function SingUpForm() {
 
   const createAccount = async (event) => {
     event.preventDefault();
-    if (
-      email.value == "" ||
-      password.value == "" ||
-      firstname.value == "" ||
-      lastname.value == "" ||
-      age.value == "" ||
-      country.value == "" ||
-      residence.value == "" ||
-      gender.value == "" ||
-      occupation.value == ""
-    ) {
-      enqueueSnackbar("All fields are required !", { variant: "error" });
-    } else {
-      setSigningUp(true);
-      try {
-        if (firebaseInstance) {
-          await firebaseInstance
-            .auth()
-            .createUserWithEmailAndPassword(email.value, password.value)
-            .then((userCredentials) => {
-              addUserProfileInfo(userCredentials.user.uid, user_info);
-              setSigningUp(false);
-              //   sendEmailVerification();
-              router.push("/");
-            });
-        }
-      } catch (error) {
-        console.log(error.message);
-        setSigningUp(false);
+    setSigningUp(true);
+    try {
+      if (firebaseInstance) {
+        await firebaseInstance
+          .auth()
+          .createUserWithEmailAndPassword(email.value, password.value)
+          .then((userCredentials) => {
+            addUserProfileInfo(userCredentials.user.uid, user_info);
+            setSigningUp(false);
+            //   sendEmailVerification();
+            router.push("/");
+          });
       }
+    } catch (error) {
+      console.log(error.message);
+      setSigningUp(false);
     }
   };
 
   let { t } = useTranslation();
   return (
     <Wrapper>
-      <form>
+      <form onSubmit={createAccount}>
         <FormWrapper>
           <Typography variant="h4" component="h2" gutterBottom color="primary">
             {t("form:createaccount")}
@@ -170,15 +153,9 @@ export default function SingUpForm() {
             {signingup ? (
               <CircularProgress color="primary" />
             ) : (
-              <Link href="/">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={createAccount}
-                >
-                  {t("form:signup")}
-                </Button>
-              </Link>
+              <Button variant="contained" color="primary" type="submit">
+                {t("form:signup")}
+              </Button>
             )}
           </div>
         </FormWrapper>
@@ -187,17 +164,23 @@ export default function SingUpForm() {
   );
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: auto;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+`;
 
 const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 320px;
 
   & > div {
     display: flex;
     justify-content: space-around;
+    gap: 10px;
     flex-wrap: wrap;
   }
 `;

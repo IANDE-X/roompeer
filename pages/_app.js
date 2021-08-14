@@ -9,6 +9,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Theme from "../components/ui/Theme";
 import { SnackbarProvider } from "notistack";
 import Grow from "@material-ui/core/Grow";
+import { AuthProvider } from "../context/Auth";
 
 NProgress.configure({
   minimum: 0.9,
@@ -29,21 +30,23 @@ function MyApp({ Component, pageProps }) {
     }
   }, []);
   return (
-    <Layout>
-      <ThemeProvider theme={Theme}>
-        <CssBaseline />
-        <SnackbarProvider
-          maxSnack={3}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
-          TransitionComponent={Grow}
-        >
-          <Component {...pageProps} />
-        </SnackbarProvider>
-      </ThemeProvider>
-    </Layout>
+    <ThemeProvider theme={Theme}>
+      <CssBaseline />
+      <SnackbarProvider
+        maxSnack={3}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        TransitionComponent={Grow}
+      >
+        <AuthProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </AuthProvider>
+      </SnackbarProvider>
+    </ThemeProvider>
   );
 }
 

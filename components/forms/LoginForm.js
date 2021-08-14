@@ -41,25 +41,21 @@ export default function LoginForm() {
 
   const signIn = async (event) => {
     event.preventDefault();
-    if (email.value === "" || password.value === "") {
-      enqueueSnackbar("All fields are required !", { variant: "error" });
-    } else {
-      setSigningIn(true);
-      try {
-        if (firebaseInstance) {
-          await firebaseInstance
-            .auth()
-            .signInWithEmailAndPassword(email.value, password.value)
-            .then((authUser) => {
-              if (authUser) {
-                router.push("/");
-              }
-            });
-        }
-      } catch (error) {
-        enqueueSnackbar(error.message, { variant: "error" });
-        setSigningIn(false);
+    setSigningIn(true);
+    try {
+      if (firebaseInstance) {
+        await firebaseInstance
+          .auth()
+          .signInWithEmailAndPassword(email.value, password.value)
+          .then((authUser) => {
+            if (authUser) {
+              router.push("/");
+            }
+          });
       }
+    } catch (error) {
+      enqueueSnackbar(error.message, { variant: "error" });
+      setSigningIn(false);
     }
   };
 
@@ -85,7 +81,7 @@ export default function LoginForm() {
             type="password"
             {...password}
           />
-          <div>
+          <div className="btns">
             <Button color="primary" onClick={forgotPassword}>
               {t("form:forgotpassword")}
             </Button>
@@ -109,11 +105,11 @@ const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 350px;
 
-  & > div {
+  & > .btns {
     display: flex;
     justify-content: space-around;
+    gap: 20px;
   }
 `;
 
