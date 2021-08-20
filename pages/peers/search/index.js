@@ -15,9 +15,9 @@ export default function SearchPeers({ queries }) {
       if (country !== "") query = query.where("country", "==", country);
       if (gender !== "") query = query.where("gender", "==", gender);
       if (age !== "") query = query.where("age", "==", age);
-      if (contract !== "") query = query.where("contract", "==", age);
-      if (budget_low !== "") query = query.where("budget_low", "==", age);
-      if (budget_high !== "") query = query.where("budget_high", "==", age);
+      if (contract !== "") query = query.where("contract", "==", contract);
+      if (budget_low !== "") query = query.where("budget_low", ">=", budget_low);
+      if (budget_high !== "") query = query.where("budget_high", "==", budget_high);
       query
         .get()
         .then((querySnapshot) => {
@@ -41,15 +41,7 @@ export default function SearchPeers({ queries }) {
       {peers ? (
         <ContentWrapper>
           {peers.map((peer, idx) => (
-            <PeerCard
-              key={idx}
-              firstname={peer.firstname}
-              lastname={peer.lastname}
-              country={peer.country}
-              occupation={peer.occupation}
-              residence={peer.residence}
-              avatar_url={peer.avatar_url}
-            />
+            <PeerCard key={idx} firstname={peer.firstname} lastname={peer.lastname} country={peer.country} occupation={peer.occupation} residence={peer.residence} avatar_url={peer.avatar_url} />
           ))}
         </ContentWrapper>
       ) : (

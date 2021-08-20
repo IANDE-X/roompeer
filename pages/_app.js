@@ -14,8 +14,8 @@ import { AuthProvider } from "../context/Auth";
 NProgress.configure({
   minimum: 0.9,
   easing: "ease",
-  speed: 800,
-  showSpinner: false,
+  speed: 500,
+  showSpinner: true,
 });
 
 Router.events.on("routeChangeStart", () => NProgress.start());

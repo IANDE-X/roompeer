@@ -25,16 +25,11 @@ export default function getFirebase() {
 export const firebaseInstance = getFirebase();
 
 export const updateUserProfileInfo = async (id, new_data) => {
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   try {
     const db = firebaseInstance.firestore();
-    const userRef = db
-      .collection("users")
-      .doc(id)
-      .set(new_data, { merge: true })
-      .then(enqueueSnackbar("Profile Updated!", { variant: "success" }));
+    const userRef = db.collection("users").doc(id).set(new_data, { merge: true }).then();
   } catch (error) {
-    enqueueSnackbar(error.message, { variant: "error" });
+    console.log("Error");
   }
 };
 

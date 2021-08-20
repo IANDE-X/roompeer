@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export default function SecondaryButton(props) {
   return (
-    <Wrapper onClick={props.onClick} type={props.type || "button"}>
+    <Wrapper onClick={props.onClick} type={props.type || "button"} width={props.width}>
       {props.title}
     </Wrapper>
   );
@@ -15,13 +15,13 @@ const Wrapper = styled.button`
   color: #333333;
   cursor: pointer;
   display: inline-block;
-  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial,
-    sans-serif;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
   list-style: none;
   margin: 0;
+  width: ${(props) => (props.width ? props.width : "auto")};
   padding: 10px 12px;
   text-align: center;
   transition: all 200ms;

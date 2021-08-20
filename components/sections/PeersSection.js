@@ -37,15 +37,7 @@ export default function PeersSection() {
       {peers ? (
         <ContentWrapper ref={ref}>
           {peers.map((peer, idx) => (
-            <PeerCard
-              key={idx}
-              firstname={peer.firstname}
-              lastname={peer.lastname}
-              country={peer.country}
-              occupation={peer.occupation}
-              residence={peer.residence}
-              avatar_url={peer.avatar_url}
-            />
+            <PeerCard key={idx} firstname={peer.firstname} lastname={peer.lastname} country={peer.country} occupation={peer.occupation} residence={peer.residence} avatar_url={null} />
           ))}
         </ContentWrapper>
       ) : (
@@ -61,7 +53,7 @@ export default function PeersSection() {
 
 const Wrapper = styled.div`
   padding: 25px;
-  background-color: ${theme.light.background};
+  background-color: #f0f0f0;
 `;
 
 const ContentWrapper = styled.div`
@@ -71,4 +63,9 @@ const ContentWrapper = styled.div`
   padding: 20px;
   gap: 15px;
   width: 95vw;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;

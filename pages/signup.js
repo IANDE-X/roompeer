@@ -3,7 +3,6 @@ import styled from "styled-components";
 import SingUpForm from "../components/forms/SignUpForm";
 
 export default function SignUp() {
-  const arr = [<SingUpForm />];
   return (
     <Wrapper>
       <SingUpForm />

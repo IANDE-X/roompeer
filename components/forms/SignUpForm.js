@@ -4,16 +4,8 @@ import TextField from "@material-ui/core/TextField";
 import useInput from "../../hooks/useInput";
 import useTranslation from "next-translate/useTranslation";
 import { countries, genders } from "../../model/data";
-import {
-  firebaseInstance,
-  addUserProfileInfo,
-} from "../../model/firebase-config";
-import {
-  Typography,
-  Button,
-  MenuItem,
-  CircularProgress,
-} from "@material-ui/core";
+import { firebaseInstance, addUserProfileInfo } from "../../model/firebase-config";
+import { Typography, Button, MenuItem, CircularProgress } from "@material-ui/core";
 import { useRouter } from "next/router";
 
 export default function SingUpForm() {
@@ -79,37 +71,12 @@ export default function SingUpForm() {
             {t("form:createaccount")}
           </Typography>
           <div>
-            <TextField
-              label={t("form:firstname")}
-              variant="outlined"
-              type="text"
-              style={{ width: 150 }}
-              {...firstname}
-            />
-            <TextField
-              label={t("form:lastname")}
-              variant="outlined"
-              type="lastname"
-              style={{ width: 150 }}
-              {...lastname}
-            />
+            <TextField label={t("form:firstname")} variant="outlined" type="text" style={{ width: 150 }} {...firstname} />
+            <TextField label={t("form:lastname")} variant="outlined" type="lastname" style={{ width: 150 }} {...lastname} />
           </div>
           <div>
-            <TextField
-              label={t("form:age")}
-              variant="outlined"
-              type="text"
-              style={{ width: 100 }}
-              {...age}
-            />
-            <TextField
-              label={t("form:country")}
-              variant="outlined"
-              type="lastname"
-              style={{ width: 200 }}
-              select
-              {...country}
-            >
+            <TextField label={t("form:age")} variant="outlined" type="text" style={{ width: 100 }} {...age} />
+            <TextField label={t("form:country")} variant="outlined" type="lastname" style={{ width: 200 }} select {...country}>
               {countries.map((option) => (
                 <MenuItem key={option.code} value={option.name}>
                   {option.name}
@@ -118,22 +85,8 @@ export default function SingUpForm() {
             </TextField>
           </div>
           <div>
-            <TextField
-              label={t("form:occupation")}
-              placeholder="e.g Student ?"
-              variant="outlined"
-              type="text"
-              style={{ width: 150 }}
-              {...occupation}
-            />
-            <TextField
-              label={t("Gender")}
-              variant="outlined"
-              type="text"
-              style={{ width: 150 }}
-              {...gender}
-              select
-            >
+            <TextField label={t("form:occupation")} placeholder="e.g Student ?" variant="outlined" type="text" style={{ width: 150 }} {...occupation} />
+            <TextField label={t("Gender")} variant="outlined" type="text" style={{ width: 150 }} {...gender} select>
               {genders.map((option) => (
                 <MenuItem key={option} value={option}>
                   {option}
@@ -141,25 +94,9 @@ export default function SingUpForm() {
               ))}
             </TextField>
           </div>
-          <TextField
-            label={t("form:residence")}
-            placeholder={t("form:citycountry")}
-            variant="outlined"
-            type="lastname"
-            {...residence}
-          />
-          <TextField
-            label={t("form:email")}
-            variant="outlined"
-            type="email"
-            {...email}
-          />
-          <TextField
-            label={t("form:password")}
-            variant="outlined"
-            type="password"
-            {...password}
-          />
+          <TextField label={t("form:residence")} placeholder={t("form:citycountry")} variant="outlined" type="lastname" {...residence} />
+          <TextField label={t("form:email")} variant="outlined" type="email" {...email} />
+          <TextField label={t("form:password")} variant="outlined" type="password" {...password} />
           <div>
             {signingup ? (
               <CircularProgress color="primary" />

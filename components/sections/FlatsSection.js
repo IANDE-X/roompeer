@@ -6,26 +6,12 @@ import { Skeleton } from "@material-ui/lab";
 
 export default function FlatsSection() {
   const peers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const ref = useRef();
-
-  const scroll = (scrollOffset) => {
-    ref.current.scrollLeft += scrollOffset;
-  };
   return (
     <Wrapper>
       <h1>Latest Flats</h1>
-      {/* <Skeleton height={200} width={300} variant="rect" />
-      <Skeleton height={100} />
-      <Skeleton animation="wave" /> */}
-      <ContentWrapper ref={ref}>
+      <ContentWrapper>
         {peers.map((peer, idx) => (
-          <FlatCard
-            key={idx}
-            title={"1 bedroom Apartment"}
-            price={"100,000 HUF / Month"}
-            address={"Civis Utca 1"}
-            size={"50 sq.m"}
-          />
+          <FlatCard key={idx} title={"1 bedroom Apartment"} price={"100,000 HUF / Month"} address={"Civis Utca 1"} size={"50 sq.m"} />
         ))}
       </ContentWrapper>
     </Wrapper>
@@ -34,7 +20,7 @@ export default function FlatsSection() {
 
 const Wrapper = styled.div`
   padding: 25px;
-  background-color: ${theme.light.background};
+  background-color: #f0f0f0;
 `;
 
 const ContentWrapper = styled.div`
@@ -44,4 +30,9 @@ const ContentWrapper = styled.div`
   padding: 20px;
   gap: 20px;
   width: 95vw;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;

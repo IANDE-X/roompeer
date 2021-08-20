@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { TextField, MenuItem } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { prices, countries, genders } from "../../model/data";
 import Link from "next/link";
 import useInput from "../../hooks/useInput";
 import PrimaryButton from "../buttons/PrimaryButton";
+import SelectButton from "../buttons/SelectButton";
 
 export default function PeersFilter() {
   const country = useInput("");
@@ -16,66 +17,15 @@ export default function PeersFilter() {
   return (
     <Wrapper>
       <ContentWrapper>
-        <TextField
-          variant="outlined"
-          label="Country"
-          placeholder="Nigeria ?"
-          select
-          {...country}
-        >
-          {countries.map((option) => (
-            <MenuItem key={option.code} value={option.name}>
-              {option.name}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField variant="outlined" label="Gender" select {...gender}>
-          {genders.map((option) => (
-            <MenuItem key={option} value={option}>
-              {option}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          variant="outlined"
-          label="Contract Lenght"
-          fullWidth
-          select
-          {...contract}
-        >
-          <MenuItem value={"6-months"}>{"6-Months"}</MenuItem>
-          <MenuItem value={"12-months"}>{"12-Months"}</MenuItem>
-        </TextField>
-        <TextField
-          variant="outlined"
-          label="Age"
-          placeholder="E.g 2?"
-          {...age}
-        />
-        <TextField variant="outlined" label="Budget Low" select {...budget_low}>
-          {prices.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.text}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          variant="outlined"
-          label="Budget High"
-          select
-          {...budget_high}
-        >
-          {prices.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.text}
-            </MenuItem>
-          ))}
-        </TextField>
+        <SelectButton label="Country" input={country} array={countries} placeholder="Origin" />
+        <SelectButton label="Gender" input={gender} array={genders} />
+        <SelectButton label="Contract" input={contract} array={["6-Month", "12-Month"]} width="200px" />
+        <TextField variant="outlined" label="Age" placeholder="E.g 2?" {...age} />
+        <SelectButton label="Budget Low (HUF)" input={budget_low} array={prices} />
+        <SelectButton label="Budget High (HUF)" input={budget_high} array={prices} />
       </ContentWrapper>
       <ButtonWrapper>
-        <Link
-          href={`/peers/search?country=${country.value}&age=${age.value}&gender=${gender.value}&contract=${contract.value}&budget_low=${budget_low.value}&budget_high=${budget_high.value}`}
-        >
+        <Link href={`/peers/search?country=${country.value}&age=${age.value}&gender=${gender.value}&contract=${contract.value}&budget_low=${budget_low.value}&budget_high=${budget_high.value}`}>
           <PrimaryButton title="Search" />
         </Link>
       </ButtonWrapper>

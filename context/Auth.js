@@ -9,7 +9,7 @@ const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const router = useRouter();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   const signOut = async () => {
     try {
@@ -33,11 +33,7 @@ export const AuthProvider = ({ children }) => {
       });
     }
   }, []);
-  return (
-    <AuthContext.Provider value={{ user, signOut }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ user, signOut }}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => useContext(AuthContext);

@@ -16,12 +16,11 @@ export default function LogIn() {
       <FormWrapper>
         <LoginForm />
         <Divider />
-        <div>
-          <H3>Don't have an account ?</H3>
-          <Link href="/signup">
-            <Anchor>{t("form:createaccount")}</Anchor>
-          </Link>
-        </div>
+        <Link href="/signup">
+          <a>
+            <H3>Don't have an account ?</H3>
+          </a>
+        </Link>
       </FormWrapper>
     </Wrapper>
   );
@@ -82,11 +81,7 @@ const FormWrapper = styled.div`
   justify-content: center;
   align-items: center;
   padding: 20px;
-
-  & > div {
-    display: flex;
-    gap: 10px;
-  }
+  gap: 20px;
 `;
 
 const H1 = styled.h1`

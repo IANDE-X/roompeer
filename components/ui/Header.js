@@ -13,6 +13,11 @@ export default function Header() {
   const menu = useMenu();
   const { signOut, user } = useAuth();
 
+  const SignOut = () => {
+    menu.handleMenuClose();
+    signOut();
+  };
+
   return (
     <Wrapper>
       <Link href="/">
@@ -37,7 +42,7 @@ export default function Header() {
             <MenuItem onClick={menu.handleMenuClose}>My Profile</MenuItem>
           </Link>
 
-          <MenuItem onClick={signOut}>Sign Out</MenuItem>
+          <MenuItem onClick={SignOut}>Sign Out</MenuItem>
         </Menu>
         <LocaleButton />
       </ContentWrapper>

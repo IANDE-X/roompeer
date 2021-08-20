@@ -5,6 +5,7 @@ import { prices, homeTypes } from "../../model/data";
 import Link from "next/link";
 import useInput from "../../hooks/useInput";
 import PrimaryButton from "../buttons/PrimaryButton";
+import SelectButton from "../buttons/SelectButton";
 
 export default function FlatsFilter() {
   const city = useInput("");
@@ -17,42 +18,14 @@ export default function FlatsFilter() {
     <Wrapper>
       <ContentWrapper>
         <TextField variant="outlined" label="City" {...city} />
-        <TextField variant="outlined" label="For" select {...property_for}>
-          <MenuItem value={"Rent"}>Rent</MenuItem>
-          <MenuItem value={"Sale"}>Sale</MenuItem>
-        </TextField>
-        <TextField variant="outlined" label="Type" fullWidth select {...type}>
-          {homeTypes.map((option, idx) => (
-            <MenuItem key={idx} value={option}>
-              {option}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          variant="outlined"
-          label="Rooms"
-          placeholder="E.g 2?"
-          {...rooms}
-        />
-        <TextField variant="outlined" label="Price Low" select {...price_low}>
-          {prices.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.text}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField variant="outlined" label="Price High" select {...price_high}>
-          {prices.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.text}
-            </MenuItem>
-          ))}
-        </TextField>
+        <SelectButton label="For" input={property_for} array={["Rent", "Sale"]} width="100px" />
+        <SelectButton label="Type" input={type} array={homeTypes} />
+        <TextField variant="outlined" label="Rooms" placeholder="E.g 2?" {...rooms} />
+        <SelectButton label="Price Low (HUF)" input={price_low} array={prices} />
+        <SelectButton label="Price High (HUF)" input={price_high} array={prices} />
       </ContentWrapper>
       <ButtonWrapper>
-        <Link
-          href={`/flats/search?city=${city.value}for=${property_for.value}type=${type.value}rooms=${rooms.value}price_low=${price_low.value}price_high=${price_high.value}`}
-        >
+        <Link href={`/flats/search?city=${city.value}for=${property_for.value}type=${type.value}rooms=${rooms.value}price_low=${price_low.value}price_high=${price_high.value}`}>
           <PrimaryButton title="Search" />
         </Link>
       </ButtonWrapper>

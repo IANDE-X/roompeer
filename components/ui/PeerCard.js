@@ -4,15 +4,12 @@ import { Avatar } from "@material-ui/core";
 import { theme } from "../../model/data";
 
 export default function PeerCard(props) {
+  console.log(props.avatar_url);
   return (
     <Wrapper>
       <ImageWrapper>
         {props.avatar_url ? (
-          <Avatar
-            src={avatar_url}
-            alt="Profile Picture"
-            style={{ width: 150, height: 150 }}
-          />
+          <Avatar src={avatar_url} alt="Profile Picture" style={{ width: 150, height: 150 }} />
         ) : (
           <Avatar alt="Profile Picture" style={{ width: 150, height: 150 }}>
             {props.firstname[0].toUpperCase()}

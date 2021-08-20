@@ -25,7 +25,7 @@ const Wrapper = styled.div`
   min-height: 350px;
   border-radius: 5px;
   background-color: white;
-  border: thin solid ${theme.light.lightPurple};
+  border: thin solid white;
   transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
   :hover {
     border: thin solid ${theme.light.primaryColor};
