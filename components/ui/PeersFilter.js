@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { TextField, MenuItem, Button } from "@material-ui/core";
+import { TextField, MenuItem } from "@material-ui/core";
 import { prices, countries, genders } from "../../model/data";
 import Link from "next/link";
 import useInput from "../../hooks/useInput";
+import PrimaryButton from "../buttons/PrimaryButton";
 
 export default function PeersFilter() {
   const country = useInput("");
@@ -73,11 +74,9 @@ export default function PeersFilter() {
       </ContentWrapper>
       <ButtonWrapper>
         <Link
-          href={`/peers/search?country=${country.value}age=${age.value}gender=${gender.value}contract=${contract.value}budget_low=${budget_low.value}budget_high=${budget_high.value}`}
+          href={`/peers/search?country=${country.value}&age=${age.value}&gender=${gender.value}&contract=${contract.value}&budget_low=${budget_low.value}&budget_high=${budget_high.value}`}
         >
-          <Button color="primary" variant="contained" fullWidth>
-            Search
-          </Button>
+          <PrimaryButton title="Search" />
         </Link>
       </ButtonWrapper>
     </Wrapper>

@@ -14,6 +14,7 @@ import {
   MenuItem,
   CircularProgress,
 } from "@material-ui/core";
+import { useRouter } from "next/router";
 
 export default function SingUpForm() {
   const email = useInput("", true);
@@ -26,16 +27,17 @@ export default function SingUpForm() {
   const residence = useInput("", true);
   const country = useInput("", true);
   const [signingup, setSigningUp] = useState(false);
+  const router = useRouter();
 
   const user_info = {
-    email,
-    gender,
-    firstname,
-    lastname,
-    age,
-    occupation,
-    residence,
-    country,
+    email: email.value,
+    gender: gender.value,
+    firstname: firstname.value,
+    lastname: lastname.value,
+    age: age.value,
+    occupation: occupation.value,
+    residence: residence.value,
+    country: country.value,
   };
 
   const createAccount = async (event) => {
@@ -47,9 +49,18 @@ export default function SingUpForm() {
           .auth()
           .createUserWithEmailAndPassword(email.value, password.value)
           .then((userCredentials) => {
-            addUserProfileInfo(userCredentials.user.uid, user_info);
+            console.log(userCredentials);
+            const meta = {
+              signup_date: userCredentials.user.metadata.creationTime,
+              phone_number: userCredentials.user.phoneNumber,
+              avatar_url: userCredentials.user.photoURL,
+            };
+            addUserProfileInfo(userCredentials.user.uid, {
+              ...user_info,
+              ...meta,
+            });
             setSigningUp(false);
-            //   sendEmailVerification();
+            // sendEmailVerification();
             router.push("/");
           });
       }

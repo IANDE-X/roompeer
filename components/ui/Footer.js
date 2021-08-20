@@ -6,6 +6,6 @@ export default function Footer() {
 }
 
 const Wrapper = styled.div`
-  background-color: ${theme.light.lightBrown};
+  background-color: ${theme.light.lightPurple};
   padding: 20px;
 `;

@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { TextField, MenuItem, Button } from "@material-ui/core";
+import { TextField, MenuItem } from "@material-ui/core";
 import { prices, homeTypes } from "../../model/data";
 import Link from "next/link";
 import useInput from "../../hooks/useInput";
+import PrimaryButton from "../buttons/PrimaryButton";
 
 export default function FlatsFilter() {
   const city = useInput("");
@@ -52,9 +53,7 @@ export default function FlatsFilter() {
         <Link
           href={`/flats/search?city=${city.value}for=${property_for.value}type=${type.value}rooms=${rooms.value}price_low=${price_low.value}price_high=${price_high.value}`}
         >
-          <Button color="primary" variant="contained" fullWidth>
-            Search
-          </Button>
+          <PrimaryButton title="Search" />
         </Link>
       </ButtonWrapper>
     </Wrapper>

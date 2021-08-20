@@ -5,6 +5,7 @@ import FilterBox from "../ui/FilterBox";
 export default function HeroSection() {
   return (
     <Wrapper>
+      <h1>Find Rooms and Peers</h1>
       <FilterBox />
     </Wrapper>
   );

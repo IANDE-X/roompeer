@@ -1,32 +1,60 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import { theme } from "../../model/data";
+import { firebaseInstance } from "../../model/firebase-config";
 import PeerCard from "../ui/PeerCard";
+import { Skeleton } from "@material-ui/lab";
 
 export default function PeersSection() {
-  const peers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const ref = useRef();
+  const [peers, setPeers] = useState(null);
 
-  const scroll = (scrollOffset) => {
-    ref.current.scrollLeft += scrollOffset;
+  const getPeers = async () => {
+    if (firebaseInstance) {
+      const db = await firebaseInstance.firestore();
+      db.collection("users")
+        .orderBy("signup_date")
+        .limit(10)
+        .get()
+        .then((querySnapshot) => {
+          var data = [];
+          querySnapshot.forEach((doc) => {
+            data.push(doc.data());
+          });
+          setPeers(data);
+        })
+        .catch((error) => {
+          console.log("Error getting documents: ", error);
+        });
+    }
   };
+  useEffect(() => {
+    getPeers();
+  }, []);
   return (
     <Wrapper>
       <h1>Recently joined Peers</h1>
-      <ContentWrapper ref={ref}>
-        {peers.map((peer, idx) => (
-          <PeerCard
-            key={idx}
-            firstname={"Abdulrahim"}
-            lastname={"Iliasu"}
-            country={"Nigeria"}
-            occupation={"Student"}
-            residence={"Debrecen,HU"}
-          />
-        ))}
-      </ContentWrapper>
-      <button onClick={() => scroll(-200)}>LEFT</button>
-      <button onClick={() => scroll(200)}>RIGHT</button>
+      {peers ? (
+        <ContentWrapper ref={ref}>
+          {peers.map((peer, idx) => (
+            <PeerCard
+              key={idx}
+              firstname={peer.firstname}
+              lastname={peer.lastname}
+              country={peer.country}
+              occupation={peer.occupation}
+              residence={peer.residence}
+              avatar_url={peer.avatar_url}
+            />
+          ))}
+        </ContentWrapper>
+      ) : (
+        <>
+          <Skeleton height={100} width={100} variant="circle" />
+          <Skeleton height={100} />
+          <Skeleton animation="wave" />
+        </>
+      )}
     </Wrapper>
   );
 }

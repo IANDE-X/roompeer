@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import styled from "styled-components";
 import { theme } from "../../model/data";
 import FlatCard from "../ui/FlatCard";
+import { Skeleton } from "@material-ui/lab";
 
 export default function FlatsSection() {
   const peers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -13,6 +14,9 @@ export default function FlatsSection() {
   return (
     <Wrapper>
       <h1>Latest Flats</h1>
+      {/* <Skeleton height={200} width={300} variant="rect" />
+      <Skeleton height={100} />
+      <Skeleton animation="wave" /> */}
       <ContentWrapper ref={ref}>
         {peers.map((peer, idx) => (
           <FlatCard

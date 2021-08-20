@@ -2,7 +2,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import { useRouter, router } from "next/router";
+import { useRouter } from "next/router";
 import Link from "next/dist/client/link";
 import useMenu from "../../hooks/useMenu";
 

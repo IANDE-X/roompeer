@@ -15,8 +15,8 @@ export default function PeerCard(props) {
           />
         ) : (
           <Avatar alt="Profile Picture" style={{ width: 150, height: 150 }}>
-            {props.firstname[0]}
-            {props.lastname[0]}
+            {props.firstname[0].toUpperCase()}
+            {props.lastname[0].toUpperCase()}
           </Avatar>
         )}
       </ImageWrapper>

@@ -13,9 +13,9 @@ const Theme = createTheme({
     error: {
       main: red.A400,
     },
-    background: {
-      default: theme.light.background,
-    },
+    // background: {
+    //   default: theme.light.background,
+    // },
   },
 });
 

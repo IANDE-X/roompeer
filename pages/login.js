@@ -1,29 +1,27 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
-import Image from "next/dist/client/image";
-import { Button } from "@material-ui/core";
 import Link from "next/dist/client/link";
 import LoginForm from "../components/forms/LoginForm";
+import { theme } from "../model/data";
+import { Divider } from "@material-ui/core";
 
 export default function LogIn() {
   let { t } = useTranslation();
   return (
     <Wrapper>
       <ContentWrapper>
-        <Image src="/logo.jpg" width={100} height={100} />
-        <H1>{t("common:title")}</H1>
-        <H3>{t("common:motto")}</H3>
-        <div>
-          <Link href="/signup">
-            <Button variant="contained" color="default">
-              {t("form:createaccount")}
-            </Button>
-          </Link>
-        </div>
+        <H1>{t("common:motto")}</H1>
       </ContentWrapper>
       <FormWrapper>
         <LoginForm />
+        <Divider />
+        <div>
+          <H3>Don't have an account ?</H3>
+          <Link href="/signup">
+            <Anchor>{t("form:createaccount")}</Anchor>
+          </Link>
+        </div>
       </FormWrapper>
     </Wrapper>
   );
@@ -31,10 +29,11 @@ export default function LogIn() {
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: auto 450px;
-  @media only screen and (max-width: 600px) {
+  grid-template-columns: 400px auto;
+  @media only screen and (max-width: 800px) {
     grid-template-columns: auto;
   }
+  background-color: white;
 `;
 
 const animation = keyframes`
@@ -63,11 +62,8 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  gap: 20px;
   padding: 20px;
   height: 100vh;
-  background-color: #8050c8;
 
   & > div {
     display: flex;
@@ -76,31 +72,41 @@ const ContentWrapper = styled.div`
   }
 
   @media only screen and (max-width: 600px) {
-    height: 80vh;
+    height: 50vh;
   }
 `;
 
 const FormWrapper = styled.div`
-  background-color: #f0f0f0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
+
+  & > div {
+    display: flex;
+    gap: 10px;
+  }
 `;
 
 const H1 = styled.h1`
-  color: white;
-  text-shadow: 0px 20px 40px rgba(0, 0, 0, 0.3);
-  font-size: 50px;
-
+  font-size: 70px;
+  color: ${theme.light.primaryColor};
   @media only screen and (max-width: 800px) {
     font-size: 25px;
   }
 `;
 
 const H3 = styled.h3`
-  color: white;
+  color: ${theme.light.primaryColor};
+  @media only screen and (max-width: 800px) {
+    font-size: 15px;
+  }
+`;
+
+const Anchor = styled.h3`
+  color: blue;
+  cursor: pointer;
   @media only screen and (max-width: 800px) {
     font-size: 15px;
   }

@@ -23,13 +23,13 @@ const Wrapper = styled.div`
   padding: 20px;
   min-width: 300px;
   min-height: 350px;
-  border-radius: 20px;
+  border-radius: 5px;
   background-color: white;
   border: thin solid ${theme.light.lightPurple};
   transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
   :hover {
     border: thin solid ${theme.light.primaryColor};
-    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }
 `;
 

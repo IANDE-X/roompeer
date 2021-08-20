@@ -17,6 +17,7 @@ export default function FilterBox() {
             setNav2(false);
           }}
           active={nav1}
+          className="left"
         >
           Flats
         </NavButton>
@@ -26,6 +27,7 @@ export default function FilterBox() {
             setNav2(true);
           }}
           active={nav2}
+          className="right"
         >
           Peers
         </NavButton>
@@ -48,16 +50,21 @@ const NavButton = styled.div`
   width: 100px;
   height: 50px;
   font-weight: bold;
-  color: white;
+  cursor: pointer;
+  color: ${(props) => (props.active ? theme.light.primaryColor : "white")};
   background-color: white;
   transition: 0.1s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  border-radius: 5px 5px 0px 0px;
+  :hover {
+    color: ${theme.light.lightPurple};
+  }
   background-color: ${(props) =>
-    props.active ? theme.light.primaryColor : theme.light.secondaryColor};
+    props.active ? "white" : theme.light.secondaryColor};
 `;
 
 const ContentWrapper = styled.div`
   padding: 25px;
-  border: thick solid ${theme.dark.primaryColor};
+  border-radius: 0px 15px 15px 15px;
   background-color: white;
   box-shadow: 0px 100px 80px rgba(0, 0, 0, 0.07),
     0px 41.7776px 33.4221px rgba(0, 0, 0, 0.0503198),

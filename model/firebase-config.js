@@ -1,5 +1,4 @@
 import firebase from "firebase";
-import { useSnackbar } from "notistack";
 
 var firebaseConfig = {
   apiKey: "AIzaSyBCetCyfSzNQc35S_XrZAVbniFaKMBp2Mw",
@@ -39,57 +38,40 @@ export const updateUserProfileInfo = async (id, new_data) => {
   }
 };
 
-export const signOut = async () => {
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  try {
-    if (firebaseInstance) {
-      await firebaseInstance.auth().signOut();
-    }
-  } catch (error) {
-    enqueueSnackbar(error.message, { variant: "error" });
-  }
+const user_default_info = {
+  languages: "",
+  prefered_area: "",
+  prefered_move_in_date: "",
+  prefered_contract_lenght: "",
+  rent_low: "",
+  rent_high: "",
+  smoking: false,
+  pets: false,
+  hobbies: "",
+  sexual_orientation: "",
+  astrological_sign: "",
+  socials: {
+    facebook: "",
+    snapchat: "",
+    instagram: "",
+    whatsapp: "",
+    twitter: "",
+  },
 };
 
 export const addUserProfileInfo = async (user_id, user_info) => {
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   if (!firebaseInstance) return;
   try {
     const database = firebaseInstance.firestore();
     const userRef = database.collection("users").doc(user_id);
     await userRef.set(
       {
-        first_name: user_info.firstname.value,
-        last_name: user_info.lastname.value,
-        country: user_info.country.value,
-        age: user_info.age.value,
-        occupation: user_info.occupation.value,
-        residence: user_info.residence.value,
-        email: user_info.email.value,
-        gender: user_info.gender.value,
-        phone_number: "",
-        avatar_url: "",
-        languages: "",
-        prefered_area: "",
-        prefered_move_in_date: "",
-        prefered_contract_lenght: "",
-        rent_low: "",
-        rent_high: "",
-        smoking: false,
-        pets: false,
-        hobbies: "",
-        sexual_orientation: "",
-        astrological_sign: "",
-        socials: {
-          facebook: "",
-          snapchat: "",
-          instagram: "",
-          whatsapp: "",
-          twitter: "",
-        },
+        ...user_info,
+        ...user_default_info,
       },
       { merge: true }
     );
   } catch (error) {
-    enqueueSnackbar(error.message, { variant: "error" });
+    console.log(error.message);
   }
 };

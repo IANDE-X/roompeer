@@ -2,10 +2,8 @@ import styled from "styled-components";
 import Head from "next/dist/next-server/lib/head";
 import Header from "./Header";
 import Footer from "./Footer";
-import { useAuth } from "../../context/Auth";
 
 export default function Layout({ children }) {
-  const { user } = useAuth();
   return (
     <Wrapper>
       <Head>
@@ -40,18 +38,12 @@ export default function Layout({ children }) {
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
         />
       </Head>
-      {user ? <Header /> : <></>}
+      <Header />
       <ContentWrapper>{children}</ContentWrapper>
-      {user ? <Footer /> : <></>}
+      <Footer />
     </Wrapper>
   );
 }
 
-const Wrapper = styled.div`
-  background-color: #f0f0f0;
-  /* @media (prefers-color-scheme: dark) {
-    background-color: #212121;
-    color: white;
-  } */
-`;
+const Wrapper = styled.div``;
 const ContentWrapper = styled.div``;

@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import {
-  Typography,
-  Button,
-  CircularProgress,
-  TextField,
-} from "@material-ui/core";
+import { Typography, CircularProgress, TextField } from "@material-ui/core";
 import useInput from "../../hooks/useInput";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
 import { firebaseInstance } from "../../model/firebase-config";
 import { useSnackbar } from "notistack";
-import LocaleButton from "../buttons/LocaleButton";
+import PrimaryButton from "../buttons/PrimaryButton";
+import SecondaryButton from "../buttons/SecondaryButton";
 
 export default function LoginForm() {
   const email = useInput("", true);
@@ -66,7 +62,6 @@ export default function LoginForm() {
           <Typography variant="h4" component="h2" gutterBottom color="primary">
             {t("form:signin")}
           </Typography>
-          <LocaleButton />
         </TextWrapper>
         <FormWrapper>
           <TextField
@@ -82,15 +77,14 @@ export default function LoginForm() {
             {...password}
           />
           <div className="btns">
-            <Button color="primary" onClick={forgotPassword}>
-              {t("form:forgotpassword")}
-            </Button>
+            <SecondaryButton
+              onClick={forgotPassword}
+              title={t("form:forgotpassword")}
+            />
             {signingIn ? (
               <CircularProgress color="primary" />
             ) : (
-              <Button variant="contained" color="primary" type="submit">
-                {t("form:signin")}
-              </Button>
+              <PrimaryButton type="submit" title="Sign in" href />
             )}
           </div>
         </FormWrapper>
@@ -111,14 +105,13 @@ const FormWrapper = styled.div`
     justify-content: space-around;
     gap: 20px;
   }
+
+  @media only screen and (max-width: 600px) {
+    min-width: 250px;
+  }
 `;
 
 const TextWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-`;
-
-const H1 = styled.h1`
-  color: black;
-  font-size: 25px;
 `;
