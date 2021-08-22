@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { TextField } from "@material-ui/core";
-import { prices, countries, genders } from "../../model/data";
+import { prices, countries, genders, theme } from "../../model/data";
 import Link from "next/link";
 import useInput from "../../hooks/useInput";
 import PrimaryButton from "../buttons/PrimaryButton";
@@ -19,14 +19,14 @@ export default function PeersFilter() {
       <ContentWrapper>
         <SelectButton label="Country" input={country} array={countries} placeholder="Origin" />
         <SelectButton label="Gender" input={gender} array={genders} />
-        <SelectButton label="Contract" input={contract} array={["6-Month", "12-Month"]} width="200px" />
+        <SelectButton label="Contract" input={contract} array={["6-Month", "12-Month"]} />
         <TextField variant="outlined" label="Age" placeholder="E.g 2?" {...age} />
         <SelectButton label="Budget Low (HUF)" input={budget_low} array={prices} />
         <SelectButton label="Budget High (HUF)" input={budget_high} array={prices} />
       </ContentWrapper>
       <ButtonWrapper>
         <Link href={`/peers/search?country=${country.value}&age=${age.value}&gender=${gender.value}&contract=${contract.value}&budget_low=${budget_low.value}&budget_high=${budget_high.value}`}>
-          <PrimaryButton title="Search" />
+          <PrimaryButton color={theme.light.secondaryColor} title="Search" />
         </Link>
       </ButtonWrapper>
     </Wrapper>
@@ -51,14 +51,12 @@ const ButtonWrapper = styled.div`
 
 const ContentWrapper = styled.div`
   display: grid;
-  grid-template-columns: auto auto auto auto auto auto;
+  grid-template-columns: 16% 16% 16% 10% 19% 19%;
   gap: 10px;
-  @media (max-width: 900px) {
-    display: grid;
-    grid-template-columns: auto auto;
+  @media (max-width: 1000px) {
+    grid-template-columns: 50% 50%;
   }
   @media (max-width: 600px) {
-    display: grid;
     grid-template-columns: auto;
   }
 `;

@@ -21,6 +21,7 @@ const UploadButton = (props) => {
     console.log(uploadedImage);
     if (!uploadedImage) return;
 
+    enqueueSnackbar("Uploading Profile Photo...", { variant: "default" });
     const storage = firebaseInstance.storage();
     const storageRef = storage.ref("avatars");
 
@@ -32,7 +33,7 @@ const UploadButton = (props) => {
         .then((url) => {
           updateUserProfileInfo(props.user_id, { avatar_url: url });
         })
-        .then(enqueueSnackbar("Profile Updated", { variant: "success" }));
+        .then(enqueueSnackbar("Profile Photo Updated!", { variant: "success", preventDuplicate: true }));
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
     }

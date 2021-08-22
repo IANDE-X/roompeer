@@ -1,20 +1,13 @@
 import { TextField, MenuItem } from "@material-ui/core";
-import styled from "styled-components";
 
-export default function (props) {
+export default function SelectButton(props) {
   return (
-    <Wrapper width={props.width}>
-      <TextField label={props.label} variant="outlined" {...props.input} select disabled={props.disabled} fullWidth placeholder={props.placeholder}>
-        {props.array.map((option, idx) => (
-          <MenuItem key={idx} value={option}>
-            {option}
-          </MenuItem>
-        ))}
-      </TextField>
-    </Wrapper>
+    <TextField label={props.label} variant="outlined" select disabled={props.disabled} placeholder={props.placeholder} fullWidth {...props.input}>
+      {props.array.map((option, idx) => (
+        <MenuItem key={idx} value={option}>
+          {option}
+        </MenuItem>
+      ))}
+    </TextField>
   );
 }
-
-const Wrapper = styled.div`
-  width: ${(props) => (props.width ? props.width : "230px")};
-`;

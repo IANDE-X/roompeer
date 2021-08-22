@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { TextField, MenuItem } from "@material-ui/core";
-import { prices, homeTypes } from "../../model/data";
+import { TextField } from "@material-ui/core";
+import { prices, homeTypes, theme } from "../../model/data";
 import Link from "next/link";
 import useInput from "../../hooks/useInput";
 import PrimaryButton from "../buttons/PrimaryButton";
@@ -26,7 +26,7 @@ export default function FlatsFilter() {
       </ContentWrapper>
       <ButtonWrapper>
         <Link href={`/flats/search?city=${city.value}for=${property_for.value}type=${type.value}rooms=${rooms.value}price_low=${price_low.value}price_high=${price_high.value}`}>
-          <PrimaryButton title="Search" />
+          <PrimaryButton color={theme.light.secondaryColor} title="Search" />
         </Link>
       </ButtonWrapper>
     </Wrapper>
@@ -51,14 +51,12 @@ const ButtonWrapper = styled.div`
 
 const ContentWrapper = styled.div`
   display: grid;
-  grid-template-columns: auto auto auto auto auto auto;
+  grid-template-columns: 16% 16% 16% 10% 19% 19%;
   gap: 10px;
   @media (max-width: 900px) {
-    display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 50% 50%;
   }
   @media (max-width: 600px) {
-    display: grid;
     grid-template-columns: auto;
   }
 `;

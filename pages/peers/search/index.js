@@ -15,9 +15,9 @@ export default function SearchPeers({ queries }) {
       if (country !== "") query = query.where("country", "==", country);
       if (gender !== "") query = query.where("gender", "==", gender);
       if (age !== "") query = query.where("age", "==", age);
-      if (contract !== "") query = query.where("contract", "==", contract);
+      if (contract !== "") query = query.where("prefered_contract_lenght", "==", contract);
       if (budget_low !== "") query = query.where("budget_low", ">=", budget_low);
-      if (budget_high !== "") query = query.where("budget_high", "==", budget_high);
+      if (budget_high !== "") query = query.where("budget_high", "<=", budget_high);
       query
         .get()
         .then((querySnapshot) => {
@@ -48,6 +48,8 @@ export default function SearchPeers({ queries }) {
         <>
           <Skeleton height={100} width={100} variant="circle" />
           <Skeleton height={100} />
+          <Skeleton animation="wave" />
+          <Skeleton animation="wave" />
           <Skeleton animation="wave" />
         </>
       )}

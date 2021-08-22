@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Avatar, Switch, Divider } from "@material-ui/core";
+import { Avatar, Switch, Divider, Paper } from "@material-ui/core";
 import useInput from "../../hooks/useInput";
 import PrimartButton from "../buttons/PrimaryButton";
 import SecondaryButton from "../buttons/SecondaryButton";
@@ -11,12 +11,16 @@ import { Alert } from "@material-ui/lab";
 import UploadButton from "../buttons/UploadButton";
 import { countries, genders, prices, zodiacs } from "../../model/data";
 import SelectButton from "../buttons/SelectButton";
+import { useAuth } from "../../context/Auth";
 
 export default function Profile(props) {
   const { firstname, lastname, age, gender, occupation, residence, astrological_sign, country, rent_high, rent_low, avatar_url, email, pets, phone_number, prefered_area, prefered_contract_length, socials, smoking } = props.data;
   const { enqueueSnackbar } = useSnackbar();
+  const { sendEmailVerification, deleteUser } = useAuth();
 
+  const [deleteField, setDeleteField] = useState(false);
   const [edit, setEdit] = useState(true);
+
   const firstname_ = useInput(firstname);
   const lastname_ = useInput(lastname);
   const age_ = useInput(age);
@@ -35,6 +39,7 @@ export default function Profile(props) {
   const facebook_ = useInput(socials.facebook);
   const instagram_ = useInput(socials.instagram);
   const twitter_ = useInput(socials.twitter);
+  const password = useInput("");
 
   const update = {
     gender: gender_.value,
@@ -72,6 +77,13 @@ export default function Profile(props) {
     setSmoking_(!smoking_);
   };
 
+  const deleteAccountToggler = () => {
+    setDeleteField(!deleteField);
+  };
+  function handleDeleteUser() {
+    deleteUser(password.value);
+  }
+
   return (
     <Wrapper>
       <H1>Profile</H1>
@@ -79,24 +91,28 @@ export default function Profile(props) {
         <></>
       ) : (
         <ButtonWrapper>
-          <Alert severity="warning" variant="filled">
+          <Alert severity="warning" variant="standard" action={<SecondaryButton title="Resend Verification Email" onClick={sendEmailVerification} />} style={{ display: "flex", flexWrap: "wrap" }}>
             Email Not Verified!, please check your inbox for Verification
           </Alert>
-          <SecondaryButton title="Resend Verification Email" />
         </ButtonWrapper>
       )}
       <ContentWrapper>
         <SidebarWrapper>
           {avatar_url ? (
-            <Avatar src={avatar_url} alt="Profile Picture" style={{ width: 200, height: 200 }} />
+            <Avatar src={avatar_url} alt="Profile Picture" style={{ width: 200, height: 200 }} component={Paper} elevation={5} />
           ) : (
-            <Avatar alt="Profile Picture" style={{ width: 200, height: 200 }}>
+            <Avatar alt="Profile Picture" style={{ width: 200, height: 200 }} component={Paper} elevation={7}>
               {firstname[0].toUpperCase()}
               {lastname[0].toUpperCase()}
             </Avatar>
           )}
           <UploadButton user_id={props.user.uid} />
-          <P>{email}</P>
+          <TextWrapper>
+            <h2>
+              {firstname_.value} {lastname_.value}
+            </h2>
+            <p>{email}</p>
+          </TextWrapper>
           <div className="buttons">
             <a href="#Primary">
               <SecondaryButton title="Primary Details" width="200px" />
@@ -147,6 +163,20 @@ export default function Profile(props) {
             <PrimartButton width="100px" onClick={saveChages} title="Save" disabled={edit} />
             <PrimartButton width="100px" onClick={Edit} title={edit ? "Edit" : "Cancel"} />
           </ButtonWrapper>
+          <Divider />
+          <PrimartButton color="red" width="150px" onClick={deleteAccountToggler} title="Delete Account" />
+          {deleteField ? (
+            <SectionWrapper>
+              <WarningText>This action will permanently delete user account, and cannot be undone! Confirm your password to continue.</WarningText>
+              <ProfileTextField width="200px" label="Re-enter Password" input={password} type="password" />
+              <ButtonWrapper>
+                <PrimartButton width="100px" color="red" onClick={handleDeleteUser} title="Proceed" />
+                <SecondaryButton width="100px" onClick={deleteAccountToggler} title="Cancel" />
+              </ButtonWrapper>
+            </SectionWrapper>
+          ) : (
+            <></>
+          )}
         </SectionWrapper>
       </ContentWrapper>
     </Wrapper>
@@ -155,6 +185,10 @@ export default function Profile(props) {
 
 const H1 = styled.h1``;
 const P = styled.p``;
+const WarningText = styled.p`
+  color: red;
+  font-weight: bold;
+`;
 
 const Wrapper = styled.div`
   padding: 20px;
@@ -172,29 +206,38 @@ const ContentWrapper = styled.div`
 
 const SidebarWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 10px;
   align-items: center;
-
+  flex-direction: column;
+  gap: 15px;
   & .buttons {
     display: flex;
-    gap: 10px;
+    gap: 5px;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   @media (max-width: 850px) {
     align-items: center;
     & .buttons {
       display: flex;
-      gap: 10px;
+      gap: 5px;
       flex-direction: row;
       flex-wrap: wrap;
     }
   }
-  @media (max-width: 450px) {
+  @media (max-width: 500px) {
     & .buttons {
       display: none;
     }
   }
+`;
+
+const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  line-height: 0.5;
+  align-items: center;
+  justify-content: center;
 `;
 const SectionWrapper = styled.div`
   display: flex;
@@ -207,14 +250,16 @@ const SectionWrapper = styled.div`
 `;
 
 const Row = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
   gap: 10px;
-  flex-wrap: wrap;
-  align-items: center;
   margin: 10px;
   @media (max-width: 850px) {
-    align-items: center;
-    justify-content: center;
+    grid-template-columns: 50% 50%;
+  }
+
+  @media (max-width: 550px) {
+    grid-template-columns: auto;
   }
 `;
 

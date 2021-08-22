@@ -24,6 +24,12 @@ export default function getFirebase() {
 
 export const firebaseInstance = getFirebase();
 
+export const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+
+export const getUserCredential = (email, password) => {
+  return firebase.auth.EmailAuthProvider.credential(email, password);
+};
+
 export const updateUserProfileInfo = async (id, new_data) => {
   try {
     const db = firebaseInstance.firestore();
@@ -36,20 +42,17 @@ export const updateUserProfileInfo = async (id, new_data) => {
 const user_default_info = {
   languages: "",
   prefered_area: "",
-  prefered_move_in_date: "",
   prefered_contract_lenght: "",
-  rent_low: "",
-  rent_high: "",
+  budget_low: "",
+  budget_high: "",
   smoking: false,
   pets: false,
-  hobbies: "",
-  sexual_orientation: "",
+  about: "",
+  religion: "",
   astrological_sign: "",
   socials: {
     facebook: "",
-    snapchat: "",
     instagram: "",
-    whatsapp: "",
     twitter: "",
   },
 };

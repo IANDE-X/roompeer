@@ -13,7 +13,7 @@ export default function PeersSection() {
     if (firebaseInstance) {
       const db = await firebaseInstance.firestore();
       db.collection("users")
-        .orderBy("signup_date")
+        .orderBy("created_at", "desc")
         .limit(10)
         .get()
         .then((querySnapshot) => {
@@ -37,13 +37,15 @@ export default function PeersSection() {
       {peers ? (
         <ContentWrapper ref={ref}>
           {peers.map((peer, idx) => (
-            <PeerCard key={idx} firstname={peer.firstname} lastname={peer.lastname} country={peer.country} occupation={peer.occupation} residence={peer.residence} avatar_url={null} />
+            <PeerCard key={idx} firstname={peer.firstname} lastname={peer.lastname} country={peer.country} occupation={peer.occupation} residence={peer.residence} avatar_url={peer.avatar_url} />
           ))}
         </ContentWrapper>
       ) : (
         <>
           <Skeleton height={100} width={100} variant="circle" />
           <Skeleton height={100} />
+          <Skeleton animation="wave" height={70} />
+          <Skeleton animation="wave" />
           <Skeleton animation="wave" />
         </>
       )}

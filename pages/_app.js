@@ -14,7 +14,7 @@ import { AuthProvider } from "../context/Auth";
 NProgress.configure({
   minimum: 0.9,
   easing: "ease",
-  speed: 500,
+  speed: 1000,
   showSpinner: true,
 });
 

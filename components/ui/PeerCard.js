@@ -1,17 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import { Avatar } from "@material-ui/core";
+import { Avatar, Paper } from "@material-ui/core";
 import { theme } from "../../model/data";
 
 export default function PeerCard(props) {
-  console.log(props.avatar_url);
   return (
     <Wrapper>
       <ImageWrapper>
         {props.avatar_url ? (
-          <Avatar src={avatar_url} alt="Profile Picture" style={{ width: 150, height: 150 }} />
+          <Avatar src={props.avatar_url} alt="Profile Picture" style={{ width: 150, height: 150 }} component={Paper} elevation={7} />
         ) : (
-          <Avatar alt="Profile Picture" style={{ width: 150, height: 150 }}>
+          <Avatar alt="Profile Picture" style={{ width: 150, height: 150 }} component={Paper} elevation={5}>
             {props.firstname[0].toUpperCase()}
             {props.lastname[0].toUpperCase()}
           </Avatar>

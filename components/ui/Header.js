@@ -41,7 +41,6 @@ export default function Header() {
           <Link href="/account">
             <MenuItem onClick={menu.handleMenuClose}>My Profile</MenuItem>
           </Link>
-
           <MenuItem onClick={SignOut}>Sign Out</MenuItem>
         </Menu>
         <LocaleButton />

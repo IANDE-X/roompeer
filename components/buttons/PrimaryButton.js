@@ -3,14 +3,14 @@ import { theme } from "../../model/data";
 
 export default function PrimaryButton(props) {
   return (
-    <Wrapper onClick={props.onClick} type={props.type} disabled={props.disabled} width={props.width}>
+    <Wrapper onClick={props.onClick} type={props.type} disabled={props.disabled} width={props.width} color={props.color}>
       {props.title}
     </Wrapper>
   );
 }
 
 const Wrapper = styled.button`
-  background-color: ${theme.light.primaryColor};
+  background-color: ${(props) => (props.color ? props.color : theme.light.primaryColor)};
   border-radius: 8px;
   border-style: none;
   box-sizing: border-box;
@@ -40,6 +40,6 @@ const Wrapper = styled.button`
   }
   :hover,
   :focus {
-    background-color: ${theme.light.secondaryColor};
+    opacity: 70%;
   }
 `;

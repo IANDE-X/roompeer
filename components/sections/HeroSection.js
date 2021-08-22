@@ -13,10 +13,6 @@ export default function HeroSection() {
 
 const Wrapper = styled.div`
   padding: 25px;
-  min-height: 350px;
-  background-image: linear-gradient(
-    68.2deg,
-    rgba(255, 202, 88, 1) 0%,
-    rgba(139, 73, 255, 1) 100.2%
-  );
+  min-height: 400px;
+  background-image: linear-gradient(68.2deg, rgba(255, 202, 88, 1) 0%, rgba(139, 73, 255, 1) 100.2%);
 `;
