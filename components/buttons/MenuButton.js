@@ -5,7 +5,7 @@ import { theme } from "../../model/data";
 
 export default function MenuButton(props) {
   return (
-    <Link href={props.link || "/"}>
+    <Link href={props.href || "/"}>
       <MenuItem title={props.title}>{props.title}</MenuItem>
     </Link>
   );

@@ -2,29 +2,33 @@ import React from "react";
 import styled from "styled-components";
 import { Avatar, Paper } from "@material-ui/core";
 import { theme } from "../../model/data";
+import Link from "next/link";
 
 export default function PeerCard(props) {
+  const { avatar_url, firstname, lastname, country, occupation, residence, user_id } = props.data;
   return (
-    <Wrapper>
-      <ImageWrapper>
-        {props.avatar_url ? (
-          <Avatar src={props.avatar_url} alt="Profile Picture" style={{ width: 150, height: 150 }} component={Paper} elevation={7} />
-        ) : (
-          <Avatar alt="Profile Picture" style={{ width: 150, height: 150 }} component={Paper} elevation={5}>
-            {props.firstname[0].toUpperCase()}
-            {props.lastname[0].toUpperCase()}
-          </Avatar>
-        )}
-      </ImageWrapper>
-      <Title>
-        {props.firstname} {props.lastname}
-      </Title>
-      <TextWrapper>
-        <SubTitle>{props.country}</SubTitle>
-        <Text>{props.occupation}</Text>
-        <Text>{props.residence}</Text>
-      </TextWrapper>
-    </Wrapper>
+    <Link href={`/peers/${user_id}`}>
+      <Wrapper>
+        <ImageWrapper>
+          {avatar_url ? (
+            <Avatar src={avatar_url} alt="Profile Picture" style={{ width: 150, height: 150 }} component={Paper} elevation={3} />
+          ) : (
+            <Avatar alt="Profile Picture" style={{ width: 150, height: 150 }} component={Paper} elevation={3}>
+              {firstname[0].toUpperCase()}
+              {lastname[0].toUpperCase()}
+            </Avatar>
+          )}
+        </ImageWrapper>
+        <Title>
+          {firstname} {lastname}
+        </Title>
+        <TextWrapper>
+          <SubTitle>{country}</SubTitle>
+          <Text>{occupation}</Text>
+          <Text>{residence}</Text>
+        </TextWrapper>
+      </Wrapper>
+    </Link>
   );
 }
 
@@ -34,6 +38,7 @@ const Wrapper = styled.div`
   min-height: 320px;
   border-radius: 20px;
   background-color: white;
+  cursor: pointer;
   border: thin solid ${theme.light.lightPurple};
   transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
   :hover {

@@ -10,66 +10,17 @@ var firebaseConfig = {
   measurementId: "G-N68JC8KG78",
 };
 
-let instance;
-
-export default function getFirebase() {
-  if (typeof window !== "undefined") {
-    if (instance) return instance;
-    instance = firebase.initializeApp(firebaseConfig);
-    return instance;
-  }
-
-  return null;
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
 }
 
-export const firebaseInstance = getFirebase();
-
-export const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+const firestore = firebase.firestore();
+const auth = firebase.auth();
+const storage = firebase.storage();
+const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 
 export const getUserCredential = (email, password) => {
   return firebase.auth.EmailAuthProvider.credential(email, password);
 };
 
-export const updateUserProfileInfo = async (id, new_data) => {
-  try {
-    const db = firebaseInstance.firestore();
-    const userRef = db.collection("users").doc(id).set(new_data, { merge: true }).then();
-  } catch (error) {
-    console.log("Error");
-  }
-};
-
-const user_default_info = {
-  languages: "",
-  prefered_area: "",
-  prefered_contract_lenght: "",
-  budget_low: "",
-  budget_high: "",
-  smoking: false,
-  pets: false,
-  about: "",
-  religion: "",
-  astrological_sign: "",
-  socials: {
-    facebook: "",
-    instagram: "",
-    twitter: "",
-  },
-};
-
-export const addUserProfileInfo = async (user_id, user_info) => {
-  if (!firebaseInstance) return;
-  try {
-    const database = firebaseInstance.firestore();
-    const userRef = database.collection("users").doc(user_id);
-    await userRef.set(
-      {
-        ...user_info,
-        ...user_default_info,
-      },
-      { merge: true }
-    );
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+export { firestore, auth, timestamp, storage };

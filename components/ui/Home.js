@@ -5,6 +5,8 @@ import React from "react";
 import HeroSection from "../sections/HeroSection";
 import PeersSection from "../sections/PeersSection";
 import FlatsSection from "../sections/FlatsSection";
+import WhyUsSection from "../sections/WhyUsSection";
+import PartnerSection from "../sections/PartnersSection";
 
 export default function Home() {
   let { t } = useTranslation();
@@ -19,6 +21,8 @@ export default function Home() {
         <HeroSection />
         <FlatsSection />
         <PeersSection />
+        <WhyUsSection />
+        <PartnerSection />
       </SectionWrapper>
     </Wrapper>
   );

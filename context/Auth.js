@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, createContext, useState } from "react";
-import { firebaseInstance, getUserCredential } from "../model/firebase-config";
+import { auth, getUserCredential, firestore } from "../model/firebase-config";
 import "firebase/auth";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
@@ -11,20 +11,14 @@ export const AuthProvider = ({ children }) => {
 
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
-  let userIns, db, storage, storageRef;
-  if (firebaseInstance) {
-    userIns = firebaseInstance.auth().currentUser;
-    db = firebaseInstance.firestore();
-    storage = firebaseInstance.storage();
-    storageRef = storage.ref("avatars");
-  }
 
   const deleteUser = async (password) => {
     if (password == null || password == "") return;
     await user
       .reauthenticateWithCredential(getUserCredential(user.email, password))
       .then(() => {
-        db.collection("users")
+        firestore
+          .collection("users")
           .doc(user.uid)
           .delete()
           .then(() => {
@@ -48,14 +42,9 @@ export const AuthProvider = ({ children }) => {
 
   const sendEmailVerification = async () => {
     try {
-      if (firebaseInstance) {
-        await firebaseInstance
-          .auth()
-          .currentUser.sendEmailVerification()
-          .then(() => {
-            enqueueSnackbar("Verification Email was sent Successfully", { variant: "success" });
-          });
-      }
+      await auth.currentUser.sendEmailVerification().then(() => {
+        enqueueSnackbar("Verification Email was sent Successfully", { variant: "success" });
+      });
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
     }
@@ -63,25 +52,21 @@ export const AuthProvider = ({ children }) => {
 
   const signOut = async () => {
     try {
-      if (firebaseInstance) {
-        await firebaseInstance.auth().signOut();
-      }
+      await auth.signOut();
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
     }
   };
 
   useEffect(() => {
-    if (firebaseInstance) {
-      return firebaseInstance.auth().onAuthStateChanged((user) => {
-        if (!user) {
-          setUser(null);
-          router.push("/login");
-          return;
-        }
-        setUser(user);
-      });
-    }
+    return auth.onAuthStateChanged((user) => {
+      if (!user) {
+        setUser(null);
+        router.push("/login");
+        return;
+      }
+      setUser(user);
+    });
   }, []);
   return <AuthContext.Provider value={{ user, signOut, sendEmailVerification, deleteUser }}>{children}</AuthContext.Provider>;
 };

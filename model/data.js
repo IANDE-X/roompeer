@@ -274,3 +274,28 @@ export const genders = ["Male", "Female", "Homosexual", "Bisexual", "Transgender
 export const prices = [50000, 60000, 70000, 80000, 90000, 100000, 110000, 120000, 130000, 140000, 150000, 160000, 170000, 180000, 190000, 200000, 210000, 220000, 230000, 240000, 250000, 260000, 270000, 280000];
 
 export const homeTypes = ["Other", "Garage", "Residential Building"];
+
+export const religions = [
+  "Prefer not to say",
+  "Christianity",
+  "Islam",
+  "Nonreligious",
+  "Hinduism",
+  "Buddhism",
+  "Chinese traditional religion",
+  "Ethnic religions",
+  "African traditional religion",
+  "Sikhis",
+  "Spiritis",
+  "Judaism",
+  "Baháʼí",
+  "Jainism",
+  "Shinto",
+  "Cao Dai",
+  "Zoroastrianism",
+  "Tenrikyo",
+  "Animism",
+  "Neo-Paganism",
+  "Unitarian Universalism",
+  "Rastafari",
+];

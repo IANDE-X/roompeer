@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
-import { firebaseInstance, updateUserProfileInfo } from "../../model/firebase-config";
+import { storage } from "../../model/firebase-config";
+import { updateUserProfileInfo } from "../../model/firebase-user";
 import useTranslation from "next-translate/useTranslation";
 import { useSnackbar } from "notistack";
 import PrimaryButton from "./PrimaryButton";
@@ -15,14 +16,10 @@ const UploadButton = (props) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const handleUpload = async (event) => {
-    if (!firebaseInstance) return;
-
     const uploadedImage = event?.target.files[0];
-    console.log(uploadedImage);
     if (!uploadedImage) return;
 
     enqueueSnackbar("Uploading Profile Photo...", { variant: "default" });
-    const storage = firebaseInstance.storage();
     const storageRef = storage.ref("avatars");
 
     try {

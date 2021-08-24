@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Profile from "../components/ui/Profile";
 import LoadingPage from "../components/ui/LoadingPage";
-import { firebaseInstance } from "../model/firebase-config";
+import { auth, firestore } from "../model/firebase-config";
 import { useSnackbar } from "notistack";
 
 export default function Account() {
@@ -11,10 +11,10 @@ export default function Account() {
   const { enqueueSnackBar } = useSnackbar();
 
   async function getData() {
-    firebaseInstance.auth().onAuthStateChanged(async (user) => {
+    auth.onAuthStateChanged(async (user) => {
       if (user) {
-        const db = await firebaseInstance.firestore();
-        db.collection("users")
+        firestore
+          .collection("users")
           .doc(user.uid)
           .get()
           .then((doc) => {

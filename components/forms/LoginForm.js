@@ -4,7 +4,7 @@ import { Typography, CircularProgress, TextField } from "@material-ui/core";
 import useInput from "../../hooks/useInput";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
-import { firebaseInstance } from "../../model/firebase-config";
+import { auth } from "../../model/firebase-config";
 import { useSnackbar } from "notistack";
 import PrimaryButton from "../buttons/PrimaryButton";
 import SecondaryButton from "../buttons/SecondaryButton";
@@ -15,14 +15,13 @@ export default function LoginForm() {
   let { t } = useTranslation();
   const router = useRouter();
   const [signingIn, setSigningIn] = useState(false);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   const forgotPassword = () => {
     if (email.value === "") {
       enqueueSnackbar("Please fill in email !", { variant: "error" });
     } else {
-      firebaseInstance
-        .auth()
+      auth
         .sendPasswordResetEmail(email.value)
         .then(() => {
           enqueueSnackbar("Password Reset Email was sent", {
@@ -39,16 +38,11 @@ export default function LoginForm() {
     event.preventDefault();
     setSigningIn(true);
     try {
-      if (firebaseInstance) {
-        await firebaseInstance
-          .auth()
-          .signInWithEmailAndPassword(email.value, password.value)
-          .then((authUser) => {
-            if (authUser) {
-              router.push("/");
-            }
-          });
-      }
+      auth.signInWithEmailAndPassword(email.value, password.value).then((authUser) => {
+        if (authUser) {
+          router.push("/");
+        }
+      });
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
       setSigningIn(false);
@@ -64,28 +58,11 @@ export default function LoginForm() {
           </Typography>
         </TextWrapper>
         <FormWrapper>
-          <TextField
-            label={t("form:email")}
-            type="email"
-            variant="outlined"
-            {...email}
-          />
-          <TextField
-            label={t("form:password")}
-            variant="outlined"
-            type="password"
-            {...password}
-          />
+          <TextField label={t("form:email")} type="email" variant="outlined" {...email} />
+          <TextField label={t("form:password")} variant="outlined" type="password" {...password} />
           <div className="btns">
-            <SecondaryButton
-              onClick={forgotPassword}
-              title={t("form:forgotpassword")}
-            />
-            {signingIn ? (
-              <CircularProgress color="primary" />
-            ) : (
-              <PrimaryButton type="submit" title="Sign in" href />
-            )}
+            <SecondaryButton onClick={forgotPassword} title={t("form:forgotpassword")} />
+            {signingIn ? <CircularProgress color="primary" /> : <PrimaryButton type="submit" title="Sign in" href />}
           </div>
         </FormWrapper>
       </form>

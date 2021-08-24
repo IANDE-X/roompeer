@@ -4,11 +4,13 @@ import TextField from "@material-ui/core/TextField";
 import useInput from "../../hooks/useInput";
 import useTranslation from "next-translate/useTranslation";
 import { countries, genders } from "../../model/data";
-import { firebaseInstance, addUserProfileInfo, timestamp } from "../../model/firebase-config";
-import { Typography, Button, CircularProgress } from "@material-ui/core";
+import { auth } from "../../model/firebase-config";
+import { addUserProfileInfo } from "../../model/firebase-user";
+import { Typography, CircularProgress } from "@material-ui/core";
 import { useRouter } from "next/router";
 import { useAuth } from "../../context/Auth";
 import SelectButton from "../buttons/SelectButton";
+import PrimaryButton from "../buttons/PrimaryButton";
 
 export default function SingUpForm() {
   let { t } = useTranslation();
@@ -40,26 +42,20 @@ export default function SingUpForm() {
     event.preventDefault();
     setSigningUp(true);
     try {
-      if (firebaseInstance) {
-        await firebaseInstance
-          .auth()
-          .createUserWithEmailAndPassword(email.value, password.value)
-          .then((userCredentials) => {
-            const meta = {
-              user_id: userCredentials.user.uid,
-              created_at: timestamp(),
-              phone_number: userCredentials.user.phoneNumber,
-              avatar_url: userCredentials.user.photoURL,
-            };
-            addUserProfileInfo(userCredentials.user.uid, {
-              ...user_info,
-              ...meta,
-            });
-            setSigningUp(false);
-            sendEmailVerification();
-            router.push("/");
-          });
-      }
+      auth.createUserWithEmailAndPassword(email.value, password.value).then((userCredentials) => {
+        const meta = {
+          user_id: userCredentials.user.uid,
+          phone_number: userCredentials.user.phoneNumber,
+          avatar_url: userCredentials.user.photoURL,
+        };
+        addUserProfileInfo(userCredentials.user.uid, {
+          ...user_info,
+          ...meta,
+        });
+        sendEmailVerification();
+        setSigningUp(false);
+        router.push("/");
+      });
     } catch (error) {
       setSigningUp(false);
     }
@@ -87,15 +83,7 @@ export default function SingUpForm() {
           <TextField label={t("form:residence")} placeholder={t("form:citycountry")} variant="outlined" {...residence} />
           <TextField label={t("form:email")} variant="outlined" type="email" {...email} />
           <TextField label={t("form:password")} variant="outlined" type="password" {...password} />
-          <div>
-            {signingup ? (
-              <CircularProgress color="primary" />
-            ) : (
-              <Button variant="contained" color="primary" type="submit">
-                {t("form:signup")}
-              </Button>
-            )}
-          </div>
+          <div>{signingup ? <CircularProgress color="primary" /> : <PrimaryButton type="submit" title={t("form:signup")} />}</div>
         </FormWrapper>
       </form>
     </Wrapper>

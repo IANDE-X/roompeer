@@ -27,9 +27,9 @@ export default function Header() {
         </LogoWrapper>
       </Link>
       <ContentWrapper>
-        <MenuButton title="Peers" />
-        <MenuButton title="Flats" />
-        <MenuButton title="Info" />
+        <MenuButton title="Peers" href="/peers/search?country=&age=&gender=&religion=&budget_low=&budget_high=" />
+        <MenuButton title="Flats" href="/flats/search?city=for=type=rooms=price_low=price_high=" />
+        <MenuButton title="Info" href="/info" />
         {user ? (
           <IconButton onClick={menu.handleMenuOpen} color="inherit">
             <AccountCircle />

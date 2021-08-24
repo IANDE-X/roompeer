@@ -5,16 +5,16 @@ import useInput from "../../hooks/useInput";
 import PrimartButton from "../buttons/PrimaryButton";
 import SecondaryButton from "../buttons/SecondaryButton";
 import ProfileTextField from "./ProfileTexField";
-import { updateUserProfileInfo } from "../../model/firebase-config";
+import { updateUserProfileInfo } from "../../model/firebase-user";
 import { useSnackbar } from "notistack";
 import { Alert } from "@material-ui/lab";
 import UploadButton from "../buttons/UploadButton";
-import { countries, genders, prices, zodiacs } from "../../model/data";
+import { countries, genders, prices, zodiacs, religions } from "../../model/data";
 import SelectButton from "../buttons/SelectButton";
 import { useAuth } from "../../context/Auth";
 
 export default function Profile(props) {
-  const { firstname, lastname, age, gender, occupation, residence, astrological_sign, country, rent_high, rent_low, avatar_url, email, pets, phone_number, prefered_area, prefered_contract_length, socials, smoking } = props.data;
+  const { firstname, lastname, age, gender, occupation, residence, astrological_sign, country, budget_high, budget_low, avatar_url, email, pets, phone_number, prefered_area, socials, smoking, religion, about } = props.data;
   const { enqueueSnackbar } = useSnackbar();
   const { sendEmailVerification, deleteUser } = useAuth();
 
@@ -24,16 +24,17 @@ export default function Profile(props) {
   const firstname_ = useInput(firstname);
   const lastname_ = useInput(lastname);
   const age_ = useInput(age);
+  const religion_ = useInput(religion);
+  const about_ = useInput(about);
   const gender_ = useInput(gender);
   const occupation_ = useInput(occupation);
   const residence_ = useInput(residence);
   const astrological_sign_ = useInput(astrological_sign);
   const country_ = useInput(country);
-  const rent_high_ = useInput(rent_high);
-  const rent_low_ = useInput(rent_low);
+  const budget_high_ = useInput(budget_high);
+  const budget_low_ = useInput(budget_low);
   const phone_number_ = useInput(phone_number);
   const prefered_area_ = useInput(prefered_area);
-  const prefered_contract_lenght_ = useInput(prefered_contract_length);
   const [pets_, setPets_] = useState(pets);
   const [smoking_, setSmoking_] = useState(smoking);
   const facebook_ = useInput(socials.facebook);
@@ -46,16 +47,18 @@ export default function Profile(props) {
     firstname: firstname_.value,
     lastname: lastname_.value,
     age: age_.value,
+    religion: religion_.value,
+    about: about_.value,
     occupation: occupation_.value,
     residence: residence_.value,
     country: country_.value,
     prefered_area: prefered_area_.value,
-    prefered_contract_lenght: prefered_contract_lenght_.value,
-    rent_low: rent_low_.value,
-    rent_high: rent_high_.value,
+    budget_low: budget_low_.value,
+    budget_high: budget_high_.value,
     smoking: smoking_,
     pets: pets_,
     astrological_sign: astrological_sign_.value,
+    phone_number: phone_number_.value,
     socials: {
       facebook: facebook_.value,
       instagram: instagram_.value,
@@ -63,9 +66,12 @@ export default function Profile(props) {
     },
   };
   const saveChages = () => {
-    updateUserProfileInfo(props.user.uid, update);
-    enqueueSnackbar("Profile Updated", { variant: "success" });
-    setEdit(!edit);
+    if (updateUserProfileInfo(props.user.uid, update)) {
+      enqueueSnackbar("Profile Updated", { variant: "success" });
+      setEdit(!edit);
+    } else {
+      enqueueSnackbar("Profile Not Updated", { variant: "error" });
+    }
   };
   const Edit = () => {
     setEdit(!edit);
@@ -139,12 +145,13 @@ export default function Profile(props) {
           <Divider />
           <P>Secondary Details</P>
           <Row id="Seconday">
-            <ProfileTextField label="Phone Number" input={phone_number_} disabled={edit} />
+            <ProfileTextField label="Phone Number" input={phone_number_} disabled={edit} type="tel" />
             <ProfileTextField label="Preferd Area" input={prefered_area_} disabled={edit} />
-            <SelectButton label="Contract" input={prefered_contract_lenght_} disabled={edit} array={["6-Month", "12-Month"]} />
-            <SelectButton label="Budget Low (HUF)" input={rent_low_} disabled={edit} array={prices} />
-            <SelectButton label="Budget High (HUF)" input={rent_high_} disabled={edit} array={prices} />
+            <SelectButton label="Budget Low (HUF)" input={budget_low_} disabled={edit} array={prices} />
+            <SelectButton label="Budget High (HUF)" input={budget_high_} disabled={edit} array={prices} />
             <SelectButton label="Zodiac Sign" input={astrological_sign_} disabled={edit} array={zodiacs} />
+            <SelectButton label="Religion" input={religion_} disabled={edit} array={religions} />
+            <ProfileTextField label="About me" input={about_} disabled={edit} />
             <ToggleWrapper>
               <P>Pets: </P>
               <Switch disabled={edit} checked={pets_} onChange={petsToggler} />
