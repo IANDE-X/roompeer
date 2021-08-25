@@ -3,8 +3,8 @@ import { firestore, timestamp } from "./firebase-config";
 const user_default_info = {
   created_at: timestamp(),
   prefered_area: "",
-  budget_low: "",
-  budget_high: "",
+  budget_low: 0,
+  budget_high: 0,
   smoking: false,
   pets: false,
   about: "",

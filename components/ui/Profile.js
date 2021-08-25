@@ -151,7 +151,6 @@ export default function Profile(props) {
             <SelectButton label="Budget High (HUF)" input={budget_high_} disabled={edit} array={prices} />
             <SelectButton label="Zodiac Sign" input={astrological_sign_} disabled={edit} array={zodiacs} />
             <SelectButton label="Religion" input={religion_} disabled={edit} array={religions} />
-            <ProfileTextField label="About me" input={about_} disabled={edit} />
             <ToggleWrapper>
               <P>Pets: </P>
               <Switch disabled={edit} checked={pets_} onChange={petsToggler} />
@@ -159,6 +158,7 @@ export default function Profile(props) {
               <Switch disabled={edit} checked={smoking_} onChange={smokingToggler} />
             </ToggleWrapper>
           </Row>
+          <ProfileTextField label="About me" input={about_} disabled={edit} multiline={true} fullwidth={true} />
           <Divider />
           <P>Socials</P>
           <Row id="Socials">
