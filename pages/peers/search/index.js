@@ -3,17 +3,19 @@ import styled from "styled-components";
 import { firestore } from "../../../model/firebase-config";
 import PeerCard from "../../../components/ui/PeerCard";
 import Empty from "../../../components/ui/Empty";
+import PeersFilter from "../../../components/ui/PeersFilter";
 
 export default function SearchPeers({ data }) {
   console.log();
   return (
     <Wrapper>
+      <PeersFilter class="row" />
       {data.length === 0 ? (
         <Empty />
       ) : (
         <ContentWrapper>
           {data.map((peer, idx) => (
-            <PeerCard data={peer} />
+            <PeerCard key={idx} data={peer} />
           ))}
         </ContentWrapper>
       )}
@@ -22,6 +24,7 @@ export default function SearchPeers({ data }) {
 }
 
 const Wrapper = styled.div`
+  padding: 25px;
   min-height: 100vh;
 `;
 
@@ -29,12 +32,12 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   padding: 20px;
-  gap: 15px;
+  gap: 10px;
 `;
 
 export async function getServerSideProps(context) {
   const queries = context.query;
-  const { country, age, gender, religion, budget_low, budget_high } = queries;
+  const { country, age, gender, religion, budget_high } = queries;
 
   const getPeers = async () => {
     let query = firestore.collection("users");
@@ -42,7 +45,6 @@ export async function getServerSideProps(context) {
     if (gender !== "") query = query.where("gender", "==", gender);
     if (age !== "") query = query.where("age", "==", age);
     if (religion !== "") query = query.where("religion", "==", religion);
-    if (budget_low !== "") query = query.where("budget_low", ">=", Number(budget_low));
     if (budget_high !== "") query = query.where("budget_high", "<=", Number(budget_high));
     return query
       .get()
@@ -50,7 +52,7 @@ export async function getServerSideProps(context) {
         var data = [];
         querySnapshot.forEach((doc) => {
           let user_data = doc.data();
-          delete user_data.created_at;
+          user_data.created_at = `${user_data.created_at.toDate()}`;
           data.push(user_data);
         });
         return data;

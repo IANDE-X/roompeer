@@ -3,7 +3,7 @@ import { useState } from "react";
 const useMenu = (
   position = {
     vertical: "top",
-    horizontal: "right",
+    horizontal: "bottom",
   }
 ) => {
   const [anchorEl, setAnchorEl] = useState(null);

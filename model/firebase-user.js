@@ -1,4 +1,4 @@
-import { firestore, timestamp } from "./firebase-config";
+import { firestore, timestamp, storage } from "./firebase-config";
 
 const user_default_info = {
   created_at: timestamp(),
@@ -40,4 +40,16 @@ export const addUserProfileInfo = async (user_id, user_info) => {
   } catch (error) {
     console.log(error.message);
   }
+};
+
+export const deleteUserData = (user_id) => {
+  return firestore.collection("users").doc(user_id).delete();
+};
+
+export const deleteUserAvatar = async (user_id) => {
+  var storageRef = storage.ref("avatars");
+  return await storageRef
+    .child(user_id)
+    .delete()
+    .catch((error) => {});
 };

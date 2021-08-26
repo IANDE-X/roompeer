@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import Link from "next/dist/client/link";
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
@@ -8,6 +7,8 @@ import { AccountCircle } from "@material-ui/icons";
 import useMenu from "../../hooks/useMenu";
 import { useAuth } from "../../context/Auth";
 import MenuButton from "../buttons/MenuButton";
+import PrimaryButton from "../buttons/PrimaryButton";
+import SecondaryButton from "../buttons/SecondaryButton";
 
 export default function Header() {
   const menu = useMenu();
@@ -35,7 +36,14 @@ export default function Header() {
             <AccountCircle />
           </IconButton>
         ) : (
-          <></>
+          <ButtonWrapper>
+            <Link href="/signup">
+              <SecondaryButton title="Create Account" />
+            </Link>
+            <Link href="/login">
+              <PrimaryButton title="Sign In" />
+            </Link>
+          </ButtonWrapper>
         )}
         <Menu keepMounted {...menu.menuOption}>
           <Link href="/account">
@@ -63,10 +71,15 @@ const LogoWrapper = styled.div`
   cursor: pointer;
 `;
 
+const ButtonWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
 const ContentWrapper = styled.div`
   display: flex;
   align-items: center;
-
+  gap: 10px;
   @media (max-width: 800px) {
     display: none;
   }

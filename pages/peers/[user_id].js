@@ -15,15 +15,15 @@ export default function PeerDetail({ data }) {
           <H1>
             {firstname} {lastname}
           </H1>
+          <p>
+            {email}, {phone_number}
+          </p>
           <H3>
             {occupation} from {country}
           </H3>
           <H3>{residence}</H3>
           <H3>{gender}</H3>
           <Socials data={socials} />
-          <p>
-            {email}, {phone_number}
-          </p>
         </TextWrapper>
       </TopWrapper>
       <BottomWrapper>
@@ -64,7 +64,9 @@ const BottomWrapper = styled.div`
   background-color: white;
 `;
 
-const TextWrapper = styled.div``;
+const TextWrapper = styled.div`
+  line-height: 0.7;
+`;
 
 const H1 = styled.h1``;
 const H3 = styled.h3`
@@ -81,7 +83,6 @@ export async function getServerSideProps(context) {
       .then((doc) => {
         if (doc.exists) {
           var data = doc.data();
-          delete data.created_at;
           return data;
         }
       })
@@ -90,6 +91,7 @@ export async function getServerSideProps(context) {
       });
   };
   let data = await getUserData();
+  data.created_at = `${data.created_at.toDate()}`;
   return {
     props: { data },
   };

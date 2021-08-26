@@ -62,7 +62,7 @@ export default function LoginForm() {
           <TextField label={t("form:password")} variant="outlined" type="password" {...password} />
           <div className="btns">
             <SecondaryButton onClick={forgotPassword} title={t("form:forgotpassword")} />
-            {signingIn ? <CircularProgress color="primary" /> : <PrimaryButton type="submit" title="Sign in" href />}
+            {signingIn ? <CircularProgress color="primary" /> : <PrimaryButton type="submit" title="Sign in" />}
           </div>
         </FormWrapper>
       </form>

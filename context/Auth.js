@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, createContext, useState } from "react";
-import { auth, getUserCredential, firestore } from "../model/firebase-config";
+import { auth, getUserCredential, firestore, storage } from "../model/firebase-config";
+import { deleteUserAvatar, deleteUserData } from "../model/firebase-user";
 import "firebase/auth";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
@@ -17,23 +18,17 @@ export const AuthProvider = ({ children }) => {
     await user
       .reauthenticateWithCredential(getUserCredential(user.email, password))
       .then(() => {
-        firestore
-          .collection("users")
-          .doc(user.uid)
-          .delete()
-          .then(() => {
-            user
-              .delete()
-              .then(() => {
-                enqueueSnackbar("Your account was successfully deleted", { variant: "success" });
-              })
-              .catch((error) => {
-                enqueueSnackbar(error.message, { variant: "error" });
-              });
-          })
-          .catch((error) => {
-            console.error("Error removing document: ", error);
-          });
+        deleteUserData(user.uid).then(() => {
+          deleteUserAvatar(user.uid);
+          user
+            .delete()
+            .then(() => {
+              enqueueSnackbar("Your account was successfully deleted", { variant: "success" });
+            })
+            .catch((error) => {
+              enqueueSnackbar(error.message, { variant: "error" });
+            });
+        });
       })
       .catch((error) => {
         enqueueSnackbar(error.message, { variant: "error" });
