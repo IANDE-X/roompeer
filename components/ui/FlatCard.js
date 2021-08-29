@@ -2,34 +2,40 @@ import React from "react";
 import styled from "styled-components";
 import { theme } from "../../model/data";
 import Image from "next/image";
+import Link from "next/dist/client/link";
 
 export default function FlatCard(props) {
+  const { title, price, address, size, pictures, referenceNumber } = props.data;
   return (
-    <Wrapper>
-      <ImageWrapper>
-        <Image src="/flat.jpg" width={300} height={200} />
-      </ImageWrapper>
-      <Title>{props.title}</Title>
-      <TextWrapper>
-        <SubTitle>{props.price}</SubTitle>
-        <Text>{props.address}</Text>
-        <Text>{props.size}</Text>
-      </TextWrapper>
-    </Wrapper>
+    <Link href={`/flats/${referenceNumber}`}>
+      <Wrapper>
+        <ImageWrapper>
+          <Image src={pictures[0].url} width={300} height={200} />
+        </ImageWrapper>
+        <Title>{title}</Title>
+        <TextWrapper>
+          <SubTitle>{price} HUF /Month</SubTitle>
+          <Text>{address}</Text>
+          <Text>{size} sq.m</Text>
+        </TextWrapper>
+      </Wrapper>
+    </Link>
   );
 }
 
 const Wrapper = styled.div`
   padding: 20px;
-  min-width: 300px;
+  max-width: 300px;
   min-height: 350px;
   border-radius: 5px;
   background-color: white;
+  cursor: pointer;
   border: thin solid white;
-  transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: 0.3s ease-in-out;
   :hover {
     border: thin solid ${theme.light.primaryColor};
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    transform: translateY(-5px);
   }
 `;
 
@@ -45,7 +51,7 @@ const ImageWrapper = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 25px;
+  font-size: 20px;
 `;
 const SubTitle = styled.h3`
   color: gray;

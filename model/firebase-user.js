@@ -1,5 +1,20 @@
 import { firestore, timestamp, storage } from "./firebase-config";
 
+export const getUserData = async (user_id) => {
+  let query = firestore.collection("users").doc(user_id);
+  return query
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        var data = doc.data();
+        return data;
+      }
+    })
+    .catch((error) => {
+      console.log("Error getting documents: ", error);
+    });
+};
+
 const user_default_info = {
   created_at: timestamp(),
   prefered_area: "",
@@ -51,5 +66,5 @@ export const deleteUserAvatar = async (user_id) => {
   return await storageRef
     .child(user_id)
     .delete()
-    .catch((error) => {});
+    .catch((error) => {}); // User Avatar does not exist.
 };

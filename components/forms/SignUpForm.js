@@ -12,7 +12,7 @@ import { useAuth } from "../../context/Auth";
 import SelectButton from "../buttons/SelectButton";
 import PrimaryButton from "../buttons/PrimaryButton";
 
-export default function SingUpForm() {
+export default function SignUpForm() {
   let { t } = useTranslation();
   const email = useInput("", true);
   const password = useInput("", true);
@@ -92,7 +92,6 @@ export default function SingUpForm() {
 
 const Wrapper = styled.div`
   display: flex;
-  min-height: 100vh;
   justify-content: center;
   align-items: center;
   padding: 20px;
@@ -101,12 +100,10 @@ const Wrapper = styled.div`
 const Row = styled.div`
   display: grid;
   grid-template-columns: 50% 50%;
-  gap: 10px;
+  gap: 5px;
 `;
 
 const FormWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
+  display: grid;
   gap: 20px;
 `;

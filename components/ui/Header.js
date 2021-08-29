@@ -24,12 +24,12 @@ export default function Header() {
       <Link href="/">
         <LogoWrapper>
           <Image src="/logo.jpg" width={100} height={100} />
-          <h1>Roompeer</h1>
+          <H1>Roompeer</H1>
         </LogoWrapper>
       </Link>
       <ContentWrapper>
-        <MenuButton title="Peers" href="/peers/search?country=&age=&gender=&religion=&budget_low=&budget_high=" />
-        <MenuButton title="Flats" href="/flats/search?city=for=type=rooms=price_low=price_high=" />
+        <MenuButton title="Peers" href="/peers/search?country=&age=&gender=&religion=&budget_high=" />
+        <MenuButton title="Flats" href="/flats/search?city=&for=&type=&rooms=&price_low=&price_high=" />
         <MenuButton title="Info" href="/info" />
         {user ? (
           <IconButton onClick={menu.handleMenuOpen} color="inherit">
@@ -82,5 +82,13 @@ const ContentWrapper = styled.div`
   gap: 10px;
   @media (max-width: 800px) {
     display: none;
+  }
+`;
+
+const H1 = styled.h1`
+  font-size: 25px;
+
+  @media (max-width: 800px) {
+    font-size: 15px;
   }
 `;

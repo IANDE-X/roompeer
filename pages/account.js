@@ -1,40 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import Profile from "../components/ui/Profile";
 import LoadingPage from "../components/ui/LoadingPage";
-import { auth, firestore } from "../model/firebase-config";
-import { useSnackbar } from "notistack";
+import { useAuth } from "../context/Auth";
 
 export default function Account() {
-  const [userData, setUserData] = useState(null);
-  const [user, setUser] = useState(null);
-  const { enqueueSnackBar } = useSnackbar();
-
-  async function getData() {
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        firestore
-          .collection("users")
-          .doc(user.uid)
-          .get()
-          .then((doc) => {
-            if (doc.exists) {
-              setUserData(doc.data());
-              setUser(user);
-            } else {
-              enqueueSnackBar("User details not found!", { variant: "error" });
-            }
-          })
-          .catch((error) => {
-            enqueueSnackBar(error.message, { variant: "error" });
-          });
-      }
-    });
-  }
-
-  useEffect(() => {
-    getData();
-  }, []);
+  const { userData, user } = useAuth();
 
   return <Wrapper>{userData && user ? <Profile data={userData} user={user} /> : <LoadingPage />}</Wrapper>;
 }

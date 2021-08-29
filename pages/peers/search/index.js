@@ -9,7 +9,10 @@ export default function SearchPeers({ data }) {
   console.log();
   return (
     <Wrapper>
-      <PeersFilter class="row" />
+      <FilterWrapper>
+        <PeersFilter class="row" />
+      </FilterWrapper>
+
       {data.length === 0 ? (
         <Empty />
       ) : (
@@ -33,6 +36,12 @@ const ContentWrapper = styled.div`
   flex-wrap: wrap;
   padding: 20px;
   gap: 10px;
+`;
+
+const FilterWrapper = styled.div`
+  padding: 10px;
+  border-radius: 15px;
+  background-color: white;
 `;
 
 export async function getServerSideProps(context) {

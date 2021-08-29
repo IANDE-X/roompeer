@@ -15,7 +15,7 @@ import { useAuth } from "../../context/Auth";
 
 export default function Profile(props) {
   const { firstname, lastname, age, gender, occupation, residence, astrological_sign, country, budget_high, budget_low, avatar_url, email, pets, phone_number, prefered_area, socials, smoking, religion, about } = props.data;
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const { sendEmailVerification, deleteUser } = useAuth();
 
   const [deleteField, setDeleteField] = useState(false);
@@ -90,6 +90,12 @@ export default function Profile(props) {
     deleteUser(password.value);
   }
 
+  function handleSendResendEmailverification() {
+    const key = enqueueSnackbar("Sending ....", { variant: "info" });
+    sendEmailVerification();
+    closeSnackbar(key);
+  }
+
   return (
     <Wrapper>
       <H1>Profile</H1>
@@ -97,7 +103,7 @@ export default function Profile(props) {
         <></>
       ) : (
         <ButtonWrapper>
-          <Alert severity="warning" variant="standard" action={<SecondaryButton title="Resend Verification Email" onClick={sendEmailVerification} />} style={{ display: "flex", flexWrap: "wrap" }}>
+          <Alert severity="warning" variant="standard" action={<SecondaryButton title="Resend Verification Email" onClick={handleSendResendEmailverification} />} style={{ display: "flex", flexWrap: "wrap" }}>
             Email Not Verified!, please check your inbox for Verification
           </Alert>
         </ButtonWrapper>

@@ -9,11 +9,14 @@ var firebaseConfig = {
   appId: "1:359087035492:web:68f8a390d13e8b18847b71",
   measurementId: "G-N68JC8KG78",
 };
-
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
+function initializeFirebase() {
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  return true;
 }
 
+const firebaseInstance = initializeFirebase();
 const firestore = firebase.firestore();
 const auth = firebase.auth();
 const storage = firebase.storage();
@@ -23,4 +26,4 @@ export const getUserCredential = (email, password) => {
   return firebase.auth.EmailAuthProvider.credential(email, password);
 };
 
-export { firestore, auth, timestamp, storage };
+export { firestore, auth, timestamp, storage, firebaseInstance };

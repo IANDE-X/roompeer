@@ -1,11 +1,6 @@
 import { useState } from "react";
 
-const useMenu = (
-  position = {
-    vertical: "top",
-    horizontal: "bottom",
-  }
-) => {
+const useMenu = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -24,7 +19,6 @@ const useMenu = (
       anchorEl: anchorEl,
       open: open,
       onClose: handleClose,
-      transformOrigin: position,
     },
   };
 };

@@ -59,7 +59,7 @@ const ImageWrapper = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 25px;
+  font-size: 20px;
 `;
 const SubTitle = styled.h3`
   color: gray;

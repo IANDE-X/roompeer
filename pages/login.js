@@ -5,12 +5,14 @@ import Link from "next/dist/client/link";
 import LoginForm from "../components/forms/LoginForm";
 import { theme } from "../model/data";
 import { Divider } from "@material-ui/core";
+import Image from "next/dist/client/image";
 
 export default function LogIn() {
   let { t } = useTranslation();
   return (
     <Wrapper>
       <ContentWrapper>
+        {/* <Image src="/logo.jpg" width={300} height={300} /> */}
         <H1>{t("common:motto")}</H1>
       </ContentWrapper>
       <FormWrapper>
@@ -28,7 +30,7 @@ export default function LogIn() {
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 400px auto;
+  grid-template-columns: 50% 50%;
   @media only screen and (max-width: 800px) {
     grid-template-columns: auto;
   }
@@ -58,20 +60,13 @@ const ContentWrapper = styled.div`
       animation: ${animation} 1s 0.5s forwards;
     }
   }
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  align-items: center;
   padding: 20px;
-  height: 100vh;
+  min-height: 80vh;
 
-  & > div {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-
-  @media only screen and (max-width: 600px) {
-    height: 50vh;
+  @media only screen and (max-width: 800px) {
+    height: 30vh;
   }
 `;
 
@@ -85,23 +80,16 @@ const FormWrapper = styled.div`
 `;
 
 const H1 = styled.h1`
-  font-size: 70px;
+  font-size: 45px;
   color: ${theme.light.primaryColor};
+  /* text-shadow: rgba(0, 0, 0, 0.3) 0px 20px 40px; */
   @media only screen and (max-width: 800px) {
-    font-size: 25px;
+    font-size: 30px;
   }
 `;
 
 const H3 = styled.h3`
   color: ${theme.light.primaryColor};
-  @media only screen and (max-width: 800px) {
-    font-size: 15px;
-  }
-`;
-
-const Anchor = styled.h3`
-  color: blue;
-  cursor: pointer;
   @media only screen and (max-width: 800px) {
     font-size: 15px;
   }

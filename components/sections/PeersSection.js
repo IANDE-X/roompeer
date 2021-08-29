@@ -35,7 +35,7 @@ export default function PeersSection() {
       {peers ? (
         <ContentWrapper ref={ref}>
           {peers.map((peer, idx) => (
-            <PeerCard data={peer} />
+            <PeerCard key={idx} data={peer} />
           ))}
         </ContentWrapper>
       ) : (

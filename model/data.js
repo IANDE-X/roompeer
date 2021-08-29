@@ -275,6 +275,8 @@ export const prices = [50000, 60000, 70000, 80000, 90000, 100000, 110000, 120000
 
 export const homeTypes = ["Other", "Garage", "Residential Building"];
 
+export const cities = ["Debrecen", "Szeged", "Budapest", "Gyor", "Sopron"];
+
 export const religions = [
   "Prefer not to say",
   "Christianity",

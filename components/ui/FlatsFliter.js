@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { TextField } from "@material-ui/core";
-import { prices, theme } from "../../model/data";
+import { cities, prices, theme } from "../../model/data";
 import Link from "next/link";
 import useInput from "../../hooks/useInput";
 import SelectButton from "../buttons/SelectButton";
@@ -16,12 +16,12 @@ export default function FlatsFilter() {
   return (
     <Wrapper>
       <ContentWrapper>
-        <TextField variant="outlined" label="City" {...city} />
+        <SelectButton label="City" input={city} array={cities} />
         <SelectButton label="For" input={property_for} array={["Rent", "Sale"]} width="100px" />
-        <TextField variant="outlined" label="Rooms" placeholder="E.g 2?" {...rooms} />
+        <TextField variant="outlined" label="Bedrooms" placeholder="E.g 2?" {...rooms} />
         <SelectButton label="Price Low (HUF)" input={price_low} array={prices} />
         <SelectButton label="Price High (HUF)" input={price_high} array={prices} />
-        <Link href={`/flats/search?city=${city.value}&for=${property_for.value}&rooms=${rooms.value}&price_low=${price_low.value}&price_high=${price_high.value}`}>
+        <Link href={`/flats/search?city=${city.value}&type=${property_for.value}&rooms=${rooms.value}&price_low=${price_low.value}&price_high=${price_high.value}`}>
           <ButtonWrapper>
             <SearchRounded />
           </ButtonWrapper>

@@ -1,8 +1,7 @@
 import { Avatar, Paper, Divider } from "@material-ui/core";
 import React from "react";
 import styled from "styled-components";
-import { firestore } from "../../model/firebase-config";
-import { theme } from "../../model/data";
+import { getUserData } from "../../model/firebase-user";
 import Socials from "../../components/ui/Socials";
 
 export default function PeerDetail({ data }) {
@@ -76,21 +75,7 @@ const P = styled.p``;
 
 export async function getServerSideProps(context) {
   const user_id = context.params.user_id;
-  const getUserData = async () => {
-    let query = firestore.collection("users").doc(user_id);
-    return query
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          var data = doc.data();
-          return data;
-        }
-      })
-      .catch((error) => {
-        console.log("Error getting documents: ", error);
-      });
-  };
-  let data = await getUserData();
+  let data = await getUserData(user_id);
   data.created_at = `${data.created_at.toDate()}`;
   return {
     props: { data },
