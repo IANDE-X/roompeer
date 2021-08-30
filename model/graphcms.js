@@ -5,9 +5,10 @@ export const graphCmsClient = new GraphQLClient(process.env.GRAPH_CMS_CONTENT_AP
 export function getQueryString(queries, locale) {
   let { city, type, rooms, price_low, price_high } = queries;
   if (city === "" && type === "" && rooms === "" && price_low === "" && price_high === "") return `flats(locales: ${locale})`;
-  return `flats(where: {${city === "" ? "" : `location_in: ${city},`} ${type === "" ? `` : `listingType_in: ${type},`} ${rooms === "" ? "" : `rooms: ${rooms},`} ${price_low === "" ? "" : `price_gte: ${price_low},`} ${
-    price_high === "" ? "" : `price_lte: ${price_high}locales: ${locale}`
-  }})`;
+  let formatedQuery = `flats(where: {${city === "" ? "" : `location_in: ${city},`} ${type === "" ? `` : `listingType_in: ${type},`} ${rooms === "" ? "" : `rooms: ${rooms},`} ${price_low === "" ? "" : `price_gte: ${price_low},`} ${
+    price_high === "" ? "" : `price_lte: ${price_high}},locales: ${locale}`
+  })`;
+  return formatedQuery;
 }
 
 export const getSearchedFlatsQuery = (queryString) => {

@@ -8,6 +8,7 @@ import { Skeleton } from "@material-ui/lab";
 export default function PeersSection() {
   const ref = useRef();
   const [peers, setPeers] = useState(null);
+  const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
   const getPeers = async () => {
     firestore
@@ -39,13 +40,17 @@ export default function PeersSection() {
           ))}
         </ContentWrapper>
       ) : (
-        <>
-          <Skeleton height={100} width={100} variant="circle" />
-          <Skeleton height={100} />
-          <Skeleton animation="wave" height={70} />
-          <Skeleton animation="wave" />
-          <Skeleton animation="wave" />
-        </>
+        <ContentWrapper>
+          {skeletons.map((item, idx) => (
+            <SkeletonWrapper key={idx}>
+              <Skeleton height={150} width={150} variant="circle" />
+              <Skeleton height={50} />
+              <Skeleton animation="wave" height={20} />
+              <Skeleton animation="wave" />
+              <Skeleton animation="wave" />
+            </SkeletonWrapper>
+          ))}
+        </ContentWrapper>
       )}
     </Wrapper>
   );
@@ -68,4 +73,13 @@ const ContentWrapper = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const SkeletonWrapper = styled.div`
+  padding: 20px;
+  min-width: 250px;
+  min-height: 320px;
+  border-radius: 10px;
+  background-color: white;
+  border: thin solid white;
 `;

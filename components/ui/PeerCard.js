@@ -11,9 +11,9 @@ export default function PeerCard(props) {
       <Wrapper>
         <ImageWrapper>
           {avatar_url ? (
-            <Avatar src={avatar_url} alt="Profile Picture" style={{ width: 150, height: 150 }} component={Paper} elevation={3} />
+            <Avatar src={avatar_url} alt="Profile Picture" style={{ width: 150, height: 150 }} />
           ) : (
-            <Avatar alt="Profile Picture" style={{ width: 150, height: 150 }} component={Paper} elevation={3}>
+            <Avatar alt="Profile Picture" style={{ width: 150, height: 150 }}>
               {firstname[0].toUpperCase()}
               {lastname[0].toUpperCase()}
             </Avatar>
@@ -36,13 +36,14 @@ const Wrapper = styled.div`
   padding: 20px;
   min-width: 250px;
   min-height: 320px;
-  border-radius: 20px;
+  border-radius: 10px;
   background-color: white;
   cursor: pointer;
-  border: thin solid ${theme.light.lightPurple};
-  transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  border: thin solid white;
+  transition: 0.2s ease-in;
   :hover {
     border: thin solid ${theme.light.primaryColor};
+    transform: translateY(-3px);
     box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
   }
 `;

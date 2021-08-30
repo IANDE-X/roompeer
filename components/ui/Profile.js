@@ -110,14 +110,7 @@ export default function Profile(props) {
       )}
       <ContentWrapper>
         <SidebarWrapper>
-          {avatar_url ? (
-            <Avatar src={avatar_url} alt="Profile Picture" style={{ width: 200, height: 200 }} component={Paper} elevation={5} />
-          ) : (
-            <Avatar alt="Profile Picture" style={{ width: 200, height: 200 }} component={Paper} elevation={7}>
-              {firstname[0].toUpperCase()}
-              {lastname[0].toUpperCase()}
-            </Avatar>
-          )}
+          <Avatar src={avatar_url} alt="Profile Picture" style={{ width: 200, height: 200 }} component={Paper} elevation={1} />
           <UploadButton user_id={props.user.uid} />
           <TextWrapper>
             <h2>

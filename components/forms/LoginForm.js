@@ -15,18 +15,22 @@ export default function LoginForm() {
   let { t } = useTranslation();
   const router = useRouter();
   const [signingIn, setSigningIn] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const forgotPassword = () => {
     if (email.value === "") {
       enqueueSnackbar("Please fill in email !", { variant: "error" });
     } else {
+      const key = enqueueSnackbar("Sending Email ...", { variant: "info" });
       auth
         .sendPasswordResetEmail(email.value)
         .then(() => {
           enqueueSnackbar("Password Reset Email was sent", {
             variant: "success",
           });
+        })
+        .then(() => {
+          closeSnackbar(key);
         })
         .catch((error) => {
           enqueueSnackbar(error.message, { variant: "error" });

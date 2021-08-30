@@ -56,6 +56,7 @@ export async function getServerSideProps(context) {
     if (religion !== "") query = query.where("religion", "==", religion);
     if (budget_high !== "") query = query.where("budget_high", "<=", Number(budget_high));
     return query
+      .orderBy("created_at", "desc")
       .get()
       .then((querySnapshot) => {
         var data = [];

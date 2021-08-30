@@ -3,7 +3,7 @@ import styled from "styled-components";
 import GalleryPro from "../../components/ui/GalleryPro";
 import { getFlatDataQuery, graphCmsClient } from "../../model/graphcms";
 import PhotoGallery from "../../components/ui/Gallery";
-import ContactButton from "../../components/buttons/ContactButton";
+import FlatContacts from "../../components/ui/FlatContacts";
 import { useAuth } from "../../context/Auth";
 
 export default function FlatDetail({ data }) {
@@ -25,7 +25,7 @@ export default function FlatDetail({ data }) {
           <h4>for {listingType}</h4>
           <h4>{availableFrom}</h4>
           <h4>Rooms: {rooms}</h4>
-          <ContactButton data={userData} refNumber={referenceNumber} />
+          <FlatContacts data={userData} refNumber={referenceNumber} />
         </DetailsWrapper>
       </ContentWrapper>
     </Wrapper>
@@ -40,20 +40,22 @@ const ContentWrapper = styled.div`
   display: grid;
   grid-template-columns: 800px auto;
   align-items: flex-start;
-  min-height: 80vh;
 
-  @media (max-width: 800px) {
+  @media (max-width: 1000px) {
     grid-template-columns: auto;
   }
 `;
 
 const GalleryWrapper = styled.div`
   max-width: 800px;
-  padding: 0px 15px 0px 0px;
+  max-height: 100vh;
+  overflow-y: scroll;
+  padding: 15px;
 `;
 const DetailsWrapper = styled.div`
   padding: 15px;
   border-radius: 15px;
+  min-height: 80vh;
   background-color: white;
 `;
 
