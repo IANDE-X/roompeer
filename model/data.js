@@ -269,7 +269,7 @@ export const countries = [
   "Åland Islands",
 ];
 
-export const genders = ["Male", "Female", "Homosexual", "Bisexual", "Transgender", "Pansexual"];
+export const genders = ["Male", "Female", "Prefer not to say"];
 
 export const prices = [50000, 60000, 70000, 80000, 90000, 100000, 110000, 120000, 130000, 140000, 150000, 160000, 170000, 180000, 190000, 200000, 210000, 220000, 230000, 240000, 250000, 260000, 270000, 280000];
 

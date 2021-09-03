@@ -60,7 +60,7 @@ const NavButton = styled.div`
   transition: 0.1s cubic-bezier(0.55, 0.055, 0.675, 0.19);
 
   :hover {
-    color: ${theme.light.lightPurple};
+    color: ${theme.light.primaryColor};
   }
   background-color: ${(props) => (props.active ? "white" : theme.light.secondaryColor)};
 `;

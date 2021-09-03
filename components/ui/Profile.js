@@ -91,7 +91,7 @@ export default function Profile(props) {
   }
 
   function handleSendResendEmailverification() {
-    const key = enqueueSnackbar("Sending ....", { variant: "info" });
+    const key = enqueueSnackbar("Sending Email....");
     sendEmailVerification();
     closeSnackbar(key);
   }

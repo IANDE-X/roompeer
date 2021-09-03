@@ -7,7 +7,6 @@ export default function FlatContacts(props) {
   const refNumber = props.refNumber;
   return (
     <Wrapper>
-      <h3>Contact Us</h3>
       <ContactsWrapper>
         <ContactButton>
           {props.data === null ? (
@@ -49,7 +48,7 @@ const ContactsWrapper = styled.div`
 `;
 
 const ContactButton = styled.div`
-  background-color: ${theme.light.primaryColor};
+  background-color: black;
   border-radius: 8px;
   border-style: none;
   box-sizing: border-box;
@@ -60,7 +59,7 @@ const ContactButton = styled.div`
   font-size: 14px;
   font-weight: 500;
   height: 40px;
-  max-width: 500px;
+  min-width: 200px;
   line-height: 20px;
   list-style: none;
   margin: 0;
@@ -77,8 +76,7 @@ const ContactButton = styled.div`
 
   :hover,
   :focus {
-    background-color: #8e24aa;
-    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    opacity: 70%;
   }
 `;
 

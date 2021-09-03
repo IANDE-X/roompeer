@@ -48,7 +48,7 @@ const ButtonWrapper = styled.div`
   background-color: ${theme.light.secondaryColor};
   transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
   :hover {
-    border: 2px solid ${theme.light.primaryColor};
+    background-color: ${theme.light.primaryColor};
   }
 `;
 

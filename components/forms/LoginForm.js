@@ -19,9 +19,9 @@ export default function LoginForm() {
 
   const forgotPassword = () => {
     if (email.value === "") {
-      enqueueSnackbar("Please fill in email !", { variant: "error" });
+      enqueueSnackbar("Please fill in your email !", { variant: "error" });
     } else {
-      const key = enqueueSnackbar("Sending Email ...", { variant: "info" });
+      const key = enqueueSnackbar("Sending Email ...");
       auth
         .sendPasswordResetEmail(email.value)
         .then(() => {
@@ -33,7 +33,9 @@ export default function LoginForm() {
           closeSnackbar(key);
         })
         .catch((error) => {
-          enqueueSnackbar(error.message, { variant: "error" });
+          if (error.code === "auth/invalid-email") enqueueSnackbar("Invalid Email!", { variant: "error" });
+          if (error.code === "auth/user-not-found") enqueueSnackbar("User account not found!", { variant: "error" });
+          closeSnackbar(key);
         });
     }
   };
@@ -41,16 +43,25 @@ export default function LoginForm() {
   const signIn = async (event) => {
     event.preventDefault();
     setSigningIn(true);
-    try {
-      auth.signInWithEmailAndPassword(email.value, password.value).then((authUser) => {
+    auth
+      .signInWithEmailAndPassword(email.value, password.value)
+      .then((authUser) => {
         if (authUser) {
+          enqueueSnackbar("Successfully logged in", {
+            variant: "success",
+          });
           router.push("/");
+        } else {
+          enqueueSnackbar("There was a problem sigining in", {
+            variant: "error",
+          });
         }
+      })
+      .catch((error) => {
+        if (error.code === "auth/wrong-password") enqueueSnackbar("Password is Incorrect", { variant: "error" });
+        if (error.code === "auth/user-not-found") enqueueSnackbar("User account not found!", { variant: "error" });
+        setSigningIn(false);
       });
-    } catch (error) {
-      enqueueSnackbar(error.message, { variant: "error" });
-      setSigningIn(false);
-    }
   };
 
   return (

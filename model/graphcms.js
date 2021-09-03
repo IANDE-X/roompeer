@@ -5,9 +5,12 @@ export const graphCmsClient = new GraphQLClient(process.env.GRAPH_CMS_CONTENT_AP
 export function getQueryString(queries, locale) {
   let { city, type, rooms, price_low, price_high } = queries;
   if (city === "" && type === "" && rooms === "" && price_low === "" && price_high === "") return `flats(locales: ${locale})`;
-  let formatedQuery = `flats(where: {${city === "" ? "" : `location_in: ${city},`} ${type === "" ? `` : `listingType_in: ${type},`} ${rooms === "" ? "" : `rooms: ${rooms},`} ${price_low === "" ? "" : `price_gte: ${price_low},`} ${
-    price_high === "" ? "" : `price_lte: ${price_high}},locales: ${locale}`
-  })`;
+  const cityQuery = city === "" ? "" : `location_in: ${city}`;
+  const typeQuery = type === "" ? "" : `listingType_in: ${type},`;
+  const roomsQuery = rooms === "" ? "" : `rooms: ${rooms},`;
+  const priceLowQuery = price_low === "" ? "" : `price_gte: ${price_low},`;
+  const priceHighQuery = price_high === "" ? "" : `price_lte: ${price_high}`;
+  let formatedQuery = `flats(where: { ${cityQuery} ${typeQuery} ${roomsQuery} ${priceLowQuery} ${priceHighQuery} },locales: ${locale} )`;
   return formatedQuery;
 }
 
@@ -25,6 +28,7 @@ export const getSearchedFlatsQuery = (queryString) => {
           price
           size
           title
+          address
           referenceNumber
         }
       }`;
@@ -58,6 +62,14 @@ export const getFlatDataQuery = (refNumber, locale) => {
     size
     title
     type
+    airConditioner
+    balcony
+    commuityFee
+    pets
+    shutter
+    garage
+    elevetor
+    plasticDoorsAndWindows
   }
 }
 `;

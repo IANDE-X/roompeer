@@ -12,13 +12,14 @@ export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
 
   const router = useRouter();
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const deleteUser = async (password) => {
     if (password == null || password == "") {
       enqueueSnackbar("Please provide your password to continue!", { variant: "error" });
       return;
     }
+    const key = enqueueSnackbar("Deleting account...");
     await user
       .reauthenticateWithCredential(getUserCredential(user.email, password))
       .then(() => {
@@ -28,6 +29,7 @@ export const AuthProvider = ({ children }) => {
             .delete()
             .then(() => {
               enqueueSnackbar("Your account was successfully deleted", { variant: "success" });
+              closeSnackbar(key);
             })
             .catch((error) => {
               enqueueSnackbar(error.message, { variant: "error" });
@@ -35,26 +37,26 @@ export const AuthProvider = ({ children }) => {
         });
       })
       .catch((error) => {
-        enqueueSnackbar(error.message, { variant: "error" });
+        if (error.code === "auth/wrong-password") enqueueSnackbar("Password Incorrect!", { variant: "error" });
+        if (error.code === "auth/user-not-found") enqueueSnackbar("User account not found!", { variant: "error" });
       });
   };
 
   const sendEmailVerification = async () => {
-    try {
-      await auth.currentUser.sendEmailVerification().then(() => {
+    await auth.currentUser
+      .sendEmailVerification()
+      .then(() => {
         enqueueSnackbar("Verification Email was sent Successfully", { variant: "success" });
+      })
+      .catch((error) => {
+        enqueueSnackbar(error.message, { variant: "error" });
       });
-    } catch (error) {
-      enqueueSnackbar(error.message, { variant: "error" });
-    }
   };
 
   const signOut = async () => {
-    try {
-      await auth.signOut();
-    } catch (error) {
+    await auth.signOut().catch(() => {
       enqueueSnackbar(error.message, { variant: "error" });
-    }
+    });
   };
 
   const provideUserData = async (user_id) => {

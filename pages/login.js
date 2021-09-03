@@ -12,7 +12,7 @@ export default function LogIn() {
   return (
     <Wrapper>
       <ContentWrapper>
-        {/* <Image src="/logo.jpg" width={300} height={300} /> */}
+        <Image src="/log-in.svg" width={250} height={250} />
         <H1>{t("common:motto")}</H1>
       </ContentWrapper>
       <FormWrapper>
@@ -61,6 +61,7 @@ const ContentWrapper = styled.div`
     }
   }
   display: grid;
+  justify-content: center;
   align-items: center;
   padding: 20px;
   min-height: 80vh;

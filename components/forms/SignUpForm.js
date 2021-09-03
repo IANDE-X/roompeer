@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { useAuth } from "../../context/Auth";
 import SelectButton from "../buttons/SelectButton";
 import PrimaryButton from "../buttons/PrimaryButton";
+import { useSnackbar } from "notistack";
 
 export default function SignUpForm() {
   let { t } = useTranslation();
@@ -26,6 +27,7 @@ export default function SignUpForm() {
   const [signingup, setSigningUp] = useState(false);
   const router = useRouter();
   const { sendEmailVerification } = useAuth();
+  const { enqueueSnackbar } = useSnackbar();
 
   const user_info = {
     email: email.value,
@@ -41,8 +43,9 @@ export default function SignUpForm() {
   const createAccount = async (event) => {
     event.preventDefault();
     setSigningUp(true);
-    try {
-      auth.createUserWithEmailAndPassword(email.value, password.value).then((userCredentials) => {
+    auth
+      .createUserWithEmailAndPassword(email.value, password.value)
+      .then((userCredentials) => {
         const meta = {
           user_id: userCredentials.user.uid,
           phone_number: userCredentials.user.phoneNumber,
@@ -55,10 +58,12 @@ export default function SignUpForm() {
         sendEmailVerification();
         setSigningUp(false);
         router.push("/");
+      })
+      .catch((error) => {
+        setSigningUp(false);
+        if (error.code === "auth/weak-password") enqueueSnackbar("Password must be at least 6 characters long!", { variant: "error" });
+        if (error.code === "auth/email-already-in-use") enqueueSnackbar("Email is already in use!", { variant: "error" });
       });
-    } catch (error) {
-      setSigningUp(false);
-    }
   };
 
   return (
@@ -77,13 +82,13 @@ export default function SignUpForm() {
             <SelectButton label={t("form:country")} input={country} array={countries} />
           </Row>
           <Row>
-            <TextField label={t("form:occupation")} placeholder="e.g Student ?" variant="outlined" type="text" {...occupation} />
+            <TextField label={t("form:occupation")} placeholder="e.g Medical Student ?" variant="outlined" type="text" {...occupation} />
             <SelectButton label={t("Gender")} input={gender} array={genders} />
           </Row>
           <TextField label={t("form:residence")} placeholder={t("form:citycountry")} variant="outlined" {...residence} />
           <TextField label={t("form:email")} variant="outlined" type="email" {...email} />
           <TextField label={t("form:password")} variant="outlined" type="password" {...password} />
-          <div>{signingup ? <CircularProgress color="primary" /> : <PrimaryButton type="submit" title={t("form:signup")} />}</div>
+          <ButtonWrapper>{signingup ? <CircularProgress color="primary" /> : <PrimaryButton type="submit" title={t("form:signup")} />}</ButtonWrapper>
         </FormWrapper>
       </form>
     </Wrapper>
@@ -101,6 +106,11 @@ const Row = styled.div`
   display: grid;
   grid-template-columns: 50% 50%;
   gap: 5px;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const FormWrapper = styled.div`

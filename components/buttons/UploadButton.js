@@ -13,13 +13,13 @@ const UploadButton = (props) => {
     }
   };
   let { t } = useTranslation();
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const handleUpload = async (event) => {
     const uploadedImage = event?.target.files[0];
     if (!uploadedImage) return;
 
-    enqueueSnackbar("Uploading Profile Photo...", { variant: "default" });
+    const key = enqueueSnackbar("Uploading Profile Photo...");
     const storageRef = storage.ref("avatars");
 
     try {
@@ -30,7 +30,10 @@ const UploadButton = (props) => {
         .then((url) => {
           updateUserProfileInfo(props.user_id, { avatar_url: url });
         })
-        .then(enqueueSnackbar("Profile Photo Updated!", { variant: "success", preventDuplicate: true }));
+        .then(() => {
+          enqueueSnackbar("Profile Photo Updated!", { variant: "success", preventDuplicate: true });
+          closeSnackbar(key);
+        });
     } catch (error) {
       enqueueSnackbar(error.message, { variant: "error" });
     }

@@ -8,8 +8,8 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Theme from "../components/ui/Theme";
 import { SnackbarProvider } from "notistack";
-import Grow from "@material-ui/core/Grow";
 import { AuthProvider } from "../context/Auth";
+import { Collapse } from "@material-ui/core";
 
 NProgress.configure({
   minimum: 0.9,
@@ -38,7 +38,7 @@ function MyApp({ Component, pageProps }) {
           vertical: "bottom",
           horizontal: "left",
         }}
-        TransitionComponent={Grow}
+        TransitionComponent={Collapse}
       >
         <AuthProvider>
           <Layout>

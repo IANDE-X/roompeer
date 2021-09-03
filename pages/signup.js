@@ -8,7 +8,7 @@ export default function SignUp() {
   return (
     <Wrapper>
       <ContentWrapper>
-        {/* <Image src="/sign-up-ico.png" width={700} height={400} /> */}
+        <Image src="/sign-up.svg" width={250} height={250} />
         <H1>Join Our Network of Peers.</H1>
       </ContentWrapper>
       <SignUpForm />
@@ -50,11 +50,8 @@ const ContentWrapper = styled.div`
   }
   display: grid;
   align-items: center;
+  justify-content: center;
   padding: 20px;
-
-  @media only screen and (max-width: 800px) {
-    height: 30vh;
-  }
 `;
 
 const H1 = styled.h1`
