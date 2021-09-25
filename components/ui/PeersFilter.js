@@ -46,10 +46,10 @@ const ButtonWrapper = styled.div`
   min-height: 50px;
   min-width: 100px;
   color: white;
-  background-color: ${theme.light.secondaryColor};
+  background-color: ${theme.light.primaryColor};
   transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
   :hover {
-    background-color: ${theme.light.primaryColor};
+    background-color: ${theme.light.secondaryColor};
   }
 `;
 

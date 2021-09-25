@@ -4,7 +4,6 @@ import styled from "styled-components";
 import LoadingPage from "../components/ui/LoadingPage";
 import { firebaseInstance } from "../model/firebase-config";
 import HeroSection from "../components/sections/HeroSection";
-import AboutUsSection from "../components/sections/AboutUsSection";
 import FlatsSection from "../components/sections/FlatsSection";
 import PeersSection from "../components/sections/PeersSection";
 import WhyUsSection from "../components/sections/WhyUsSection";
@@ -24,7 +23,6 @@ export default function HomePage({ latestFlats }) {
       {firebaseInstance ? (
         <Wrapper>
           <HeroSection />
-          <AboutUsSection />
           <FlatsSection data={latestFlats} />
           <PeersSection />
           <WhyUsSection />

@@ -31,7 +31,8 @@ export default function Header() {
       <ContentWrapper>
         <MenuButton title="Peers" href="/peers/search?country=&age=&gender=&religion=&budget_high=" />
         <MenuButton title="Flats" href="/flats/search?city=&for=&type=&rooms=&price_low=&price_high=" />
-        <MenuButton title="Info" href="/info" />
+        <MenuButton title="Useful Info" href="/info" />
+        <MenuButton title="About Us" href="/about" />
         {user && userData ? (
           <IconButton onClick={menu.handleMenuOpen} color="inherit">
             <Avatar src={userData.avatar_url} />

@@ -66,8 +66,11 @@ export default function SwipeableTemporaryDrawer(props) {
           <Link href="/flats/search?city=&for=&type=&rooms=&price_low=&price_high=">
             <MenuItem>Flats</MenuItem>
           </Link>
-          <Link href="/info">
+          <Link href="/Useful Info">
             <MenuItem>Info</MenuItem>
+          </Link>
+          <Link href="/about">
+            <MenuItem>About Us</MenuItem>
           </Link>
         </ContentWrapper>
       </SwipeableDrawer>

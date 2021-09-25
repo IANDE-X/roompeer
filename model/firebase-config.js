@@ -23,13 +23,15 @@ const storage = getStorage(firebaseInstance);
 const timestamp = serverTimestamp;
 
 // TO BE FIXED: error - unhandledRejection: ReferenceError: self is not defined
-const appCheck = initializeAppCheck(firebaseInstance, {
-  provider: new ReCaptchaV3Provider(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY),
-  isTokenAutoRefreshEnabled: true,
-});
+const appCheck = (token) => {
+  initializeAppCheck(firebaseInstance, {
+    provider: new ReCaptchaV3Provider(token),
+    isTokenAutoRefreshEnabled: true,
+  });
+};
 
 export const getUserCredential = (email, password) => {
   return EmailAuthProvider.credential(email, password);
 };
 
-export { db, auth, timestamp, storage, firebaseInstance };
+export { db, auth, timestamp, storage, firebaseInstance, appCheck };

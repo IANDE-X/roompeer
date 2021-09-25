@@ -56,13 +56,12 @@ const NavButton = styled.div`
   font-weight: bold;
   cursor: pointer;
   color: ${(props) => (props.active ? theme.light.primaryColor : "white")};
-  background-color: white;
   transition: 0.1s cubic-bezier(0.55, 0.055, 0.675, 0.19);
 
   :hover {
-    color: ${theme.light.primaryColor};
+    color: ${theme.light.secondaryColor};
   }
-  background-color: ${(props) => (props.active ? "white" : theme.light.secondaryColor)};
+  background-color: ${(props) => (props.active ? "white" : theme.light.primaryColor)};
 `;
 
 const ContentWrapper = styled.div`

@@ -57,7 +57,6 @@ const ContentWrapper = styled.div`
 const H1 = styled.h1`
   font-size: 45px;
   color: ${theme.light.primaryColor};
-  /* text-shadow: rgba(0, 0, 0, 0.3) 0px 20px 40px; */
   @media only screen and (max-width: 800px) {
     font-size: 30px;
   }
