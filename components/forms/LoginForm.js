@@ -3,65 +3,35 @@ import styled from "styled-components";
 import { Typography, CircularProgress, TextField } from "@material-ui/core";
 import useInput from "../../hooks/useInput";
 import useTranslation from "next-translate/useTranslation";
-import { useRouter } from "next/router";
-import { auth } from "../../model/firebase-config";
 import { useSnackbar } from "notistack";
 import PrimaryButton from "../buttons/PrimaryButton";
 import SecondaryButton from "../buttons/SecondaryButton";
+import { useAuth } from "../../context/Auth";
 
 export default function LoginForm() {
   const email = useInput("", true);
   const password = useInput("", true);
   let { t } = useTranslation();
-  const router = useRouter();
   const [signingIn, setSigningIn] = useState(false);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
+  const { signInUser, forgotPassword } = useAuth();
 
-  const forgotPassword = () => {
+  const handleforgotPassword = () => {
     if (email.value === "") {
       enqueueSnackbar("Please fill in your email !", { variant: "error" });
     } else {
-      const key = enqueueSnackbar("Sending Email ...");
-      auth
-        .sendPasswordResetEmail(email.value)
-        .then(() => {
-          enqueueSnackbar("Password Reset Email was sent", {
-            variant: "success",
-          });
-        })
-        .then(() => {
-          closeSnackbar(key);
-        })
-        .catch((error) => {
-          if (error.code === "auth/invalid-email") enqueueSnackbar("Invalid Email!", { variant: "error" });
-          if (error.code === "auth/user-not-found") enqueueSnackbar("User account not found!", { variant: "error" });
-          closeSnackbar(key);
-        });
+      forgotPassword(email.value);
     }
   };
 
   const signIn = async (event) => {
     event.preventDefault();
     setSigningIn(true);
-    auth
-      .signInWithEmailAndPassword(email.value, password.value)
-      .then((authUser) => {
-        if (authUser) {
-          enqueueSnackbar("Successfully logged in", {
-            variant: "success",
-          });
-          router.push("/");
-        } else {
-          enqueueSnackbar("There was a problem sigining in", {
-            variant: "error",
-          });
-        }
-      })
-      .catch((error) => {
-        if (error.code === "auth/wrong-password") enqueueSnackbar("Password is Incorrect", { variant: "error" });
-        if (error.code === "auth/user-not-found") enqueueSnackbar("User account not found!", { variant: "error" });
-        setSigningIn(false);
-      });
+    signInUser(email.value, password.value).catch((error) => {
+      if (error.code === "auth/wrong-password") enqueueSnackbar("Password is Incorrect", { variant: "error" });
+      if (error.code === "auth/user-not-found") enqueueSnackbar("User account not found!", { variant: "error" });
+      setSigningIn(false);
+    });
   };
 
   return (
@@ -76,7 +46,7 @@ export default function LoginForm() {
           <TextField label={t("form:email")} type="email" variant="outlined" {...email} />
           <TextField label={t("form:password")} variant="outlined" type="password" {...password} />
           <div className="btns">
-            <SecondaryButton onClick={forgotPassword} title={t("form:forgotpassword")} />
+            <SecondaryButton onClick={handleforgotPassword} title={t("form:forgotpassword")} />
             {signingIn ? <CircularProgress color="primary" /> : <PrimaryButton type="submit" title="Sign in" />}
           </div>
         </FormWrapper>

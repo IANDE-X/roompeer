@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Head from "next/dist/next-server/lib/head";
+import Head from "next/head";
 import Header from "./Header";
 import Footer from "./Footer";
 

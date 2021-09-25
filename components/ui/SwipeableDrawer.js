@@ -83,9 +83,10 @@ const ContentWrapper = styled.div`
 
 const MenuButtonWrapper = styled.div`
   display: grid;
-  min-width: 200px;
+  min-width: 250px;
   justify-items: center;
   align-items: center;
+  gap: 10px;
 `;
 
 const Name = styled.p`

@@ -10,6 +10,7 @@ import Theme from "../components/ui/Theme";
 import { SnackbarProvider } from "notistack";
 import { AuthProvider } from "../context/Auth";
 import { Collapse } from "@material-ui/core";
+import { verifyApp, firebaseInstance } from "../model/firebase-config";
 
 NProgress.configure({
   minimum: 0.9,

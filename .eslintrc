@@ -1,5 +1,4 @@
 {
   "extends": ["next", "next/core-web-vitals"],
-  "presets": ["next/babel"],
   "plugins": [["styled-components", { "ssr": true }]]
 }

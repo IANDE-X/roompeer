@@ -8,7 +8,7 @@ import { useSnackbar } from "notistack";
 import MenuButton from "../buttons/MenuButton";
 
 export default function PeerContacts(props) {
-  const { facebook, instagram, twitter } = props.data;
+  const { facebook, instagram, twitter, whatsapp } = props.data;
   const [showContacts, setShowContacts] = useState(false);
   const { user } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
@@ -29,9 +29,9 @@ export default function PeerContacts(props) {
           {facebook === "" ? <></> : <SocialButton href={facebook} title="Facebook" color="#1877f2" icon={<Facebook />} />}
           {instagram === "" ? <></> : <SocialButton href={instagram} title="Instagram" color="#c32aa3" icon={<Instagram />} />}
           {twitter === "" ? <></> : <SocialButton href={twitter} title="Twitter" color="#1da1f2" icon={<Twitter />} />}
-          {twitter === "" ? <></> : <SocialButton href={`tel:${props.phone_number}`} title="WhatsApp" color=" #25d366" icon={<WhatsApp />} />}
+          {whatsapp === "" ? <></> : <SocialButton href={`https://wa.me/${whatsapp}`} title="WhatsApp" color=" #25d366" icon={<WhatsApp />} />}
           {props.email === "" ? <></> : <SocialButton href={`mailto:${props.email}`} title="Email" color="#a6b1b7" icon={<MailOutlineRounded />} />}
-          {props.phone === "" ? <></> : <SocialButton href={`tel:${props.phone}`} title="Phone" color="red" icon={<PhoneRounded />} />}
+          {props.phone === "" || props.phone === null ? <></> : <SocialButton href={`tel:${props.phone}`} title="Phone" color="red" icon={<PhoneRounded />} />}
         </ContentWrapper>
       ) : (
         <ContentWrapper>

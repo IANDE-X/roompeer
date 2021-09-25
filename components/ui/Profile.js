@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Avatar, Switch, Divider, Paper } from "@material-ui/core";
+import { Avatar, Switch, Divider, Paper, Checkbox } from "@material-ui/core";
 import useInput from "../../hooks/useInput";
 import PrimartButton from "../buttons/PrimaryButton";
 import SecondaryButton from "../buttons/SecondaryButton";
@@ -14,9 +14,9 @@ import SelectButton from "../buttons/SelectButton";
 import { useAuth } from "../../context/Auth";
 
 export default function Profile(props) {
-  const { firstname, lastname, age, gender, occupation, residence, astrological_sign, country, budget_high, budget_low, avatar_url, email, pets, phone_number, prefered_area, socials, smoking, religion, about } = props.data;
+  const { firstname, lastname, age, gender, occupation, residence, astrological_sign, country, budget_high, budget_low, avatar_url, email, pets, partying, noise, phone_number, prefered_area, socials, smoking, religion, about } = props.data;
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const { sendEmailVerification, deleteUser } = useAuth();
+  const { resendEmailVerification, deleteCurrentUser } = useAuth();
 
   const [deleteField, setDeleteField] = useState(false);
   const [edit, setEdit] = useState(true);
@@ -37,9 +37,12 @@ export default function Profile(props) {
   const prefered_area_ = useInput(prefered_area);
   const [pets_, setPets_] = useState(pets);
   const [smoking_, setSmoking_] = useState(smoking);
+  const [noise_, setNoise_] = useState(noise);
+  const [partying_, setPartying_] = useState(partying);
   const facebook_ = useInput(socials.facebook);
   const instagram_ = useInput(socials.instagram);
   const twitter_ = useInput(socials.twitter);
+  const whatsapp_ = useInput(socials.whatsapp);
   const password = useInput("");
 
   const update = {
@@ -57,12 +60,15 @@ export default function Profile(props) {
     budget_high: budget_high_.value,
     smoking: smoking_,
     pets: pets_,
+    noise: noise_,
+    partying: partying_,
     astrological_sign: astrological_sign_.value,
     phone_number: phone_number_.value,
     socials: {
       facebook: facebook_.value,
       instagram: instagram_.value,
       twitter: twitter_.value,
+      whatsapp: whatsapp_.value,
     },
   };
   const saveChages = () => {
@@ -82,17 +88,23 @@ export default function Profile(props) {
   const smokingToggler = () => {
     setSmoking_(!smoking_);
   };
+  const noiseToggler = () => {
+    setNoise_(!noise_);
+  };
+  const partyingToggler = () => {
+    setPartying_(!partying_);
+  };
 
   const deleteAccountToggler = () => {
     setDeleteField(!deleteField);
   };
   function handleDeleteUser() {
-    deleteUser(password.value);
+    deleteCurrentUser(password.value);
   }
 
   function handleSendResendEmailverification() {
     const key = enqueueSnackbar("Sending Email....");
-    sendEmailVerification();
+    resendEmailVerification();
     closeSnackbar(key);
   }
 
@@ -150,13 +162,25 @@ export default function Profile(props) {
             <SelectButton label="Budget High (HUF)" input={budget_high_} disabled={edit} array={prices} />
             <SelectButton label="Zodiac Sign" input={astrological_sign_} disabled={edit} array={zodiacs} />
             <SelectButton label="Religion" input={religion_} disabled={edit} array={religions} />
-            <ToggleWrapper>
-              <P>Pets: </P>
-              <Switch disabled={edit} checked={pets_} onChange={petsToggler} />
-              <P>Smoking: </P>
-              <Switch disabled={edit} checked={smoking_} onChange={smokingToggler} />
-            </ToggleWrapper>
           </Row>
+          <ToggleWrapper>
+            <div>
+              <P>Pets: </P>
+              <Checkbox disabled={edit} checked={pets_} onChange={petsToggler} />
+            </div>
+            <div>
+              <P>Smoking: </P>
+              <Checkbox disabled={edit} checked={smoking_} onChange={smokingToggler} />
+            </div>
+            <div>
+              <P>Noise: </P>
+              <Checkbox disabled={edit} checked={noise_} onChange={noiseToggler} />
+            </div>
+            <div>
+              <P>Partying: </P>
+              <Checkbox disabled={edit} checked={partying_} onChange={partyingToggler} />
+            </div>
+          </ToggleWrapper>
           <ProfileTextField label="About me" input={about_} disabled={edit} multiline={true} fullwidth={true} />
           <Divider />
           <P>Socials</P>
@@ -164,6 +188,7 @@ export default function Profile(props) {
             <ProfileTextField label="Facebook Url" input={facebook_} disabled={edit} />
             <ProfileTextField label="Instagram Url" input={instagram_} disabled={edit} />
             <ProfileTextField label="Twitter Url" input={twitter_} disabled={edit} />
+            <ProfileTextField label="Whatsapp Number" placeholder="36......... ?" input={whatsapp_} disabled={edit} />
           </Row>
           <ButtonWrapper>
             <PrimartButton width="100px" onClick={saveChages} title="Save" disabled={edit} />
@@ -279,8 +304,12 @@ const ButtonWrapper = styled.div`
 `;
 
 const ToggleWrapper = styled.div`
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  justify-content: center;
-  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+  & > div {
+    display: flex;
+    gap: 5px;
+  }
 `;

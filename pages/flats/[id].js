@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import GalleryPro from "../../components/ui/GalleryPro";
 import { getFlatDataQuery, graphCmsClient } from "../../model/graphcms";
 import PhotoGallery from "../../components/ui/Gallery";
 import FlatContacts from "../../components/ui/FlatContacts";
@@ -16,7 +15,6 @@ export default function FlatDetail({ data }) {
     <Wrapper>
       <ContentWrapper>
         <GalleryWrapper>
-          {/* <GalleryPro images={pictures} /> */}
           <PhotoGallery images={pictures} />
         </GalleryWrapper>
         <DetailsWrapper>

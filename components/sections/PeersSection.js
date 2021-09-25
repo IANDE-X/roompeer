@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import { theme } from "../../model/data";
-import { firestore } from "../../model/firebase-config";
+import { getRecentlyJoinedPeers } from "../../model/firebase-user";
 import PeerCard from "../ui/PeerCard";
 import { Skeleton } from "@material-ui/lab";
 
@@ -9,23 +9,9 @@ export default function PeersSection() {
   const ref = useRef();
   const [peers, setPeers] = useState(null);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-
   const getPeers = async () => {
-    firestore
-      .collection("users")
-      .orderBy("created_at", "desc")
-      .limit(10)
-      .get()
-      .then((querySnapshot) => {
-        var data = [];
-        querySnapshot.forEach((doc) => {
-          data.push(doc.data());
-        });
-        setPeers(data);
-      })
-      .catch((error) => {
-        console.log("Error getting documents: ", error);
-      });
+    const data = await getRecentlyJoinedPeers();
+    setPeers(data);
   };
   useEffect(() => {
     getPeers();
@@ -35,8 +21,8 @@ export default function PeersSection() {
       <h1>Recently joined Peers</h1>
       {peers ? (
         <ContentWrapper ref={ref}>
-          {peers.map((peer, idx) => (
-            <PeerCard key={idx} data={peer} />
+          {peers.map((peer) => (
+            <PeerCard key={peer.id} data={peer.data} id={peer.id} />
           ))}
         </ContentWrapper>
       ) : (

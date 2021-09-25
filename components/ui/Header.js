@@ -13,11 +13,11 @@ import SwipeableTemporaryDrawer from "./SwipeableDrawer";
 
 export default function Header() {
   const menu = useMenu();
-  const { signOut, user, userData } = useAuth();
+  const { signOutUser, user, userData } = useAuth();
 
   const SignOut = () => {
     menu.handleMenuClose();
-    signOut();
+    signOutUser();
   };
 
   return (
@@ -55,8 +55,8 @@ export default function Header() {
         <LocaleButton />
       </ContentWrapper>
       <Hamburger>
-        <SwipeableTemporaryDrawer authData={{ user, userData, signOut }} />
         <LocaleButton />
+        <SwipeableTemporaryDrawer authData={{ user, userData, SignOut }} />
       </Hamburger>
     </Wrapper>
   );

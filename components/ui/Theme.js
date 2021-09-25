@@ -4,6 +4,7 @@ import { theme } from "../../model/data";
 
 const Theme = createTheme({
   palette: {
+    type: "light",
     primary: {
       main: theme.light.primaryColor,
     },
@@ -13,9 +14,9 @@ const Theme = createTheme({
     error: {
       main: red.A400,
     },
-    // background: {
-    //   default: theme.light.background,
-    // },
+    background: {
+      default: theme.light.background,
+    },
   },
 });
 

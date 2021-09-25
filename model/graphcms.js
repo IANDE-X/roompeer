@@ -81,7 +81,7 @@ export const getLatestFlatsQuery = (locale) => {
       flats(orderBy: createdAt_DESC, first: 10,locales: ${locale}) {
         id
         pictures(locales: en) {
-          url(transformation: {image: {resize: {fit: clip, height: 200, width: 300}}})
+          url(transformation: {image: {resize: {fit: crop, height: 200, width: 300}}})
           width
           height
         }

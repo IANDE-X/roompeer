@@ -11,13 +11,12 @@ export default function SearchPeers({ data }) {
       <FilterWrapper>
         <PeersFilter class="row" />
       </FilterWrapper>
-
       {data.length === 0 ? (
         <Empty />
       ) : (
         <ContentWrapper>
           {data.map((peer, idx) => (
-            <PeerCard key={idx} data={peer} />
+            <PeerCard key={peer.id} data={peer.data} id={peer.id} />
           ))}
         </ContentWrapper>
       )}
@@ -33,7 +32,8 @@ const Wrapper = styled.div`
 const ContentWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding: 20px;
+  justify-content: space-evenly;
+  padding: 10px;
   gap: 10px;
 `;
 

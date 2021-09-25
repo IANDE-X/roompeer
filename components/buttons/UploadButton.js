@@ -1,50 +1,87 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import styled from "styled-components";
 import { storage } from "../../model/firebase-config";
+import { ref, getDownloadURL, uploadBytesResumable } from "@firebase/storage";
 import { updateUserProfileInfo } from "../../model/firebase-user";
+import { LinearProgress } from "@material-ui/core";
 import useTranslation from "next-translate/useTranslation";
 import { useSnackbar } from "notistack";
 import PrimaryButton from "./PrimaryButton";
 
 const UploadButton = (props) => {
-  const ref = useRef(null);
+  const imgRef = useRef(null);
   const handleClick = () => {
-    if (ref) {
-      return ref.current?.click();
+    if (imgRef) {
+      return imgRef.current?.click();
     }
   };
   let { t } = useTranslation();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const [uploadProgress, setUploadProgess] = useState(0);
+  const [uploading, setUploading] = useState(false);
 
   const handleUpload = async (event) => {
     const uploadedImage = event?.target.files[0];
     if (!uploadedImage) return;
 
-    const key = enqueueSnackbar("Uploading Profile Photo...");
-    const storageRef = storage.ref("avatars");
+    setUploading(true);
+    const userAvatarRef = ref(storage, `avatars/${props.user_id}`);
+    const uploadTask = uploadBytesResumable(userAvatarRef, uploadedImage);
 
-    try {
-      await storageRef.child(props.user_id).put(uploadedImage);
-      storageRef
-        .child(props.user_id)
-        .getDownloadURL()
-        .then((url) => {
-          updateUserProfileInfo(props.user_id, { avatar_url: url });
-        })
-        .then(() => {
-          enqueueSnackbar("Profile Photo Updated!", { variant: "success", preventDuplicate: true });
-          closeSnackbar(key);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setUploadProgess(progress);
+        switch (snapshot.state) {
+          case "paused":
+            console.log("Upload is paused");
+            break;
+          case "running":
+            console.log("Upload is running");
+            break;
+        }
+      },
+      (error) => {
+        setUploading(false);
+        switch (error.code) {
+          case "storage/unauthorized":
+            break;
+          case "storage/canceled":
+            break;
+          case "storage/unknown":
+            break;
+        }
+      },
+      () => {
+        setUploading(false);
+        enqueueSnackbar("Photo Uploaded, Please refresh to load image!", { variant: "success" });
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          updateUserProfileInfo(props.user_id, { avatar_url: downloadURL });
         });
-    } catch (error) {
-      enqueueSnackbar(error.message, { variant: "error" });
-    }
+      }
+    );
   };
 
   return (
     <div>
       <PrimaryButton onClick={() => handleClick()} title={t("form:upload")} width="200px" />
-      <input type="file" ref={ref} accept=".png, .jpg, .jpeg, .heic" hidden onChange={handleUpload} />
+      <input type="file" ref={imgRef} accept=".png, .jpg, .jpeg, .heic" hidden onChange={handleUpload} />
+      {uploading ? (
+        <ContentWrapper>
+          <LinearProgress value={uploadProgress} variant="determinate" />
+          <p>Uploading ...</p>
+        </ContentWrapper>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
 
 export default UploadButton;
+
+const ContentWrapper = styled.div`
+  padding: 10px;
+  display: grid;
+`;

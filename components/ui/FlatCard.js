@@ -25,7 +25,7 @@ export default function FlatCard(props) {
 
 const Wrapper = styled.div`
   padding: 20px;
-  min-width: 300px;
+  width: 300px;
   min-height: 350px;
   border-radius: 5px;
   background-color: white;

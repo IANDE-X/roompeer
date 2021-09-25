@@ -7,7 +7,7 @@ import { theme } from "../../model/data";
 import BoolIndicator from "../../components/ui/BoolIndicator";
 
 export default function PeerDetail({ data }) {
-  const { firstname, lastname, budget_low, budget_high, socials, astrological_sign, country, avatar_url, residence, religion, age, occupation, pets, smoking, gender, email, about, phone_number, prefered_contract_lenght } = data;
+  const { firstname, lastname, budget_low, budget_high, socials, astrological_sign, country, avatar_url, residence, religion, age, occupation, pets, smoking, partying, noise, gender, email, about, phone_number, prefered_contract_lenght } = data;
   return (
     <Wrapper>
       <TopWrapper>
@@ -66,6 +66,8 @@ export default function PeerDetail({ data }) {
         <PreferenceWrapper>
           <BoolIndicator title="Smoking" bool={smoking} />
           <BoolIndicator title="Pets" bool={pets} />
+          <BoolIndicator title="Partying" bool={partying} />
+          <BoolIndicator title="Noise" bool={noise} />
         </PreferenceWrapper>
       </BottomWrapper>
     </Wrapper>
