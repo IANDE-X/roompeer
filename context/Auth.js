@@ -98,7 +98,15 @@ export const AuthProvider = ({ children }) => {
     reauthenticateUser(password)
       .then(() => {
         deleteUserData(user.uid).then(() => {
-          deleteUserAvatar(user.uid);
+          deleteUserAvatar(user.uid)
+            .then(() => {
+              // File deleted successfully
+            })
+            .catch((error) => {
+              if (error.code === "storage/object-not-found") {
+                console.log("User does not have a profile picture!");
+              } else console.log(error.code);
+            }); // User Avatar does not exist.
           deleteUser(user)
             .then(() => {
               enqueueSnackbar("Your account was successfully deleted", { variant: "success" });
@@ -106,12 +114,14 @@ export const AuthProvider = ({ children }) => {
             })
             .catch((error) => {
               enqueueSnackbar(error.message, { variant: "error" });
+              closeSnackbar(key);
             });
         });
       })
       .catch((error) => {
         if (error.code === "auth/wrong-password") enqueueSnackbar("Password Incorrect!", { variant: "error" });
         if (error.code === "auth/user-not-found") enqueueSnackbar("User account not found!", { variant: "error" });
+        closeSnackbar(key);
       });
   };
 

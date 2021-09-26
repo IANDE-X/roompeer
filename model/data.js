@@ -300,3 +300,9 @@ export const religions = [
   "Unitarian Universalism",
   "Rastafari",
 ];
+
+export const whyUsContent = [
+  { image: "/illustrations/find_peers.svg", title: "Find Roomates", subtitle: "View detailed listings of apartments to rent in Budapest, flatmates profiles, available rooms and flatshares" },
+  { image: "/illustrations/detailed_listing.svg", title: "Detailed Listing", subtitle: "View detailed listings of apartments to rent in Budapest, flatmates profiles, available rooms and flatshares" },
+  { image: "/illustrations/find_useful_info.svg", title: "Find Useful Info", subtitle: "View detailed listings of apartments to rent in Budapest, flatmates profiles, available rooms and flatshares" },
+];

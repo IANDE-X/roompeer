@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   padding: 25px;
   min-height: 500px;
   background-color: #f0f0f0;
-  background-image: url("/background.jpg");
+  background-image: url("/backgrounds/background.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

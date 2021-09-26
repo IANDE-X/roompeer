@@ -4,7 +4,7 @@ import Image from "next/dist/client/image";
 export default function Empty() {
   return (
     <Wrapper>
-      <Image src="/no_result.svg" width={200} height={200} />
+      <Image src="/illustrations/no_result.svg" width={200} height={200} />
       <h1>No Results !</h1>
     </Wrapper>
   );

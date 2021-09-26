@@ -3,13 +3,14 @@ import styled from "styled-components";
 import TextField from "@material-ui/core/TextField";
 import useInput from "../../hooks/useInput";
 import useTranslation from "next-translate/useTranslation";
-import { countries, genders } from "../../model/data";
+import { countries, genders, theme } from "../../model/data";
 import { Typography, CircularProgress } from "@material-ui/core";
 import { useAuth } from "../../context/Auth";
 import SelectButton from "../buttons/SelectButton";
 import PrimaryButton from "../buttons/PrimaryButton";
 import { useSnackbar } from "notistack";
 import Checkbox from "@material-ui/core/Checkbox";
+import Link from "next/link";
 
 export default function SignUpForm() {
   let { t } = useTranslation();
@@ -20,7 +21,7 @@ export default function SignUpForm() {
   const age = useInput("", true);
   const gender = useInput("", true);
   const occupation = useInput("", true);
-  const residence = useInput("", true);
+  const residence = useInput("", true, true, { regex: /[a-zA-Z],[a-zA-Z]/, errorMessage: "Residence should be City, Country" });
   const country = useInput("", true);
   const [signingup, setSigningUp] = useState(false);
   const [agreed, setAgreed] = useState(false);
@@ -66,7 +67,7 @@ export default function SignUpForm() {
             <TextField label={t("form:lastname")} variant="outlined" type="text" {...lastname} />
           </Row>
           <Row>
-            <TextField label={t("form:age")} variant="outlined" type="text" {...age} />
+            <TextField label={t("form:age")} variant="outlined" type="number" {...age} />
             <SelectButton label={t("form:country")} input={country} array={countries} />
           </Row>
           <Row>
@@ -76,6 +77,7 @@ export default function SignUpForm() {
           <TextField label={t("form:residence")} placeholder={t("form:citycountry")} variant="outlined" {...residence} />
           <TextField label={t("form:email")} variant="outlined" type="email" {...email} />
           <TextField label={t("form:password")} variant="outlined" type="password" {...password} />
+
           <CheckboxWrapper>
             <div>
               <Checkbox
@@ -85,7 +87,9 @@ export default function SignUpForm() {
                 }}
               />
               I have read and agreed with the
-              <a>Terms and Conditions</a>
+              <Link href="/eula">
+                <LinkText> Terms and Conditions</LinkText>
+              </Link>
             </div>
           </CheckboxWrapper>
           <ButtonWrapper>{signingup ? <CircularProgress color="primary" /> : <PrimaryButton type="submit" title={t("form:signup")} />}</ButtonWrapper>
@@ -118,4 +122,9 @@ const ButtonWrapper = styled.div`
 const FormWrapper = styled.div`
   display: grid;
   gap: 20px;
+`;
+
+const LinkText = styled.a`
+  color: ${theme.light.primaryColor};
+  cursor: pointer;
 `;

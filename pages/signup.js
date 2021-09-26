@@ -8,7 +8,7 @@ export default function SignUp() {
   return (
     <Wrapper>
       <ContentWrapper>
-        <Image src="/sign-up.svg" width={250} height={250} />
+        <Image src="/illustrations/sign-up.svg" width={250} height={250} />
         <H1>Join Our Network of Peers.</H1>
       </ContentWrapper>
       <SignUpForm />

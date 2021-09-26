@@ -24,14 +24,14 @@ export default function Header() {
     <Wrapper>
       <Link href="/">
         <LogoWrapper>
-          <Image src="/logo.jpg" width={100} height={100} />
+          <Image src="/branding/logo.jpg" width={100} height={100} />
           <H1>Roompeer</H1>
         </LogoWrapper>
       </Link>
       <ContentWrapper>
         <MenuButton title="Peers" href="/peers/search?country=&age=&gender=&religion=&budget_high=" />
         <MenuButton title="Flats" href="/flats/search?city=&for=&type=&rooms=&price_low=&price_high=" />
-        <MenuButton title="Useful Info" href="/info" />
+        <MenuButton title="Find Info" href="/info" />
         <MenuButton title="About Us" href="/about" />
         {user && userData ? (
           <IconButton onClick={menu.handleMenuOpen} color="inherit">

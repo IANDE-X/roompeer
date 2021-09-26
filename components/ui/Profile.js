@@ -33,7 +33,7 @@ export default function Profile(props) {
   const country_ = useInput(country);
   const budget_high_ = useInput(budget_high);
   const budget_low_ = useInput(budget_low);
-  const phone_number_ = useInput(phone_number);
+  const phone_number_ = useInput(phone_number, true, true, { regex: /^[+][0-9]{10,11}$/, errorMessage: "Phone number should contain 11 digit!" });
   const prefered_area_ = useInput(prefered_area);
   const [pets_, setPets_] = useState(pets);
   const [smoking_, setSmoking_] = useState(smoking);
@@ -42,7 +42,7 @@ export default function Profile(props) {
   const facebook_ = useInput(socials.facebook);
   const instagram_ = useInput(socials.instagram);
   const twitter_ = useInput(socials.twitter);
-  const whatsapp_ = useInput(socials.whatsapp);
+  const whatsapp_ = useInput(socials.whatsapp, true, true, { regex: /^[^+][0-9]{10,11}$/, errorMessage: "Omit any zeroes, brackets, or dashes when adding the whatsapp phone number, format should be:1XXXXXXXXXX (10 or 11 digit)" });
   const password = useInput("");
 
   const update = {
@@ -181,14 +181,14 @@ export default function Profile(props) {
               <Checkbox disabled={edit} checked={partying_} onChange={partyingToggler} />
             </div>
           </ToggleWrapper>
-          <ProfileTextField label="About me" input={about_} disabled={edit} multiline={true} fullwidth={true} />
+          <ProfileTextField label="Desc" input={about_} disabled={edit} multiline={true} fullwidth={true} />
           <Divider />
           <P>Socials</P>
           <Row id="Socials">
             <ProfileTextField label="Facebook Url" input={facebook_} disabled={edit} />
             <ProfileTextField label="Instagram Url" input={instagram_} disabled={edit} />
             <ProfileTextField label="Twitter Url" input={twitter_} disabled={edit} />
-            <ProfileTextField label="Whatsapp Number" placeholder="36......... ?" input={whatsapp_} disabled={edit} />
+            <ProfileTextField label="Whatsapp Number" placeholder="e.g 363XXXXXXXX ?" input={whatsapp_} disabled={edit} />
           </Row>
           <ButtonWrapper>
             <PrimartButton width="100px" onClick={saveChages} title="Save" disabled={edit} />

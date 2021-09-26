@@ -18,7 +18,7 @@ export default function HomePage({ latestFlats }) {
       <Head>
         <title>Roompeer</title>
         <meta name="description" content="Find Roomates and Flats Online" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/branding/favicon.ico" />
       </Head>
       {firebaseInstance ? (
         <Wrapper>

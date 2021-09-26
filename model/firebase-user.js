@@ -93,15 +93,7 @@ export const deleteUserData = (user_id) => {
 };
 
 export const deleteUserAvatar = async (user_id) => {
-  const userAvatarRef = ref(storage, `avatars/${user_id}.jpg`);
+  const userAvatarRef = ref(storage, `avatars/${user_id}`);
 
-  deleteObject(userAvatarRef)
-    .then(() => {
-      // File deleted successfully
-    })
-    .catch((error) => {
-      if (error.code === "storage/object-not-found") {
-        console.log("User does not have a profile picture!");
-      } else console.log(error.code);
-    }); // User Avatar does not exist.
+  return deleteObject(userAvatarRef);
 };

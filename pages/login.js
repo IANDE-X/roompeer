@@ -12,7 +12,7 @@ export default function LogIn() {
   return (
     <Wrapper>
       <ContentWrapper>
-        <Image src="/log-in.svg" width={250} height={250} />
+        <Image src="/illustrations/log-in.svg" width={250} height={250} />
         <H1>{t("common:motto")}</H1>
       </ContentWrapper>
       <FormWrapper>
