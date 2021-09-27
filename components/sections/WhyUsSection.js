@@ -24,8 +24,9 @@ const Wrapper = styled.div`
 
 const ContentWrapper = styled.div`
   display: flex;
-  justify-content: space-evenly;
   flex-wrap: wrap;
+  padding: 20px;
+  justify-content: space-evenly;
 `;
 
 const Heading = styled.div`

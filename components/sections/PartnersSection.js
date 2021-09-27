@@ -20,10 +20,6 @@ export default function PartnerSection() {
           <Image src="/partners/easy_tramitt.jpg" width={50} height={50} />
           <P>Easy Tramitt</P>
         </Partner>
-        <Partner>
-          <Image src="/partners/royal_agency.jpg" width={50} height={50} />
-          <P>Royal Agency</P>
-        </Partner>
       </ContentWrapper>
     </Wrapper>
   );
@@ -37,7 +33,8 @@ const Wrapper = styled.div`
 const ContentWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  padding: 20px;
+  gap: 20px;
   justify-content: space-evenly;
 `;
 

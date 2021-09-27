@@ -7,10 +7,10 @@ import { theme } from "../../model/data";
 import BoolIndicator from "../../components/ui/BoolIndicator";
 
 export default function PeerDetail({ data }) {
-  const { firstname, lastname, budget_low, budget_high, socials, astrological_sign, country, avatar_url, residence, religion, age, occupation, pets, smoking, partying, noise, gender, email, about, phone_number, prefered_contract_lenght } = data;
+  const { firstname, lastname, budget_low, budget_high, socials, astrological_sign, country, avatar_url, residence, religion, age, occupation, pets, smoking, partying, noise, gender, email, about, phone_number } = data;
   return (
     <Wrapper>
-      <TopWrapper>
+      <MainWrapper>
         <AvatarWrapper>
           <Avatar src={avatar_url} style={{ width: 250, height: 250 }} />
         </AvatarWrapper>
@@ -25,8 +25,8 @@ export default function PeerDetail({ data }) {
           <H3>{gender}</H3>
           <PeerContacts data={socials} email={email} phone={phone_number} />
         </TextWrapper>
-      </TopWrapper>
-      <BottomWrapper>
+      </MainWrapper>
+      <DetailsWrapper>
         <h2>Details</h2>
         <Divider />
         <Row>
@@ -50,14 +50,6 @@ export default function PeerDetail({ data }) {
           <h3>{budget_high} HUF</h3>
         </Row>
         <Row>
-          <P>Prefered Contract</P>
-          <h3>{prefered_contract_lenght}</h3>
-        </Row>
-        <Row>
-          <P>Prefered Contract</P>
-          <h3>{prefered_contract_lenght}</h3>
-        </Row>
-        <Row>
           <P>Zodiac Sign</P>
           <h3>{astrological_sign}</h3>
         </Row>
@@ -69,39 +61,36 @@ export default function PeerDetail({ data }) {
           <BoolIndicator title="Partying" bool={partying} />
           <BoolIndicator title="Noise" bool={noise} />
         </PreferenceWrapper>
-      </BottomWrapper>
+      </DetailsWrapper>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: auto auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
   gap: 30px;
   padding: 35px;
-  @media (max-width: 800px) {
-    grid-template-columns: auto;
-    justify-content: center;
-    gap: 15px;
-  }
 `;
 
-const TopWrapper = styled.div`
-  display: block;
+const MainWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
   padding: 20px;
 `;
 
-const BottomWrapper = styled.div`
+const DetailsWrapper = styled.div`
   padding: 15px;
   border-radius: 20px;
   background-color: white;
 `;
 const Row = styled.div`
   display: grid;
-  grid-template-columns: 200px auto;
-  justify-items: save;
-  gap: 10px;
-
+  grid-template-columns: 150px auto;
   @media (max-width: 800px) {
     grid-template-columns: auto;
   }
@@ -115,9 +104,7 @@ const AvatarWrapper = styled.div`
   box-shadow: rgba(14, 31, 53, 0.153) 0px 40px 64px;
 `;
 
-const TextWrapper = styled.div`
-  line-height: 0.7;
-`;
+const TextWrapper = styled.div``;
 
 const PreferenceWrapper = styled.div`
   display: flex;
@@ -130,6 +117,7 @@ const H1 = styled.h1`
   font-size: 35px;
   @media (max-width: 800px) {
     font-size: 30px;
+    line-height: 1;
   }
 `;
 const H3 = styled.h3`

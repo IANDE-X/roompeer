@@ -74,24 +74,10 @@ const Wrapper = styled.div`
   padding: 20px;
 `;
 
-const ContentWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 600px auto;
-  gap: 20px;
-  padding: 15px;
-  @media (max-width: 1100px) {
-    grid-template-columns: auto;
-    justify-content: center;
-    gap: 15px;
-  }
-`;
+const ContentWrapper = styled.div``;
 
 const GalleryWrapper = styled.div`
-  max-width: 800px;
-  @media (max-width: 1100px) {
-    max-width: 100%;
-  }
-  max-height: 1000px;
+  max-height: 350px;
   overflow-y: scroll;
   ::-webkit-scrollbar {
     -webkit-appearance: none;
@@ -99,7 +85,7 @@ const GalleryWrapper = styled.div`
   }
 
   ::-webkit-scrollbar-thumb {
-    border-radius: 2px;
+    border-radius: 12px;
     background-color: gray;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     padding: 15px;
@@ -114,13 +100,9 @@ const DetailsWrapper = styled.div`
 
 const Row = styled.div`
   display: grid;
-  grid-template-columns: 200px auto;
-  justify-items: save;
-  gap: 10px;
-
+  grid-template-columns: 100px auto;
   @media (max-width: 800px) {
     grid-template-columns: auto;
-    gap: 0px;
   }
 `;
 

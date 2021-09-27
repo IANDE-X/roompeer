@@ -44,6 +44,8 @@ const Wrapper = styled.div``;
 
 const ContactsWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
 `;
 

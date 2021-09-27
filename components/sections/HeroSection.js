@@ -5,7 +5,10 @@ import FilterBox from "../ui/FilterBox";
 export default function HeroSection() {
   return (
     <Wrapper>
-      <Title>Find Rooms and Roomates</Title>
+      <Title>
+        Find Apartments, <br />
+        connect with Flatmates easily.
+      </Title>
       <FilterBox />
     </Wrapper>
   );

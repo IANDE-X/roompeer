@@ -4,6 +4,7 @@ import { theme } from "../../model/data";
 import { getRecentlyJoinedPeers } from "../../model/firebase-user";
 import PeerCard from "../ui/PeerCard";
 import { Skeleton } from "@material-ui/lab";
+import Link from "next/link";
 
 export default function PeersSection() {
   const ref = useRef();
@@ -38,6 +39,11 @@ export default function PeersSection() {
           ))}
         </ContentWrapper>
       )}
+      <ContentWrapper>
+        <Link href="/peers/search?country=&age=&gender=&religion=&budget_high=">
+          <ButtonWrapper>View all Peers</ButtonWrapper>
+        </Link>
+      </ContentWrapper>
     </Wrapper>
   );
 }
@@ -68,4 +74,20 @@ const SkeletonWrapper = styled.div`
   border-radius: 10px;
   background-color: white;
   border: thin solid white;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  cursor: pointer;
+  height: 50px;
+  width: 150px;
+  color: white;
+  background-color: ${theme.light.primaryColor};
+  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  :hover {
+    background-color: ${theme.light.secondaryColor};
+  }
 `;

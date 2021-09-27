@@ -17,7 +17,8 @@ export default function WhyUsCard(props) {
 }
 
 const Wrapper = styled.div`
-  display: grid;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -27,14 +28,18 @@ const Wrapper = styled.div`
 
 const ImageWrapper = styled.div`
   display: grid;
-  border-radius: 20px;
+  border-radius: 50%;
   width: 200px;
-  height: 150px;
+  height: 200px;
   background-color: white;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 `;
 
 const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
   padding: 15px;
 `;
 

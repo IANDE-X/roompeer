@@ -34,13 +34,16 @@ export default function PeerCard(props) {
 
 const Wrapper = styled.div`
   padding: 20px;
-  width: 250px;
+  min-width: 250px;
+  max-width: 270px;
   min-height: 320px;
+  max-height: 350px;
   border-radius: 10px;
   background-color: white;
   cursor: pointer;
   border: thin solid white;
   transition: 0.2s ease-in;
+  text-overflow: ellipsis;
   :hover {
     border: thin solid ${theme.light.primaryColor};
     transform: translateY(-3px);

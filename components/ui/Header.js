@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Link from "next/dist/client/link";
 import { Avatar, IconButton, Menu, MenuItem } from "@material-ui/core";
 import LocaleButton from "../buttons/LocaleButton";
-import Image from "next/dist/client/image";
+import Image from "next/image";
 import useMenu from "../../hooks/useMenu";
 import { useAuth } from "../../context/Auth";
 import MenuButton from "../buttons/MenuButton";
