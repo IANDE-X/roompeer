@@ -9,7 +9,7 @@ export default function PartnerSection() {
       </Heading>
       <ContentWrapper>
         <Partner>
-          <Image src="/partners/vodafone.png" width={50} height={50} />
+          <Image src="/partners/Vodafone.png" width={50} height={50} />
           <P>Vodafone</P>
         </Partner>
         <Partner>

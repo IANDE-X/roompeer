@@ -24,7 +24,7 @@ export default function Header() {
     <Wrapper>
       <Link href="/">
         <LogoWrapper>
-          <Image src="/branding/logo.jpg" width={100} height={100} />
+          <Image src="/branding/logo.JPG" width={75} height={75} />
           <H1>Roompeer</H1>
         </LogoWrapper>
       </Link>
