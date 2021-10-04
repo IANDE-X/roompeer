@@ -18,7 +18,7 @@ export default function LoginForm() {
 
   const handleforgotPassword = () => {
     if (email.value === "") {
-      enqueueSnackbar("Please fill in your email !", { variant: "error" });
+      enqueueSnackbar(t("notification:fill_in_email"), { variant: "error" });
     } else {
       forgotPassword(email.value);
     }
@@ -28,8 +28,8 @@ export default function LoginForm() {
     event.preventDefault();
     setSigningIn(true);
     signInUser(email.value, password.value).catch((error) => {
-      if (error.code === "auth/wrong-password") enqueueSnackbar("Password is Incorrect", { variant: "error" });
-      if (error.code === "auth/user-not-found") enqueueSnackbar("User account not found!", { variant: "error" });
+      if (error.code === "auth/wrong-password") enqueueSnackbar(t("notification:password_incorrect"), { variant: "error" });
+      if (error.code === "auth/user-not-found") enqueueSnackbar(t("notification:user_account_not_found"), { variant: "error" });
       setSigningIn(false);
     });
   };
@@ -47,7 +47,7 @@ export default function LoginForm() {
           <TextField label={t("form:password")} variant="outlined" type="password" {...password} />
           <div className="btns">
             <SecondaryButton onClick={handleforgotPassword} title={t("form:forgotpassword")} />
-            {signingIn ? <CircularProgress color="primary" /> : <PrimaryButton type="submit" title="Sign in" />}
+            {signingIn ? <CircularProgress color="primary" /> : <PrimaryButton type="submit" title={t("form:signin")} />}
           </div>
         </FormWrapper>
       </form>

@@ -21,7 +21,7 @@ export default function SignUpForm() {
   const age = useInput("", true);
   const gender = useInput("", true);
   const occupation = useInput("", true);
-  const residence = useInput("", true, true, { regex: /[a-zA-Z],[a-zA-Z]/, errorMessage: "Residence should be City, Country" });
+  const residence = useInput("", true, true, { regex: /[a-zA-Z],[a-zA-Z]/, errorMessage: t("notification:residence_rgx") });
   const country = useInput("", true);
   const [signingup, setSigningUp] = useState(false);
   const [agreed, setAgreed] = useState(false);
@@ -43,14 +43,14 @@ export default function SignUpForm() {
   const createAccount = async (event) => {
     event.preventDefault();
     if (!agreed) {
-      enqueueSnackbar("Please read and agree to the Terms and Conditions to continue!", { variant: "error" });
+      enqueueSnackbar(t("notification:terms_policy_agreement"), { variant: "error" });
       return;
     }
     setSigningUp(true);
     signUpUser(email.value, password.value, user_info).catch((error) => {
-      if (error.code === "auth/invalid-email") enqueueSnackbar("The email provided is invalid!", { variant: "error" });
-      if (error.code === "auth/weak-password") enqueueSnackbar("Password must be at least 6 characters long!", { variant: "error" });
-      if (error.code === "auth/email-already-in-use") enqueueSnackbar("Email is already in use!", { variant: "error" });
+      if (error.code === "auth/invalid-email") enqueueSnackbar(t("notification:invalid_email"), { variant: "error" });
+      if (error.code === "auth/weak-password") enqueueSnackbar(t("notificaion:weak_password"), { variant: "error" });
+      if (error.code === "auth/email-already-in-use") enqueueSnackbar(t("notification:email_in_use"), { variant: "error" });
       setSigningUp(false);
     });
   };
@@ -71,7 +71,7 @@ export default function SignUpForm() {
             <SelectButton label={t("form:country")} input={country} array={countries} />
           </Row>
           <Row>
-            <TextField label={t("form:occupation")} placeholder="e.g Medical Student ?" variant="outlined" type="text" {...occupation} />
+            <TextField label={t("form:occupation")} placeholder={t("form:medical_student")} variant="outlined" type="text" {...occupation} />
             <SelectButton label={t("Gender")} input={gender} array={genders} />
           </Row>
           <TextField label={t("form:residence")} placeholder={t("form:citycountry")} variant="outlined" {...residence} />
@@ -86,9 +86,13 @@ export default function SignUpForm() {
                   setAgreed(!agreed);
                 }}
               />
-              I have read and agreed with the
+              {t("form:agreed")}
               <Link href="/eula">
-                <LinkText> Terms and Conditions</LinkText>
+                <LinkText> {t("form:terms")}</LinkText>
+              </Link>{" "}
+              {t("form:and")}
+              <Link href="/policy">
+                <LinkText> {t("form:policy")}</LinkText>
               </Link>
             </div>
           </CheckboxWrapper>

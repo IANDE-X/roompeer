@@ -2,15 +2,16 @@ import React, { useEffect, useContext, createContext, useState } from "react";
 import { auth, getUserCredential } from "../model/firebase-config";
 import { onAuthStateChanged, sendEmailVerification, deleteUser, reauthenticateWithCredential, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from "firebase/auth";
 import { deleteUserAvatar, deleteUserData, getUserData, addUserProfileInfo } from "../model/firebase-user";
-import "firebase/auth";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
+import useTranslation from "next-translate/useTranslation";
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState(null);
+  let { t } = useTranslation();
 
   const router = useRouter();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -38,7 +39,7 @@ export const AuthProvider = ({ children }) => {
   const resendEmailVerification = async () => {
     sendEmailVerification(auth.currentUser)
       .then(() => {
-        enqueueSnackbar("Verification Email was sent Successfully", { variant: "success" });
+        enqueueSnackbar(t("notification:emailsent"), { variant: "success" });
       })
       .catch((error) => {
         enqueueSnackbar(error.message, { variant: "error" });
@@ -48,12 +49,12 @@ export const AuthProvider = ({ children }) => {
   const signInUser = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password).then((authUser) => {
       if (authUser) {
-        enqueueSnackbar("Successfully logged in", {
+        enqueueSnackbar(t("notification:loginsuccess"), {
           variant: "success",
         });
         router.push("/");
       } else {
-        enqueueSnackbar("There was a problem sigining in", {
+        enqueueSnackbar(t("notification:loginproblem"), {
           variant: "error",
         });
       }
@@ -67,10 +68,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const forgotPassword = async (email) => {
-    const key = enqueueSnackbar("Sending Email ...");
+    const key = enqueueSnackbar(t("notification:sending_email"));
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        enqueueSnackbar("Password Reset Email was sent", {
+        enqueueSnackbar(t("notification:pass_reset_email_sent"), {
           variant: "success",
         });
       })
@@ -78,8 +79,8 @@ export const AuthProvider = ({ children }) => {
         closeSnackbar(key);
       })
       .catch((error) => {
-        if (error.code === "auth/invalid-email") enqueueSnackbar("Invalid Email!", { variant: "error" });
-        if (error.code === "auth/user-not-found") enqueueSnackbar("User account not found!", { variant: "error" });
+        if (error.code === "auth/invalid-email") enqueueSnackbar(t("notification:invalid_email"), { variant: "error" });
+        if (error.code === "auth/user-not-found") enqueueSnackbar(t("notification:user_account_not_found"), { variant: "error" });
         closeSnackbar(key);
       });
   };
@@ -91,10 +92,10 @@ export const AuthProvider = ({ children }) => {
 
   const deleteCurrentUser = async (password) => {
     if (password == null || password == "") {
-      enqueueSnackbar("Please provide your password to continue!", { variant: "error" });
+      enqueueSnackbar(t("notification:provide_password"), { variant: "error" });
       return;
     }
-    const key = enqueueSnackbar("Deleting account...");
+    const key = enqueueSnackbar(t("notification:deleting_account"));
     reauthenticateUser(password)
       .then(() => {
         deleteUserData(user.uid).then(() => {
@@ -109,7 +110,7 @@ export const AuthProvider = ({ children }) => {
             }); // User Avatar does not exist.
           deleteUser(user)
             .then(() => {
-              enqueueSnackbar("Your account was successfully deleted", { variant: "success" });
+              enqueueSnackbar(t("notification:account_deleted"), { variant: "success" });
               closeSnackbar(key);
             })
             .catch((error) => {
@@ -119,8 +120,8 @@ export const AuthProvider = ({ children }) => {
         });
       })
       .catch((error) => {
-        if (error.code === "auth/wrong-password") enqueueSnackbar("Password Incorrect!", { variant: "error" });
-        if (error.code === "auth/user-not-found") enqueueSnackbar("User account not found!", { variant: "error" });
+        if (error.code === "auth/wrong-password") enqueueSnackbar(t("notification:password_incorrect"), { variant: "error" });
+        if (error.code === "auth/user-not-found") enqueueSnackbar(t("notification:user_account_not_found"), { variant: "error" });
         closeSnackbar(key);
       });
   };

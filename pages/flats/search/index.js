@@ -4,8 +4,10 @@ import FlatCard from "../../../components/ui/FlatCard";
 import Empty from "../../../components/ui/Empty";
 import FlatsFilter from "../../../components/ui/FlatsFliter";
 import { getSearchedFlatsQuery, graphCmsClient, getQueryString } from "../../../model/graphcms";
+import Pagination from "../../../components/ui/Pagination";
 
-export default function SearchFlats({ data }) {
+export default function SearchFlats({ data, queries }) {
+  const { city, type, rooms, price_low, price_high, page } = queries;
   return (
     <Wrapper>
       <FilterWrapper>
@@ -15,11 +17,20 @@ export default function SearchFlats({ data }) {
         <Empty />
       ) : (
         <ContentWrapper>
-          {data.flats.map((flat) => (
+          {data.flats.slice(0, 10).map((flat) => (
             <FlatCard key={flat.id} data={flat} />
           ))}
         </ContentWrapper>
       )}
+      <PaginationWrapper>
+        <Pagination
+          hasPrevious={Number(page) > 1}
+          previous={`/flats/search?city=${city}&type=${type}&rooms=${rooms}&price_low=${price_low}&price_high=${price_high}&page=${Number(page) - 1}`}
+          current={page}
+          hasNext={data.flats.length > 10}
+          next={`/flats/search?city=${city}&type=${type}&rooms=${rooms}&price_low=${price_low}&price_high=${price_high}&page=${Number(page) + 1}`}
+        />
+      </PaginationWrapper>
     </Wrapper>
   );
 }
@@ -31,8 +42,8 @@ const Wrapper = styled.div`
 const ContentWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
   padding: 10px;
-  display: flex;
   gap: 10px;
 `;
 
@@ -42,11 +53,18 @@ const FilterWrapper = styled.div`
   background-color: white;
 `;
 
+const PaginationWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+`;
+
 export async function getServerSideProps(context) {
-  let queryString = getQueryString(context.query, context.locale);
+  const queries = context.query;
+  let queryString = getQueryString(queries, context.locale);
   const query = getSearchedFlatsQuery(queryString);
   let data = await graphCmsClient.request(query);
   return {
-    props: { data },
+    props: { data, queries },
   };
 }

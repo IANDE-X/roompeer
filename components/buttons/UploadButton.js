@@ -16,7 +16,7 @@ const UploadButton = (props) => {
     }
   };
   let { t } = useTranslation();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const [uploadProgress, setUploadProgess] = useState(0);
   const [uploading, setUploading] = useState(false);
 
@@ -35,10 +35,8 @@ const UploadButton = (props) => {
         setUploadProgess(progress);
         switch (snapshot.state) {
           case "paused":
-            console.log("Upload is paused");
             break;
           case "running":
-            console.log("Upload is running");
             break;
         }
       },
@@ -55,7 +53,7 @@ const UploadButton = (props) => {
       },
       () => {
         setUploading(false);
-        enqueueSnackbar("Photo Uploaded, Please refresh to load image!", { variant: "success" });
+        enqueueSnackbar(t("notifaction:photo_uploaded"), { variant: "success" });
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           updateUserProfileInfo(props.user_id, { avatar_url: downloadURL });
         });

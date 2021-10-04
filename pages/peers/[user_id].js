@@ -7,7 +7,7 @@ import { theme } from "../../model/data";
 import BoolIndicator from "../../components/ui/BoolIndicator";
 
 export default function PeerDetail({ data }) {
-  const { firstname, lastname, budget_low, budget_high, socials, astrological_sign, country, avatar_url, residence, religion, age, occupation, pets, smoking, partying, noise, gender, email, about, phone_number } = data;
+  const { firstname, lastname, budget_low, budget_high, socials, astrological_sign, country, avatar_url, residence, religion, age, occupation, pets, smoking, partying, noise, gender, email, about, phone_number, flatmate_status } = data;
   return (
     <Wrapper>
       <MainWrapper>
@@ -23,6 +23,7 @@ export default function PeerDetail({ data }) {
           </h2>
           <H3>{residence}</H3>
           <H3>{gender}</H3>
+          {flatmate_status ? <StatusText status={flatmate_status}>Actively Looking</StatusText> : <StatusText status={flatmate_status}>Not Looking</StatusText>}
           <PeerContacts data={socials} email={email} phone={phone_number} />
         </TextWrapper>
       </MainWrapper>
@@ -125,6 +126,11 @@ const H3 = styled.h3`
 `;
 const P = styled.h3`
   color: gray;
+`;
+
+const StatusText = styled.p`
+  font-size: 10px;
+  color: ${(props) => (props.status ? "green" : "red")};
 `;
 
 export async function getServerSideProps(context) {

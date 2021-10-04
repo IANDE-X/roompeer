@@ -6,7 +6,7 @@ import { CircularProgress } from "@material-ui/core";
 export default function LoadingPage() {
   return (
     <Wrapper>
-      <Image src="/logo.jpg" width={100} height={100} />
+      <Image src="/branding/logo.JPG" width={100} height={100} />
       <CircularProgress color="primary" />
     </Wrapper>
   );

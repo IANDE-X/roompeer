@@ -17,19 +17,19 @@ export default function AboutUsSection() {
           fall into place. Our services will exceed the expectations of our customers. To innovate in the real estate market by building trust and providing the best experience when it comes to finding a flat and flatmate. When we adhere to this
           maxim, everything else will fall into place. Our services will meet the expectations of our customers.
         </Text>
+        <Heading>Our Vision</Heading>
+        <Text>
+          · To make Roompeer an icon brand.
+          <br /> · To develop an effective, well placed Website and Application that would ease the life of people in regards to finding flatmates and Accommodations.
+          <br /> · To launch a laser-focused marketing campaign in a controllable and measurable market that will drive customer's toward the company's website.
+          <br /> · To create an infrastructure for the fulfilment of Web-based Rent Services.
+        </Text>
         <Heading>Our Values</Heading>
         <Text>
           We exist to satisfy the customers' needs.
           <br /> We value diversity. <br />
           We build trust. <br />
           We are innovative.
-        </Text>
-        <Heading>Vision</Heading>
-        <Text>
-          · To make Roompeer an icon brand.
-          <br /> · To develop an effective, well placed Website and Application that would ease the life of people in regards to finding flatmates and Accommodations.
-          <br /> · To launch a laser-focused marketing campaign in a controllable and measurable market that will drive customer's toward the company's website.
-          <br /> · To create an infrastructure for the fulfilment of Web-based Rent Services.
         </Text>
       </ContentWrapper>
     </Wrapper>

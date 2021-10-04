@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Avatar, Switch, Divider, Paper, Checkbox } from "@material-ui/core";
+import { Avatar, Divider, Paper, Checkbox } from "@material-ui/core";
 import useInput from "../../hooks/useInput";
 import PrimartButton from "../buttons/PrimaryButton";
 import SecondaryButton from "../buttons/SecondaryButton";
@@ -14,7 +14,8 @@ import SelectButton from "../buttons/SelectButton";
 import { useAuth } from "../../context/Auth";
 
 export default function Profile(props) {
-  const { firstname, lastname, age, gender, occupation, residence, astrological_sign, country, budget_high, budget_low, avatar_url, email, pets, partying, noise, phone_number, prefered_area, socials, smoking, religion, about } = props.data;
+  const { firstname, lastname, age, gender, occupation, residence, astrological_sign, country, budget_high, budget_low, avatar_url, email, pets, partying, noise, phone_number, prefered_area, socials, smoking, religion, about, flatmate_status } =
+    props.data;
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const { resendEmailVerification, deleteCurrentUser } = useAuth();
 
@@ -39,6 +40,7 @@ export default function Profile(props) {
   const [smoking_, setSmoking_] = useState(smoking);
   const [noise_, setNoise_] = useState(noise);
   const [partying_, setPartying_] = useState(partying);
+  const [flatmate_status_, setFlatmate_Status_] = useState(flatmate_status);
   const facebook_ = useInput(socials.facebook);
   const instagram_ = useInput(socials.instagram);
   const twitter_ = useInput(socials.twitter);
@@ -62,6 +64,7 @@ export default function Profile(props) {
     pets: pets_,
     noise: noise_,
     partying: partying_,
+    flatmate_status: flatmate_status_,
     astrological_sign: astrological_sign_.value,
     phone_number: phone_number_.value,
     socials: {
@@ -93,6 +96,9 @@ export default function Profile(props) {
   };
   const partyingToggler = () => {
     setPartying_(!partying_);
+  };
+  const flatmateToggler = () => {
+    setFlatmate_Status_(!flatmate_status_);
   };
 
   const deleteAccountToggler = () => {
@@ -165,6 +171,10 @@ export default function Profile(props) {
           </Row>
           <ToggleWrapper>
             <div>
+              <P>Looking for flatmate: </P>
+              <Checkbox disabled={edit} checked={flatmate_status_} onChange={flatmateToggler} />
+            </div>
+            <div>
               <P>Pets: </P>
               <Checkbox disabled={edit} checked={pets_} onChange={petsToggler} />
             </div>
@@ -190,6 +200,7 @@ export default function Profile(props) {
             <ProfileTextField label="Twitter Url" input={twitter_} disabled={edit} />
             <ProfileTextField label="Whatsapp Number" placeholder="e.g 363XXXXXXXX ?" input={whatsapp_} disabled={edit} />
           </Row>
+          <IDText>User ID:{props.user.uid}</IDText>
           <ButtonWrapper>
             <PrimartButton width="100px" onClick={saveChages} title="Save" disabled={edit} />
             <PrimartButton width="100px" onClick={Edit} title={edit ? "Edit" : "Cancel"} />
@@ -216,6 +227,10 @@ export default function Profile(props) {
 
 const H1 = styled.h1``;
 const P = styled.p``;
+const IDText = styled.p`
+  font-size: 10px;
+  color: gray;
+`;
 const WarningText = styled.p`
   color: red;
   font-weight: bold;

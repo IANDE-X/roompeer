@@ -15,8 +15,8 @@ import { appCheck } from "../model/firebase-config";
 NProgress.configure({
   minimum: 0.9,
   easing: "ease",
-  speed: 400,
-  showSpinner: true,
+  speed: 800,
+  showSpinner: false,
 });
 
 Router.events.on("routeChangeStart", () => NProgress.start());

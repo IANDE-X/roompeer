@@ -3,14 +3,16 @@ import { GraphQLClient } from "graphql-request";
 export const graphCmsClient = new GraphQLClient(process.env.GRAPH_CMS_CONTENT_API);
 
 export function getQueryString(queries, locale) {
-  let { city, type, rooms, price_low, price_high } = queries;
-  if (city === "" && type === "" && rooms === "" && price_low === "" && price_high === "") return `flats(locales: ${locale})`;
+  let { city, type, rooms, price_low, price_high, page } = queries;
+  const start = Number(page) * 11;
+  const stop = start - 11;
+  if (city === "" && type === "" && rooms === "" && price_low === "" && price_high === "") return `flats(first: ${start},skip: ${stop},locales: ${locale},orderBy: publishedAt_DESC)`;
   const cityQuery = city === "" ? "" : `location_in: ${city}`;
   const typeQuery = type === "" ? "" : `listingType_in: ${type},`;
   const roomsQuery = rooms === "" ? "" : `rooms: ${rooms},`;
   const priceLowQuery = price_low === "" ? "" : `price_gte: ${price_low},`;
   const priceHighQuery = price_high === "" ? "" : `price_lte: ${price_high}`;
-  let formatedQuery = `flats(where: { ${cityQuery} ${typeQuery} ${roomsQuery} ${priceLowQuery} ${priceHighQuery} },locales: ${locale} )`;
+  let formatedQuery = `flats(where: { ${cityQuery} ${typeQuery} ${roomsQuery} ${priceLowQuery} ${priceHighQuery} }first: ${start},skip: ${stop},locales: ${locale},orderBy: publishedAt_DESC)`;
   return formatedQuery;
 }
 
@@ -94,4 +96,38 @@ export const getLatestFlatsQuery = (locale) => {
       }
     }
   `;
+};
+
+export const getAllInfos = (locale) => {
+  return `
+  {
+    infos(locales: ${locale}) {
+      coverPhoto(locales: en) {
+        url(transformation: {image: {resize: {fit: crop, height: 200, width: 300}}})
+        width
+        height
+      }
+      title
+      slug
+      subtitle
+    }
+  }`;
+};
+
+export const getInfo = (locale, slug) => {
+  return `
+  {
+    info(where: {slug: "${slug}"}, locales: ${locale}) {
+      coverPhoto(locales: en) {
+        height
+        url(transformation: {image: {resize: {fit: clip, height: 200, width: 300}}})
+        width
+      }
+      subtitle
+      title
+      body {
+        raw
+      }
+    }
+  }`;
 };

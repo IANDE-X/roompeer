@@ -19,7 +19,7 @@ export default function FilterBox() {
           active={nav1}
           className="left"
         >
-          Flats
+          Rooms
         </NavButton>
         <NavButton
           onClick={() => {

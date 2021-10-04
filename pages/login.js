@@ -20,7 +20,7 @@ export default function LogIn() {
         <Divider />
         <Link href="/signup">
           <a>
-            <H3>Don't have an account ?</H3>
+            <H3>{t("form:dont_have_account")}</H3>
           </a>
         </Link>
       </FormWrapper>

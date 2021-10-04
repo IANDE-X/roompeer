@@ -18,10 +18,10 @@ export default function FlatsFilter() {
       <ContentWrapper>
         <SelectButton label="City" input={city} array={cities} />
         <SelectButton label="For" input={property_for} array={["Rent", "Sale"]} width="100px" />
-        <TextField variant="outlined" label="Bedrooms" placeholder="E.g 2?" {...rooms} />
+        <TextField variant="outlined" type="number" label="Bedrooms" placeholder="E.g 2?" {...rooms} />
         <SelectButton label="Price Low (HUF)" input={price_low} array={prices} />
         <SelectButton label="Price High (HUF)" input={price_high} array={prices} />
-        <Link href={`/flats/search?city=${city.value}&type=${property_for.value}&rooms=${rooms.value}&price_low=${price_low.value}&price_high=${price_high.value}`}>
+        <Link href={`/flats/search?city=${city.value}&type=${property_for.value}&rooms=${rooms.value}&price_low=${price_low.value}&price_high=${price_high.value}&page=1`}>
           <ButtonWrapper>
             <SearchRounded />
           </ButtonWrapper>

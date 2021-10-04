@@ -26,5 +26,11 @@
   "country": "Ország",
   "residence": "Rezidencia",
   "occupation": "Foglalkozása",
-  "citycountry": "Város, ország"
+  "citycountry": "Város, ország",
+  "medical_student": "pl. orvostanhallgató ?",
+  "agreed": "Elolvastam és elfogadtam a",
+  "terms": "Feltételek és feltételek",
+  "policy": "Adatvédelmi irányelvek",
+  "and": "és",
+  "dont_have_account": "Nincs fiókod ?"
 }

@@ -26,5 +26,11 @@
   "country": "Country",
   "residence": "Residence",
   "occupation": "Occupation",
-  "citycountry": "City, Country"
+  "citycountry": "City, Country",
+  "medical_student": "e.g Medical Student ?",
+  "agreed": "I have read and agreed with the",
+  "terms": "Terms and Conditions",
+  "policy": "Privacy Policy",
+  "and": "and",
+  "dont_have_account": "Don't have an account ?"
 }

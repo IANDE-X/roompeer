@@ -1,13 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import FilterBox from "../ui/FilterBox";
+import useTranslation from "next-translate/useTranslation";
 
 export default function HeroSection() {
+  let { t } = useTranslation();
   return (
     <Wrapper>
       <Title>
-        Find Apartments, <br />
-        connect with Flatmates easily.
+        {t("common:hero_heading1")} <br />
+        {t("common:hero_heading2")}
       </Title>
       <FilterBox />
     </Wrapper>

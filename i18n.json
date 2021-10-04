@@ -2,10 +2,10 @@
   "locales": ["en", "hu"],
   "defaultLocale": "en",
   "pages": {
-    "*": ["common"],
+    "*": ["common", "notification"],
     "/": ["common", "form"],
     "/login": ["form"],
     "/signup": ["form"],
-    "/account": ["form"]
+    "/account": ["form", "account"]
   }
 }

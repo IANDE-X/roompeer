@@ -6,10 +6,12 @@ import styled from "styled-components";
 import Link from "next/dist/client/link";
 import SecondaryButton from "../buttons/SecondaryButton";
 import PrimaryButton from "../buttons/PrimaryButton";
+import useTranslation from "next-translate/useTranslation";
 
 export default function SwipeableTemporaryDrawer(props) {
   const [state, setState] = useState(false);
-  const { user, userData, signOut } = props.authData;
+  const { user, userData, SignOut } = props.authData;
+  let { t } = useTranslation();
 
   const toggleDrawer = () => (event) => {
     if (event && event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
@@ -44,33 +46,33 @@ export default function SwipeableTemporaryDrawer(props) {
               </MenuButtonWrapper>
 
               <Link href="/account">
-                <MenuItem>My Profile</MenuItem>
+                <MenuItem>{t("common:profile")}</MenuItem>
               </Link>
-              <MenuItem onClick={signOut}>Sign Out</MenuItem>
+              <MenuItem onClick={SignOut}>{t("common:signout")}</MenuItem>
             </div>
           ) : (
             <MenuButtonWrapper>
-              <h3>You are logged out</h3>
+              <h3>{t("common:loggedout")}</h3>
               <Link href="/login">
-                <PrimaryButton title="Sign In" />
+                <PrimaryButton title={t("common:signin")} />
               </Link>
               <Link href="/signup">
-                <SecondaryButton title="Create Account" width="100%" />
+                <SecondaryButton title={t("common:createaccount")} width="100%" />
               </Link>
             </MenuButtonWrapper>
           )}
           <Divider />
-          <Link href="/peers/search?country=&age=&gender=&religion=&budget_high=">
-            <MenuItem>Peers</MenuItem>
+          <Link href="/flats/search?city=&for=&type=&rooms=&price_low=&price_high=&page=1">
+            <MenuItem>{t("common:rooms")}</MenuItem>
           </Link>
-          <Link href="/flats/search?city=&for=&type=&rooms=&price_low=&price_high=">
-            <MenuItem>Flats</MenuItem>
+          <Link href="/peers/search?country=&age=&gender=&religion=&budget_high=&page=1">
+            <MenuItem>{t("common:peers")}</MenuItem>
           </Link>
           <Link href="/info">
-            <MenuItem>Find Info</MenuItem>
+            <MenuItem>{t("common:info")}</MenuItem>
           </Link>
           <Link href="/about">
-            <MenuItem>About Us</MenuItem>
+            <MenuItem>{t("common:aboutus")}</MenuItem>
           </Link>
         </ContentWrapper>
       </SwipeableDrawer>

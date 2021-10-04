@@ -1,0 +1,19 @@
+{
+  "photo_uploaded": "Fénykép feltöltve, kérjük, frissítse az oldalt a kép betöltéséhez!",
+  "fill_in_email": "Kérjük, töltse ki az e-mail címét !",
+  "password_incorrect": "A jelszó helytelen",
+  "user_account_not_found": "Felhasználói fiók nem található !",
+  "terms_policy_agreement": "Kérjük, olvassa el és fogadja el az Általános Szerződési Feltételeket a folytatáshoz!",
+  "residence_rgx": "A lakóhelynek 'Város, ország'-nak kell lennie ",
+  "invalid_email": "A megadott e-mail érvénytelen!",
+  "weak_password": "A jelszónak legalább 6 karakter hosszúnak kell lennie!",
+  "email_in_use": "Email már használatban van!",
+  "emailsent": "Az ellenőrző e-mailt sikeresen elküldtük",
+  "loginsuccess": "Sikeresen bejelentkezett",
+  "loginproblem": "Probléma volt a bejelentkezéssel",
+  "pass_reset_email_sent": "A Jelszó-visszaállítási e-mail elküldésre került",
+  "sending_email": "Email küldése ...",
+  "provide_password": "Kérjük, adja meg jelszavát a folytatáshoz!",
+  "deleting_account": "Fiók törlése...",
+  "account_deleted": "A fiókját sikeresen töröltük"
+}

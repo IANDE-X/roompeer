@@ -20,9 +20,9 @@ export default function PeersFilter(props) {
         <SelectButton label="Country" input={country} array={countries} placeholder="Origin" />
         <SelectButton label="Gender" input={gender} array={genders} />
         <SelectButton label="Religion" input={religion} array={religions} />
-        <TextField variant="outlined" label="Age" placeholder="E.g 2?" {...age} fullWidth />
+        <TextField variant="outlined" type="number" label="Age" placeholder="E.g 2?" {...age} fullWidth />
         <SelectButton label="Max Budget(HUF)" input={budget_high} array={prices} />
-        <Link href={`/peers/search?country=${country.value}&age=${age.value}&gender=${gender.value}&religion=${religion.value}&budget_high=${budget_high.value}`}>
+        <Link href={`/peers/search?country=${country.value}&age=${age.value}&gender=${gender.value}&religion=${religion.value}&budget_high=${budget_high.value}&page=1`}>
           <ButtonWrapper>
             <SearchRounded />
           </ButtonWrapper>

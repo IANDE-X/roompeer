@@ -10,10 +10,12 @@ import PrimaryButton from "../buttons/PrimaryButton";
 import SecondaryButton from "../buttons/SecondaryButton";
 import { theme } from "../../model/data";
 import SwipeableTemporaryDrawer from "./SwipeableDrawer";
+import useTranslation from "next-translate/useTranslation";
 
 export default function Header() {
   const menu = useMenu();
   const { signOutUser, user, userData } = useAuth();
+  let { t } = useTranslation();
 
   const SignOut = () => {
     menu.handleMenuClose();
@@ -29,10 +31,10 @@ export default function Header() {
         </LogoWrapper>
       </Link>
       <ContentWrapper>
-        <MenuButton title="Peers" href="/peers/search?country=&age=&gender=&religion=&budget_high=" />
-        <MenuButton title="Flats" href="/flats/search?city=&for=&type=&rooms=&price_low=&price_high=" />
-        <MenuButton title="Find Info" href="/info" />
-        <MenuButton title="About Us" href="/about" />
+        <MenuButton title={t("common:rooms")} href="/flats/search?city=&for=&type=&rooms=&price_low=&price_high=&page=1" />
+        <MenuButton title={t("common:peers")} href="/peers/search?country=&age=&gender=&religion=&budget_high=&page=1" />
+        <MenuButton title={t("common:info")} href="/info" />
+        <MenuButton title={t("common:aboutus")} href="/about" />
         {user && userData ? (
           <IconButton onClick={menu.handleMenuOpen} color="inherit">
             <Avatar src={userData.avatar_url} />
@@ -40,18 +42,18 @@ export default function Header() {
         ) : (
           <ButtonWrapper>
             <Link href="/signup">
-              <SecondaryButton title="Create Account" />
+              <SecondaryButton title={t("common:createaccount")} />
             </Link>
             <Link href="/login">
-              <PrimaryButton title="Sign In" />
+              <PrimaryButton title={t("common:signin")} />
             </Link>
           </ButtonWrapper>
         )}
         <Menu keepMounted {...menu.menuOption}>
           <Link href="/account">
-            <MenuItem onClick={menu.handleMenuClose}>Profile</MenuItem>
+            <MenuItem onClick={menu.handleMenuClose}>{t("common:profile")}</MenuItem>
           </Link>
-          <MenuItem onClick={SignOut}>Sign Out</MenuItem>
+          <MenuItem onClick={SignOut}>{t("common:signout")}</MenuItem>
         </Menu>
         <LocaleButton />
       </ContentWrapper>

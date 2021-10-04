@@ -77,7 +77,10 @@ const Wrapper = styled.div`
 const ContentWrapper = styled.div``;
 
 const GalleryWrapper = styled.div`
-  max-height: 350px;
+  max-height: 500px;
+  @media (max-width: 800px) {
+    max-height: 350px;
+  }
   overflow-y: scroll;
   ::-webkit-scrollbar {
     -webkit-appearance: none;

@@ -3,13 +3,15 @@ import styled, { keyframes } from "styled-components";
 import SignUpForm from "../components/forms/SignUpForm";
 import { theme } from "../model/data";
 import Image from "next/dist/client/image";
+import useTranslation from "next-translate/useTranslation";
 
 export default function SignUp() {
+  let { t } = useTranslation();
   return (
     <Wrapper>
       <ContentWrapper>
         <Image src="/illustrations/sign-up.svg" width={250} height={250} />
-        <H1>Join Our Network of Peers.</H1>
+        <H1>{t("common:join")}</H1>
       </ContentWrapper>
       <SignUpForm />
     </Wrapper>

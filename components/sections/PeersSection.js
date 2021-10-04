@@ -1,13 +1,12 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { theme } from "../../model/data";
 import { getRecentlyJoinedPeers } from "../../model/firebase-user";
 import PeerCard from "../ui/PeerCard";
-import { Skeleton } from "@material-ui/lab";
+import RoundButton from "../buttons/RoundButton";
+import PeerSkeleton from "../ui/PeerSkeleton";
 import Link from "next/link";
 
 export default function PeersSection() {
-  const ref = useRef();
   const [peers, setPeers] = useState(null);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
   const getPeers = async () => {
@@ -21,7 +20,7 @@ export default function PeersSection() {
     <Wrapper>
       <h1>Recently joined Peers</h1>
       {peers ? (
-        <ContentWrapper ref={ref}>
+        <ContentWrapper>
           {peers.map((peer) => (
             <PeerCard key={peer.id} data={peer.data} id={peer.id} />
           ))}
@@ -29,19 +28,13 @@ export default function PeersSection() {
       ) : (
         <ContentWrapper>
           {skeletons.map((item, idx) => (
-            <SkeletonWrapper key={idx}>
-              <Skeleton height={150} width={150} variant="circle" />
-              <Skeleton height={50} />
-              <Skeleton animation="wave" height={20} />
-              <Skeleton animation="wave" />
-              <Skeleton animation="wave" />
-            </SkeletonWrapper>
+            <PeerSkeleton key={idx} />
           ))}
         </ContentWrapper>
       )}
       <ContentWrapper>
-        <Link href="/peers/search?country=&age=&gender=&religion=&budget_high=">
-          <ButtonWrapper>View all Peers</ButtonWrapper>
+        <Link href="/peers/search?country=&age=&gender=&religion=&budget_high=&page=1">
+          <RoundButton title="View all Peers" />
         </Link>
       </ContentWrapper>
     </Wrapper>
@@ -64,30 +57,5 @@ const ContentWrapper = styled.div`
   scrollbar-width: none;
   ::-webkit-scrollbar {
     display: none;
-  }
-`;
-
-const SkeletonWrapper = styled.div`
-  padding: 20px;
-  min-width: 250px;
-  min-height: 320px;
-  border-radius: 10px;
-  background-color: white;
-  border: thin solid white;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 25px;
-  cursor: pointer;
-  height: 50px;
-  width: 150px;
-  color: white;
-  background-color: ${theme.light.primaryColor};
-  transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-  :hover {
-    background-color: ${theme.light.secondaryColor};
   }
 `;

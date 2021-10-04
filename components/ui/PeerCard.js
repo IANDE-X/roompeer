@@ -5,7 +5,7 @@ import { theme } from "../../model/data";
 import Link from "next/link";
 
 export default function PeerCard(props) {
-  const { avatar_url, firstname, lastname, country, occupation, residence } = props.data;
+  const { avatar_url, firstname, lastname, country, occupation, residence, flatmate_status } = props.data;
   return (
     <Link href={`/peers/${props.id}`}>
       <Wrapper>
@@ -27,6 +27,7 @@ export default function PeerCard(props) {
           <Text>{occupation}</Text>
           <Text>{residence}</Text>
         </TextWrapper>
+        {flatmate_status ? <StatusText status={flatmate_status}>Actively Looking</StatusText> : <StatusText status={flatmate_status}>Not Looking</StatusText>}
       </Wrapper>
     </Link>
   );
@@ -71,4 +72,9 @@ const SubTitle = styled.h3`
 `;
 const Text = styled.p`
   font-size: 10px;
+`;
+
+const StatusText = styled.p`
+  font-size: 10px;
+  color: ${(props) => (props.status ? "green" : "red")};
 `;

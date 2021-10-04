@@ -1,0 +1,19 @@
+{
+  "photo_uploaded": "Photo Uploaded, Please refresh page to load image!",
+  "fill_in_email": "Please fill in your email !",
+  "password_incorrect": "Password is Incorrect",
+  "user_account_not_found": "User account not found!",
+  "terms_policy_agreement": "Please read and agree to the Terms and Conditions to continue!",
+  "residence_rgx": "Residence should be 'City, Country' ",
+  "invalid_email": "The email provided is invalid!",
+  "weak_password": "Password must be at least 6 characters long!",
+  "email_in_use": "Email is already in use!",
+  "emailsent": "Verification Email was sent Successfully",
+  "loginsuccess": "Successfully logged in",
+  "loginproblem": "There was a problem sigining in",
+  "pass_reset_email_sent": "Password Reset Email was sent",
+  "sending_email": "Sending Email ...",
+  "provide_password": "Please provide your password to continue!",
+  "deleting_account": "Deleting account...",
+  "account_deleted": "Your account was successfully deleted"
+}
