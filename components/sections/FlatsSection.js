@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import FlatCard from "../ui/FlatCard";
 import RoundButton from "../buttons/RoundButton";
 import Link from "next/link";
+import useTranslation from "next-translate/useTranslation";
 
 export default function FlatsSection(props) {
   const flats = props.data.flats;
+  let { t } = useTranslation();
   return (
     <Wrapper>
-      <h1>Recent Flats</h1>
+      <h1>{t("index:recent-flats")}</h1>
       <ContentWrapper>
         {flats.map((flat) => (
           <FlatCard key={flat.id} data={flat} />
@@ -16,7 +18,7 @@ export default function FlatsSection(props) {
       </ContentWrapper>
       <ContentWrapper>
         <Link href="/flats/search?city=&type=&rooms=&price_low=&price_high=&page=1">
-          <RoundButton title="View all Flats" />
+          <RoundButton title={t("index:view-all-flats")} />
         </Link>
       </ContentWrapper>
     </Wrapper>

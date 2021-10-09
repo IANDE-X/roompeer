@@ -4,9 +4,9 @@ import { Avatar, Divider, IconButton, MenuItem } from "@material-ui/core";
 import { MenuRounded } from "@material-ui/icons";
 import styled from "styled-components";
 import Link from "next/dist/client/link";
-import SecondaryButton from "../buttons/SecondaryButton";
 import PrimaryButton from "../buttons/PrimaryButton";
 import useTranslation from "next-translate/useTranslation";
+import { theme } from "../../model/data";
 
 export default function SwipeableTemporaryDrawer(props) {
   const [state, setState] = useState(false);
@@ -57,7 +57,7 @@ export default function SwipeableTemporaryDrawer(props) {
                 <PrimaryButton title={t("common:signin")} />
               </Link>
               <Link href="/signup">
-                <SecondaryButton title={t("common:createaccount")} width="100%" />
+                <PrimaryButton title={t("common:createaccount")} width="100%" />
               </Link>
             </MenuButtonWrapper>
           )}
@@ -82,16 +82,13 @@ export default function SwipeableTemporaryDrawer(props) {
 
 const Wrapper = styled.div``;
 
-const ContentWrapper = styled.div`
-  padding: 5px;
-`;
+const ContentWrapper = styled.div``;
 
 const MenuButtonWrapper = styled.div`
-  display: grid;
+  background-color: ${theme.light.primaryColor};
+  color: white;
+  padding: 10px;
   min-width: 250px;
-  justify-items: center;
-  align-items: center;
-  gap: 10px;
 `;
 
 const Name = styled.p`
@@ -100,5 +97,5 @@ const Name = styled.p`
 
 const Sub = styled.p`
   font-size: 10px;
-  color: gray;
+  color: ${theme.light.lightPurple};
 `;

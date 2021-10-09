@@ -12,7 +12,7 @@ export default function SearchPeers({ data, queries }) {
   return (
     <Wrapper>
       <FilterWrapper>
-        <PeersFilter queries={queries} />
+        <PeersFilter searchedQueries={queries} />
       </FilterWrapper>
       {data.length === 0 ? (
         <Empty />

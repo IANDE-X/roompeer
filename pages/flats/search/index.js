@@ -11,7 +11,7 @@ export default function SearchFlats({ data, queries }) {
   return (
     <Wrapper>
       <FilterWrapper>
-        <FlatsFilter />
+        <FlatsFilter searchedQueries={queries} />
       </FilterWrapper>
       {data.flats.length === 0 ? (
         <Empty />

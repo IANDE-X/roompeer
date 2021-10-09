@@ -87,11 +87,11 @@ export default function SignUpForm() {
                 }}
               />
               {t("form:agreed")}
-              <Link href="/eula">
+              <Link href="/legal#eula">
                 <LinkText> {t("form:terms")}</LinkText>
               </Link>{" "}
               {t("form:and")}
-              <Link href="/policy">
+              <Link href="/legal#policy">
                 <LinkText> {t("form:policy")}</LinkText>
               </Link>
             </div>

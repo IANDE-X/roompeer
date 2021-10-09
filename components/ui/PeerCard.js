@@ -3,9 +3,11 @@ import styled from "styled-components";
 import { Avatar } from "@material-ui/core";
 import { theme } from "../../model/data";
 import Link from "next/link";
+import useTranslation from "next-translate/useTranslation";
 
 export default function PeerCard(props) {
   const { avatar_url, firstname, lastname, country, occupation, residence, flatmate_status } = props.data;
+  let { t } = useTranslation();
   return (
     <Link href={`/peers/${props.id}`}>
       <Wrapper>
@@ -27,7 +29,7 @@ export default function PeerCard(props) {
           <Text>{occupation}</Text>
           <Text>{residence}</Text>
         </TextWrapper>
-        {flatmate_status ? <StatusText status={flatmate_status}>Actively Looking</StatusText> : <StatusText status={flatmate_status}>Not Looking</StatusText>}
+        {flatmate_status ? <StatusText status={flatmate_status}>{t("common:actively_looking")}</StatusText> : <StatusText status={flatmate_status}>{t("common:not_looking")}</StatusText>}
       </Wrapper>
     </Link>
   );

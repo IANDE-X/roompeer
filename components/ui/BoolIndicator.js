@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { CheckCircleRounded, RemoveCircleRounded } from "@material-ui/icons";
+import useTranslation from "next-translate/useTranslation";
 
 export default function BoolIndicator(props) {
+  let { t } = useTranslation();
   return (
     <Wrapper>
       <p>{props.title}:</p>
@@ -9,12 +11,12 @@ export default function BoolIndicator(props) {
         {props.bool ? (
           <IndicatorWrapper bool={props.bool}>
             <CheckCircleRounded style={{ width: 15, height: 15 }} />
-            <p>Yes</p>
+            <p>{t("common:yes")}</p>
           </IndicatorWrapper>
         ) : (
           <IndicatorWrapper bool={props.bool}>
             <RemoveCircleRounded style={{ width: 15, height: 15 }} />
-            <p>No</p>
+            <p>{t("common:no")}</p>
           </IndicatorWrapper>
         )}
       </ContentWrapper>

@@ -6,22 +6,26 @@ import Link from "next/link";
 import useInput from "../../hooks/useInput";
 import SelectButton from "../buttons/SelectButton";
 import { SearchRounded } from "@material-ui/icons";
+import useTranslation from "next-translate/useTranslation";
 
 export default function PeersFilter(props) {
-  const country = useInput("");
-  const gender = useInput("");
-  const religion = useInput("");
-  const age = useInput("");
-  const budget_high = useInput("");
+  let q;
+  let { t } = useTranslation();
+  q = props.searchedQueries ? props.searchedQueries : "";
+  const country = useInput(q.country ? q.country : "");
+  const gender = useInput(q.gender ? q.gender : "");
+  const religion = useInput(q.religion ? q.religion : "");
+  const age = useInput(q.age ? q.age : "");
+  const budget_high = useInput(q.budget_high ? q.budget_high : "");
 
   return (
     <Wrapper>
       <ContentWrapper className={props.class}>
-        <SelectButton label="Country" input={country} array={countries} placeholder="Origin" />
-        <SelectButton label="Gender" input={gender} array={genders} />
-        <SelectButton label="Religion" input={religion} array={religions} />
-        <TextField variant="outlined" type="number" label="Age" placeholder="E.g 2?" {...age} fullWidth />
-        <SelectButton label="Max Budget(HUF)" input={budget_high} array={prices} />
+        <SelectButton label={t("common:country")} input={country} array={countries} placeholder={t("common:origin")} />
+        <SelectButton label={t("common:gender")} input={gender} array={genders} />
+        <SelectButton label={t("common:religion")} input={religion} array={religions} />
+        <TextField variant="outlined" type="number" label={t("common:age")} placeholder={t("common:eg-2")} {...age} fullWidth />
+        <SelectButton label={t("common:max_budget")} input={budget_high} array={prices} />
         <Link href={`/peers/search?country=${country.value}&age=${age.value}&gender=${gender.value}&religion=${religion.value}&budget_high=${budget_high.value}&page=1`}>
           <ButtonWrapper>
             <SearchRounded />

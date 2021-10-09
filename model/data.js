@@ -300,9 +300,3 @@ export const religions = [
   "Unitarian Universalism",
   "Rastafari",
 ];
-
-export const whyUsContent = [
-  { image: "/illustrations/find_peers.svg", title: "Find Roomates", subtitle: "Easily find available flatmates matching your preference by searching and browsing flatmates profiles." },
-  { image: "/illustrations/detailed_listing.svg", title: "Detailed Listing", subtitle: "View detailed listings of apartments to rent or buy in Hungary, contact with just a button click." },
-  { image: "/illustrations/find_useful_info.svg", title: "Find Useful Info", subtitle: "Find useful information regarding your accomadation, process of renting or buying a flat, places to eat, internet setup, FAQ and more." },
-];

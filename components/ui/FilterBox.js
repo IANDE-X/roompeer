@@ -3,10 +3,12 @@ import styled from "styled-components";
 import { theme } from "../../model/data";
 import FlatsFilter from "./FlatsFliter";
 import PeersFilter from "./PeersFilter";
+import useTranslation from "next-translate/useTranslation";
 
 export default function FilterBox() {
   const [nav1, setNav1] = useState(true);
   const [nav2, setNav2] = useState(false);
+  let { t } = useTranslation();
 
   return (
     <Wrapper>
@@ -19,7 +21,7 @@ export default function FilterBox() {
           active={nav1}
           className="left"
         >
-          Rooms
+          {t("common:rooms")}
         </NavButton>
         <NavButton
           onClick={() => {
@@ -29,7 +31,7 @@ export default function FilterBox() {
           active={nav2}
           className="right"
         >
-          Peers
+          {t("common:peers")}
         </NavButton>
       </Nav>
       <ContentWrapper>{nav1 ? <FlatsFilter /> : <PeersFilter />}</ContentWrapper>

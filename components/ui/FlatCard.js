@@ -10,7 +10,7 @@ export default function FlatCard(props) {
     <Link href={`/flats/${referenceNumber}`}>
       <Wrapper>
         <ImageWrapper>
-          <Image src={pictures[0].url} width={300} height={200} />
+          <RoundImage src={pictures[0].url} width={300} height={200} />
         </ImageWrapper>
         <Title>{title}</Title>
         <TextWrapper>
@@ -24,9 +24,9 @@ export default function FlatCard(props) {
 }
 
 const Wrapper = styled.div`
-  padding: 20px;
   min-width: 300px;
   max-width: 300px;
+  padding: 20px;
   min-height: 350px;
   border-radius: 5px;
   background-color: white;
@@ -49,6 +49,10 @@ const ImageWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const RoundImage = styled(Image)`
+  border-radius: 3px;
 `;
 
 const Title = styled.h1`

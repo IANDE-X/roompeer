@@ -1,0 +1,23 @@
+{
+  "recent-flats": "Legutóbbi lakások",
+  "view-all-flats": "Minden lakás megtekintése",
+  "recent-peers": "Nemrég csatlakozott társak",
+  "view-all-peers": "Minden kolléga megtekintése",
+  "why-us": "Miért mi",
+  "partners": "Partnereink",
+  "why-us-1": {
+    "image": "/illustrations/find_peers.svg",
+    "title": "Szobatársak keresése",
+    "subtitle": "Könnyedén találhatsz a preferenciáidnak megfelelő lakótársakat a lakótársi profilok keresésével és böngészésével."
+  },
+  "why-us-2": {
+    "image": "/illustrations/detailed_listing.svg",
+    "title": "Részletes felsorolás",
+    "subtitle": "Tekintse meg a magyarországi kiadó vagy megvásárolható lakások részletes listáját, vegye fel a kapcsolatot egyetlen gombnyomással."
+  },
+  "why-us-3": {
+    "image": "/illustrations/find_useful_info.svg",
+    "title": "Hasznos információk keresése",
+    "subtitle": "Hasznos információkat talál a szállással, a lakásbérlés vagy -vásárlás folyamatával, az étkezési lehetőségekkel, az internet beállításával, a GYIK-ekkel és még sok mással kapcsolatban."
+  }
+}

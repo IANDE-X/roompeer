@@ -1,17 +1,18 @@
 import styled from "styled-components";
 import WhyUsCard from "../ui/WhyUsCard";
-import { whyUsContent } from "../../model/data";
+import useTranslation from "next-translate/useTranslation";
 
 export default function WhyUsSection() {
+  let { t } = useTranslation();
   return (
     <Wrapper>
       <Heading>
-        <h1>Why Us</h1>
+        <h1>{t("index:why-us")}</h1>
       </Heading>
       <ContentWrapper>
-        {whyUsContent.map((item, idx) => {
-          return <WhyUsCard key={idx} content={item} />;
-        })}
+        <WhyUsCard image="/illustrations/find_peers.svg" title={t("index:why-us-1.title")} subtitle={t("index:why-us-1.subtitle")} />
+        <WhyUsCard image="/illustrations/detailed_listing.svg" title={t("index:why-us-2.title")} subtitle={t("index:why-us-2.subtitle")} />
+        <WhyUsCard image="/illustrations/find_useful_info.svg" title={t("index:why-us-3.title")} subtitle={t("index:why-us-3.subtitle")} />
       </ContentWrapper>
     </Wrapper>
   );

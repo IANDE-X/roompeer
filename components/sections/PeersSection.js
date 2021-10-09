@@ -5,10 +5,12 @@ import PeerCard from "../ui/PeerCard";
 import RoundButton from "../buttons/RoundButton";
 import PeerSkeleton from "../ui/PeerSkeleton";
 import Link from "next/link";
+import useTranslation from "next-translate/useTranslation";
 
 export default function PeersSection() {
   const [peers, setPeers] = useState(null);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+  let { t } = useTranslation();
   const getPeers = async () => {
     const data = await getRecentlyJoinedPeers();
     setPeers(data);
@@ -18,7 +20,7 @@ export default function PeersSection() {
   }, []);
   return (
     <Wrapper>
-      <h1>Recently joined Peers</h1>
+      <h1>{t("index:recent-peers")}</h1>
       {peers ? (
         <ContentWrapper>
           {peers.map((peer) => (
@@ -34,7 +36,7 @@ export default function PeersSection() {
       )}
       <ContentWrapper>
         <Link href="/peers/search?country=&age=&gender=&religion=&budget_high=&page=1">
-          <RoundButton title="View all Peers" />
+          <RoundButton title={t("index:view-all-peers")} />
         </Link>
       </ContentWrapper>
     </Wrapper>

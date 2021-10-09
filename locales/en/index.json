@@ -1,0 +1,20 @@
+{
+  "recent-flats": "Recent Flats",
+  "view-all-flats": "View All Flats",
+  "recent-peers": "Recently joined Peers",
+  "view-all-peers": "View All Peers",
+  "why-us": "Why Us",
+  "partners": "Our Partners",
+  "why-us-1": {
+    "title": "Find Roomates",
+    "subtitle": "Easily find available flatmates matching your preference by searching and browsing flatmates profiles."
+  },
+  "why-us-2": {
+    "title": "Detailed Listing",
+    "subtitle": "View detailed listings of apartments to rent or buy in Hungary, contact with just a button click."
+  },
+  "why-us-3": {
+    "title": "Find Useful Info",
+    "subtitle": "Find useful information regarding your accomadation, process of renting or buying a flat, places to eat, internet setup, FAQ and more."
+  }
+}

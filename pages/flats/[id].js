@@ -7,10 +7,12 @@ import { useAuth } from "../../context/Auth";
 import { Divider } from "@material-ui/core";
 import BoolIndicator from "../../components/ui/BoolIndicator";
 import { theme } from "../../model/data";
+import useTranslation from "next-translate/useTranslation";
 
 export default function FlatDetail({ data }) {
   const { address, availableFrom, description, listingType, rooms, location, price, pictures, title, referenceNumber, airConditioner, balcony, commuityFee, pets, shutter, garage, elevetor, plasticDoorsAndWindows } = data.flat;
   const { userData } = useAuth();
+  let { t } = useTranslation();
   return (
     <Wrapper>
       <ContentWrapper>
@@ -20,37 +22,39 @@ export default function FlatDetail({ data }) {
         <DetailsWrapper>
           <h1>{title}</h1>
           <Divider />
-          <H2>Details</H2>
+          <H2>{t("common:details")}</H2>
           <Row>
-            <H3>Price</H3>
-            <h3>{price} HUF/Month</h3>
+            <H3>{t("common:price")}</H3>
+            <h3>
+              {price} {t("common:huf-per-month")}
+            </h3>
           </Row>
           <Row>
-            <H3>Location</H3>
+            <H3>{t("common:location")}</H3>
             <h4>{location}</h4>
           </Row>
           <Row>
-            <H3>Address</H3>
+            <H3>{t("common:address")}</H3>
             <h4>{address}</h4>
           </Row>
           <Row>
-            <H3>Description</H3>
+            <H3>{t("common:desc")}</H3>
             <h4>{description}</h4>
           </Row>
           <Row>
-            <H3>For</H3>
+            <H3>{t("common:for")}</H3>
             <h4>{listingType}</h4>
           </Row>
           <Row>
-            <H3>Available From</H3>
+            <H3>{t("common:available_from")}</H3>
             <h4>{availableFrom}</h4>
           </Row>
           <Row>
-            <H3>Rooms</H3>
+            <H3>{t("common:rooms")}</H3>
             <h4>{rooms}</h4>
           </Row>
           <Divider />
-          <H2>Property Features</H2>
+          <H2>{t("common:property_features")}</H2>
           <FeaturesWrapper>
             <BoolIndicator title="Air Conditioner" bool={airConditioner} />
             <BoolIndicator title="Pets" bool={pets} />
@@ -62,7 +66,7 @@ export default function FlatDetail({ data }) {
             <BoolIndicator title="Plastic Doors and Windows" bool={plasticDoorsAndWindows} />
           </FeaturesWrapper>
           <Divider />
-          <H2>Contact Us</H2>
+          <H2>{t("common:contact_us")}</H2>
           <FlatContacts data={userData} refNumber={referenceNumber} />
         </DetailsWrapper>
       </ContentWrapper>
@@ -77,22 +81,7 @@ const Wrapper = styled.div`
 const ContentWrapper = styled.div``;
 
 const GalleryWrapper = styled.div`
-  max-height: 500px;
-  @media (max-width: 800px) {
-    max-height: 350px;
-  }
-  overflow-y: scroll;
-  ::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 7px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    border-radius: 12px;
-    background-color: gray;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    padding: 15px;
-  }
+  position: relative;
 `;
 const DetailsWrapper = styled.div`
   padding: 15px;

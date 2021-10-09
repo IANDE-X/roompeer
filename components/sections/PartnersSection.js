@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import Image from "next/image";
+import useTranslation from "next-translate/useTranslation";
 
 export default function PartnerSection() {
+  let { t } = useTranslation();
   return (
     <Wrapper>
       <Heading>
-        <h1>Our Partners</h1>
+        <h1>{t("index:partners")}</h1>
       </Heading>
       <ContentWrapper>
         <Partner>

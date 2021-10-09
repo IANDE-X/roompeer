@@ -2,15 +2,14 @@ import styled from "styled-components";
 import Image from "next/image";
 
 export default function WhyUsCard(props) {
-  const { image, title, subtitle } = props.content;
   return (
     <Wrapper>
       <ImageWrapper>
-        <Image src={image} width={100} height={100} />
+        <Image src={props.image} width={100} height={100} />
       </ImageWrapper>
       <ContentWrapper>
-        <Title>{title}</Title>
-        <SubTitle>{subtitle}</SubTitle>
+        <Title>{props.title}</Title>
+        <SubTitle>{props.subtitle}</SubTitle>
       </ContentWrapper>
     </Wrapper>
   );
@@ -44,7 +43,7 @@ const ContentWrapper = styled.div`
 `;
 
 const Title = styled.h2`
-  line-height: 0.5;
+  line-height: 1;
 `;
 
 const SubTitle = styled.p`

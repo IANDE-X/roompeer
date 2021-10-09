@@ -32,7 +32,7 @@ export default function Footer() {
             <Link href="flats/search?city=&type=&rooms=&price_low=&price_high=&page=1">
               <a>{t("common:search_rooms")}</a>
             </Link>
-            <Link href="/peers/search?country=&age=&gender=&religion=&budget_high=">
+            <Link href="/peers/search?country=&age=&gender=&religion=&budget_high=&page=1">
               <a>{t("common:search_peers")}</a>
             </Link>
             <Link href="/about">

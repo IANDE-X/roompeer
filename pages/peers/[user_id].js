@@ -5,9 +5,11 @@ import { getUserData } from "../../model/firebase-user";
 import PeerContacts from "../../components/ui/PeerContacts";
 import { theme } from "../../model/data";
 import BoolIndicator from "../../components/ui/BoolIndicator";
+import useTranslation from "next-translate/useTranslation";
 
 export default function PeerDetail({ data }) {
   const { firstname, lastname, budget_low, budget_high, socials, astrological_sign, country, avatar_url, residence, religion, age, occupation, pets, smoking, partying, noise, gender, email, about, phone_number, flatmate_status } = data;
+  let { t } = useTranslation();
   return (
     <Wrapper>
       <MainWrapper>
@@ -19,42 +21,47 @@ export default function PeerDetail({ data }) {
             {firstname} {lastname}
           </H1>
           <h2>
-            {occupation} from {country}
+            {occupation} {t("common:from")} {country}
           </h2>
           <H3>{residence}</H3>
           <H3>{gender}</H3>
-          {flatmate_status ? <StatusText status={flatmate_status}>Actively Looking</StatusText> : <StatusText status={flatmate_status}>Not Looking</StatusText>}
+          {flatmate_status ? <StatusText status={flatmate_status}>{t("common:actively_looking")}</StatusText> : <StatusText status={flatmate_status}>{t("common:not_looking")}</StatusText>}
           <PeerContacts data={socials} email={email} phone={phone_number} />
         </TextWrapper>
       </MainWrapper>
       <DetailsWrapper>
-        <h2>Details</h2>
+        <h2>{t("common:details")}</h2>
         <Divider />
         <Row>
-          <P>About Me</P>
+          <P>{t("common:about_me")}</P>
           <h3>{about}</h3>
         </Row>
         <Row>
-          <P>Religion</P>
+          <P>{t("common:religion")}</P>
           <h3> {religion}</h3>
         </Row>
         <Row>
-          <P>Age</P>
+          <P>{t("common:age")}</P>
           <h3>{age}</h3>
         </Row>
         <Row>
-          <P>Minimum Budget</P>
-          <h3> {budget_low} HUF</h3>
+          <P>{t("common:min_budget")}</P>
+          <h3>
+            {" "}
+            {budget_low} {t("common:huf-per-month")}
+          </h3>
         </Row>
         <Row>
-          <P>Maximum Budget</P>
-          <h3>{budget_high} HUF</h3>
+          <P>{t("common:max_budget")}</P>
+          <h3>
+            {budget_high} {t("common:huf-per-month")}
+          </h3>
         </Row>
         <Row>
-          <P>Zodiac Sign</P>
+          <P>{t("common:zodiac_sign")}</P>
           <h3>{astrological_sign}</h3>
         </Row>
-        <h2>Flatmate Preferences</h2>
+        <h2>{t("common:flatmate_preference")}</h2>
         <Divider />
         <PreferenceWrapper>
           <BoolIndicator title="Smoking" bool={smoking} />

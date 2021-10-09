@@ -12,7 +12,8 @@ const ButtonWrapper = styled.div`
   border-radius: 25px;
   cursor: pointer;
   height: 50px;
-  width: 150px;
+  padding: 10px;
+  min-width: 150px;
   color: white;
   background-color: ${theme.light.primaryColor};
   transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
