@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
-import "pro-gallery/dist/statics/main.css";
 import Carousel, { Modal, ModalGateway } from "react-images";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel as SlideShowGallery } from "react-responsive-carousel";
